@@ -2,8 +2,6 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import { useNavigate } from "react-router";
-import { useLocation } from "react-router-dom";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -20,73 +18,42 @@ export default function Footer() {
     window.open("https://www.linkedin.com/home", "_blank");
   };
 
-  const location = useLocation();
-  const navigate = useNavigate();
-
-
   return (
-    <footer
-      className={
-        location.pathname === "/" ? styles.footerLanding : styles.footerHome
-      }
-    >
-      <div className={styles.container}>
-        <div className={styles.row}>
-          <div className={styles.footer_col}>
-            <h4>FoodBook</h4>
-            <ul>
-              <li>
-                <a href="#" onClick={() => navigate(`home/aboutUs`)}>Acerca de nosotros</a>
-              </li>
-              <li>
-                <a href="#" onClick={() => navigate(`home/developers`)}>Nuestros Desarrolladores</a>
-              </li>
-            </ul>
-          </div>
-          <div className={styles.footer_col}>
-            <h4>Obtener Ayuda</h4>
-            <ul>
-              <li>
-                <a href="#">FAQ</a>
-              </li>
-              <li>
-                <a href="http://localhost:3000/home/cart">Carrito</a>
-              </li>
-            </ul>
-          </div>
-          <div className={styles.footer_col}>
-            <h4>Compra en linea</h4>
-            <ul>
-              <li>
-                <a href="http://localhost:3000/home">Restaurantes</a>
-              </li>
-              <li>
-                <a href="http://localhost:3000/mapa">
-                  Ubicaciones de Restaurantes
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className={styles.footer_col}>
-            <h4>follow us</h4>
-            <div className={styles.social_links}>
-              <a href="#" onClick={handleFacebookClick}>
-                <FacebookIcon />
-              </a>
-              <a href="#" onClick={handleTwitterClick}>
-                <TwitterIcon />
-              </a>
-              <a href="#" onClick={handleInstagramClick}>
-                <InstagramIcon />
-              </a>
-              <a href="#" onClick={handleLinkedInClick}>
-                <LinkedInIcon />
-              </a>
-            </div>
-          </div>
+    <footer className={ styles.container }>
+        <div className={styles.socialMedias}>
+            <div className={styles.hrs}><hr /></div>
+            <a href="#" onClick={handleFacebookClick}>
+                <FacebookIcon className={styles.icons} />
+            </a>
+            <a href="#" onClick={handleTwitterClick}>
+                <TwitterIcon className={styles.icons} />
+            </a>
+            <a href="#" onClick={handleInstagramClick}>
+                <InstagramIcon className={styles.icons} />
+            </a>
+            <a href="#" onClick={handleLinkedInClick}>
+                <LinkedInIcon className={styles.icons} />
+            </a>
+            <div className={styles.hrs}><hr /></div>
         </div>
-      </div>
+        <div className={styles.content}>
+            <div>
+                <h3>E-Commerce</h3>
+                <p>Contact Us</p>
+                <p>About Us</p>
+            </div>
+            <div><hr /></div>
+            <div>
+                <h3>Pages</h3>
+                <p>Home</p>
+                <p>Login</p>
+            </div>
+        </div>
+        <hr />
+        <div className={styles.copyright}>
+            <h3>Copyright © E-Commerce Todos los derechos reservados 2023</h3>
+        </div>
+            
     </footer>
   );
 }
