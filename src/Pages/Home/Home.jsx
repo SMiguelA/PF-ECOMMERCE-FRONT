@@ -1,12 +1,19 @@
-import Cards from "./components/Cards";
-import style from "./Home.module.css";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
+import { getProducts } from "../../redux/actions";
 
 export default function Home() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
 
   return (
-    <div className={style.container} >
-
-      <Cards />
+    <div>
+      <div></div>
+      <div>lado medio derecho</div>
     </div>
   );
 }
