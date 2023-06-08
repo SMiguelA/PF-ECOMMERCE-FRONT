@@ -1,25 +1,15 @@
-import { GET_PRODUCTS } from "./Actions/Products/index";
-import { GET_USERS } from "./Actions/Users/index";
+import { } from "./actionsTypes";
 
 const initialState = {
-  products: [],
-  users: [],
+  products:[]
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case GET_USERS:
-      return {
-        ...state,
-        users: payload,
-      };
-
-    case GET_PRODUCTS:
-      return {
-        ...state,
-        products: payload,
-      };
-
+    // case : 
+    //   return {
+        
+    //   }
     default:
       return { ...state };
   }
