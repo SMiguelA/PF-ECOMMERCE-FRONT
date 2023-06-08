@@ -7,12 +7,14 @@ function App() {
   return (
     <div className="App">
       <header>
-
         <Navigation />
       </header>
-        <RoutesMain/>
-        <footer>
-        </footer>
+
+      <RoutesMain/>
+
+      <footer>
+      </footer>
+      
     </div>
   );
 }
