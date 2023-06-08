@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { getProducts } from "../../redux/actions";
+import { getProducts } from "../../redux/Actions/Products/index";
 
 export default function Home() {
   const dispatch = useDispatch();
