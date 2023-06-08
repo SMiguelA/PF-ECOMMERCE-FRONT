@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { filterProductsByCategory } from "../../redux/Actions/Products/index";
+import { filterProductsByCategory } from "../../Redux/Actions";
 
 import Autocomplete from "../../Components/AutoComplete/AutoComplete";
 import "./Filters.css";
