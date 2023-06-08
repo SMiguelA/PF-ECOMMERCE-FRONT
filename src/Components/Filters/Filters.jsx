@@ -1,8 +1,13 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { filterProductsByCategory } from "../../redux/Actions/Products/index";
+
 import Autocomplete from "../../Components/AutoComplete/AutoComplete";
 import "./Filters.css";
 
 export default function Filters() {
+  const dispatch = useDispatch();
+
   const products = [
     {
       id: "64812c2eb288b6f583104a14",
@@ -74,8 +79,21 @@ export default function Filters() {
     console.log(minPrice);
   };
 
+  const handleFilterProductsByCategory = (e) => {
+    dispatch(filterProductsByCategory(e.target.value));
+  };
   return (
     <div className="Container">
+      <span>Filtro por Categoria</span>
+
+      <div className="filter">
+        <select onChange={handleFilterProductsByCategory}>
+          <option value="All">Todos</option>
+          <option value="Mouse">Mouse</option>
+          <option value="Teclado">Teclado</option>
+        </select>
+      </div>
+
       <div className="filter">
         <span>Nombre del producto</span>
         <input
