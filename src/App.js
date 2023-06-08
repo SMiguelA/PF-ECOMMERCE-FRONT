@@ -5,6 +5,7 @@ import Home from "./Pages/Home/Home";
 
 function App() {
   //traer user del estado (useSelector)
+  console.log("prueba")
   const user = true;
 
   return (
