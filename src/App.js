@@ -1,23 +1,19 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navigation from "./Components/Navigation/Navigation";
-import Home from "./Pages/Home/Home";
-
+import RoutesMain from "./Routes/RoutesApp";
 function App() {
   //traer user del estado (useSelector)
-  console.log("prueba")
-  const user = true;
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route index element={<Home />} />
+      <header>
 
-          <Route path="*" element={<Home />} />
-        </Routes>
-      </BrowserRouter>
+        <Navigation />
+      </header>
+        <RoutesMain/>
+        <footer>
+
+        </footer>
     </div>
   );
 }
