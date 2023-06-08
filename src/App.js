@@ -12,7 +12,6 @@ function App() {
       </header>
         <RoutesMain/>
         <footer>
-
         </footer>
     </div>
   );
