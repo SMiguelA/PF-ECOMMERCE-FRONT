@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "https://pf-ecommerce-back-production.up.railway.app/",
 });
 
 export default instance;
