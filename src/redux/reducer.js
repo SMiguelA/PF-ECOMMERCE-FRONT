@@ -13,6 +13,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         users: payload,
       };
+
     case GET_PRODUCTS:
       return {
         ...state,
