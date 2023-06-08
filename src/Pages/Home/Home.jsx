@@ -1,3 +1,8 @@
 export default function Home() {
-  return <div>Home</div>;
+  return (
+    <div>
+      <div></div>
+      <div>lado medio derecho</div>
+    </div>
+  );
 }
