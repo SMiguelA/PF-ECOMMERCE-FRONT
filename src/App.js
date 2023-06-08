@@ -1,6 +1,9 @@
 import "./App.css";
 import Navigation from "./Components/Navigation/Navigation";
+import Footer from "./Pages/Home/components/Footer";
 import RoutesMain from "./Routes/RoutesApp";
+
+
 function App() {
   //traer user del estado (useSelector)
 
@@ -12,9 +15,7 @@ function App() {
 
       <RoutesMain/>
 
-      <footer>
-      </footer>
-      
+      <Footer/>
     </div>
   );
 }
