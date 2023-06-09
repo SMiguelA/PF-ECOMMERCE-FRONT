@@ -1,17 +1,17 @@
 import {
   FILTER_PRODUCTS_BY_CATEGORY,
+  FILTER_PRODUCT_BY_PRICE,
   GET_PRODUCTS,
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
   GET_USERS,
 } from "./actionsTypes";
 
-
 const initialState = {
   products: [],
   allProducts: [],
   users: [],
-  productId:[],
+  productId: [],
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -31,11 +31,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case GET_PRODUCT_BY_ID:
       return {
         ...state,
-        productId:payload
-      }
+        productId: payload,
+      };
     case FILTER_PRODUCTS_BY_CATEGORY:
       const allProducts = state.allProducts;
-      console.log(allProducts);
       const productFilter =
         payload === "All"
           ? allProducts
@@ -49,6 +48,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         products: payload,
+      };
+    case FILTER_PRODUCT_BY_PRICE:
+      const { minPrice, maxPrice } = payload;
+      const filteredProducts = state.products.filter((product) => {
+        const productPrice = product.price; // Asumiendo que el precio de cada producto se encuentra en la propiedad 'price'
+        return productPrice >= minPrice && productPrice <= maxPrice;
+      });
+      return {
+        ...state,
+        products: filteredProducts,
       };
 
     default:

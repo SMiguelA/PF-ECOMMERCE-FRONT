@@ -6,42 +6,13 @@ import {
 } from "../../Redux/Actions";
 
 import Autocomplete from "../../Components/AutoComplete/AutoComplete";
+import PriceFilter from "../PriceFilter/PriceFilter";
 import "./Filters.css";
 
 export default function Filters() {
   const dispatch = useDispatch();
 
   const [product, setProduct] = useState("");
-
-  const products = [
-    {
-      id: "64812c2eb288b6f583104a14",
-      name: "Teclado",
-      description:
-        "Teclado gamer con luces y buen rendimiento, perfecto para jugar",
-      price: 10,
-      category: "Teclado",
-      pictures: ["Foto1", "Foto2", "Foto3"],
-    },
-    {
-      id: "64812c2eb288b6f583104a12",
-      name: "Teclado 2",
-      description:
-        "Teclado gamer con luces y buen rendimiento, perfecto para jugar",
-      price: 5,
-      category: "Teclado",
-      pictures: ["Foto1", "Foto2", "Foto3"],
-    },
-    {
-      id: "648138c0de99f0c805cdba3c",
-      name: "Mouse",
-      description:
-        "Mouse con buenos dps perfecto para ponerte serio cuando juegas con tus amigos",
-      price: 15,
-      category: "Mouse",
-      pictures: ["Foto1", "Foto2", "Foto3"],
-    },
-  ];
 
   const [inputValue, setInputValue] = useState({
     id: "",
@@ -98,9 +69,13 @@ export default function Filters() {
       </div>
 
       <div className="filter">
-        <span>Nombre o categoria</span>
+        <span>Nombre o categoria (ESTE NO FUNCIONA)</span>
 
         <Autocomplete />
+      </div>
+      <div className="filter">
+        <span>FILTRO DE PRECIO</span>
+        <PriceFilter />
       </div>
     </div>
   );
