@@ -1,0 +1,35 @@
+.containerLink {
+    border:2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 60rem;
+    width: 15%;
+}
+
+.containerHome {
+    border:2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 60rem;
+    width: 100%;
+}
+
+.containerSlide {
+    border:2px solid white;
+    order:1;
+    width: 80%;
+    height: 60%;
+    margin:15px 0 15px 0;
+}
+
+.containerCardsCategory {
+        border:2px solid white;
+    order:2;
+    width: 80%;
+    height: 60%;
+    margin:0 0 15px 0;
+}
