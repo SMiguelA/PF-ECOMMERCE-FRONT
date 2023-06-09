@@ -1,0 +1,16 @@
+.paginated {
+  background-color: white;
+}
+
+.divContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.divFilter {
+  width: 25%;
+}
+
+.divProducts {
+  margin-left: 25%;
+}
