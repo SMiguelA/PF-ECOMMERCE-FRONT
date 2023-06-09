@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { filterProductsByCategory } from "../../Redux/Actions";
+import {
+  filterProductsByCategory,
+  getProductByName,
+} from "../../Redux/Actions";
 
 import Autocomplete from "../../Components/AutoComplete/AutoComplete";
 import "./Filters.css";
 
 export default function Filters() {
   const dispatch = useDispatch();
+
+  const [product, setProduct] = useState("");
 
   const products = [
     {
@@ -55,28 +60,14 @@ export default function Filters() {
       ...prevInputValue,
       [name]: value,
     }));
-
-    // // Filtrar las cards basado en el término de búsqueda y el rango de precios
-    // const filteredProducts = products.filter((product) => {
-    //   const { minPrice, maxPrice } = inputValue.price;
-
-    //   const matchesSearchTerm = product.name
-    //     .toLowerCase()
-    //     .includes(inputValue.name && inputValue.name.toLowerCase());
-    //   const isInRange =
-    //     (!minPrice || product.price >= minPrice) &&
-    //     (!maxPrice || product.price <= maxPrice);
-
-    //   return matchesSearchTerm && isInRange;
-    // });
-
-    // setFilteredProducts(filteredProducts);
-
-    // Obtener los valores de los inputs "minPrice" y "maxPrice"
-    const minPrice = parseInt(inputValue.minPrice);
-    const maxPrice = parseInt(inputValue.maxPrice);
-    console.log(maxPrice);
-    console.log(minPrice);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(getProductByName(product));
+  };
+  const NameHandleInputChange = (e) => {
+    e.preventDefault();
+    setProduct(e.target.value);
   };
 
   const handleFilterProductsByCategory = (e) => {
@@ -98,29 +89,12 @@ export default function Filters() {
         <span>Nombre del producto</span>
         <input
           type="text"
-          name="name"
-          value={inputValue.name}
-          onChange={handleInputChange}
-          placeholder="Nombre de producto..."
+          onChange={NameHandleInputChange}
+          placeholder="Buscar por nombre de producto..."
         />
-      </div>
-      <div className="filter">
-        <span>Precio (DOLARES)</span>
-        <div className="price">
-          <input
-            type="number"
-            name="minPrice"
-            value={inputValue.price}
-            onChange={handleInputChange}
-          />
-          <strong>-</strong>
-          <input
-            type="number"
-            name="maxPrice"
-            value={inputValue.price}
-            onChange={handleInputChange}
-          />
-        </div>
+        <button onClick={handleSubmit} type="submit">
+          Buscar
+        </button>
       </div>
 
       <div className="filter">
