@@ -8,6 +8,6 @@
     margin-right: auto;
     padding-top: 6em;
     padding-bottom: 6em;
-
+    position: -webkit-sticky;
     /* border: 2px solid black; */
 }
