@@ -1,14 +1,17 @@
 import {
   FILTER_PRODUCTS_BY_CATEGORY,
   GET_PRODUCTS,
+  GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
-} from "./Actions/Products/index";
-import { GET_USERS } from "./Actions/Users/index";
+  GET_USERS,
+} from "./actionsTypes";
+
 
 const initialState = {
   products: [],
   allProducts: [],
   users: [],
+  productId:[],
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -25,7 +28,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
         products: payload,
         allProducts: payload,
       };
-
+    case GET_PRODUCT_BY_ID:
+      return {
+        ...state,
+        productId:payload
+      }
     case FILTER_PRODUCTS_BY_CATEGORY:
       const allProducts = state.allProducts;
       console.log(allProducts);

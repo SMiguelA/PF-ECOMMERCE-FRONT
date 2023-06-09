@@ -1,8 +1,11 @@
 import axios from "../../../axios";
 
-export const GET_PRODUCTS = "GET_PRODUCTS";
-export const FILTER_PRODUCTS_BY_CATEGORY = "FILTER_PRODUCTS_BY_CATEGORY";
-export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
+import {
+  FILTER_PRODUCTS_BY_CATEGORY,
+  GET_PRODUCTS,
+  GET_PRODUCT_BY_ID,
+  GET_PRODUCT_BY_NAME,
+} from "../../actionsTypes.js";
 
 export const getProducts = () => {
   return function (dispatch) {
@@ -31,6 +34,20 @@ export const getProductByName = (name) => {
       var json = await axios.get(`/products?name=${name}`);
       return dispatch({
         type: GET_PRODUCT_BY_NAME,
+        payload: json.data,
+      });
+    } catch (error) {
+      window.alert(error.response.data.Error);
+    }
+  };
+};
+
+export const getProductById = (id) => {
+  return async function (dispatch) {
+    try {
+      const json = await axios.get(`/products/${id}`);
+      return dispatch({
+        type: GET_PRODUCT_BY_ID,
         payload: json.data,
       });
     } catch (error) {
