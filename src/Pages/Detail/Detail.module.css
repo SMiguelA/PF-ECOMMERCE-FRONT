@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@800&display=swap');
+
+.container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Geologica', sans-serif;
+    color: aliceblue;
+    background-color: #202020;
+    border-radius: 1em;
+    margin-top: 5em;
+    margin-bottom: 5em;
+    text-align: left;
+    padding: 2em;
+    padding-left: 3em;
+    padding-right: 3em;
+    width: 70%;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.contLeft{
+    width: 50%;
+}
+.contLeft h1{
+    font-size: 3em;
+}
+
+.contLeft button{
+    border: none;
+    background-color: #187515;
+    border-radius: 0.5em;
+    text-align: left;
+    width: 9em;
+    height: 5em;
+    color: aliceblue;
+    font-family: 'Geologica', sans-serif;
+    margin-bottom: 2em;
+    padding: 0.8em;
+    padding-left: 1.5em;
+    transition: 2;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.contLeft button:hover{
+    cursor: pointer;
+    transition: 2;
+    box-shadow: rgb(0, 0, 0) 3px 3px 6px 0px inset, rgba(0, 0, 0, 0.2) -3px -3px 6px 1px inset;
+}
+.contLeft button span{
+    display: block;
+    font-size: large;
+}
+
+.contRight{
+    width: 50%;
+    height: 40em;
+}
+
+.info{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* padding-left: 5em;
+    padding-right: 5em; */
+    width: 80%;
+    margin-bottom: 2em;
+
+}
+.info p{
+    color: #7a7a7a;
+}
+
+.about{
+    color: #9c9c9c;
+    font-size: 1.2em;
+    margin-bottom: 2em;
+    width: 90%;
+}
