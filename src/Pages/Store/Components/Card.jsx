@@ -4,10 +4,13 @@ import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import style from './Card.module.css';
-
+import { Link } from 'react-router-dom';
 const Card = ({data}) => {
+    const {id} = data
     const formattedPrice = data.price.toLocaleString();
     return(
+        <Link to={`detail/${id}`} style={{textDecoration: 'none'}}>
+
         <div className={style.container} key={data.id}>
             <div className={style.containerImgs}>
                 <Swiper 
@@ -46,6 +49,7 @@ const Card = ({data}) => {
 
 
         </div>
+        </Link>
     );
 };
 
