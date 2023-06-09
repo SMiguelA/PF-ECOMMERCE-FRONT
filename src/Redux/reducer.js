@@ -1,6 +1,7 @@
 import {
   FILTER_PRODUCTS_BY_CATEGORY,
   GET_PRODUCTS,
+  GET_PRODUCT_BY_NAME,
 } from "./Actions/Products/index";
 import { GET_USERS } from "./Actions/Users/index";
 
@@ -35,6 +36,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         products: productFilter,
+      };
+
+    case GET_PRODUCT_BY_NAME:
+      return {
+        ...state,
+        products: payload,
       };
 
     default:
