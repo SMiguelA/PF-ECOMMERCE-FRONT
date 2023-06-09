@@ -1,10 +1,11 @@
 import {
+  DELETE_PRODUCT_BY_ID,
   FILTER_PRODUCTS_BY_CATEGORY,
   FILTER_PRODUCT_BY_PRICE,
   GET_PRODUCTS,
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
-  GET_USERS,
+  GET_USERS
 } from "./actionsTypes";
 
 const initialState = {
@@ -31,8 +32,13 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case GET_PRODUCT_BY_ID:
       return {
         ...state,
-        productId: payload,
-      };
+        productId:payload
+      }
+    case DELETE_PRODUCT_BY_ID:
+      return{
+        ...state,
+        productId:[]
+      }
     case FILTER_PRODUCTS_BY_CATEGORY:
       const allProducts = state.allProducts;
       const productFilter =

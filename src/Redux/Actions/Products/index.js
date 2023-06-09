@@ -1,6 +1,7 @@
 import axios from "../../../axios";
 
 import {
+  DELETE_PRODUCT_BY_ID,
   FILTER_PRODUCTS_BY_CATEGORY,
   FILTER_PRODUCT_BY_PRICE,
   GET_PRODUCTS,
@@ -57,6 +58,17 @@ export const getProductById = (id) => {
   };
 };
 
+export const deletProductId = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: DELETE_PRODUCT_BY_ID
+      });
+    } catch (error) {
+      window.alert(error.response.data.Error);
+    }
+  };
+};
 export const filterProductsByPrice = (payload) => {
   return {
     type: FILTER_PRODUCT_BY_PRICE,
