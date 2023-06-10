@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
+import { Paginated } from "../../../Components";
 import Card from './Card';
 import style from './Cards.module.css';
 
-const Cards = () => {
+const Cards = ({productsss, productsPerPage, paginated}) => {
 
     const { products } = useSelector(state => state);
 
@@ -13,6 +14,13 @@ const Cards = () => {
                     return <Card data={product} />
                 })
             }
+            <div className={style.paginated}>
+              <Paginated
+                productsPerPage={productsPerPage}
+                allProducts={productsss.length}
+                paginated={paginated}
+              />
+            </div>
         </div>
     );
 };

@@ -6,6 +6,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import './Galery.css';
+import defaultImg from '../../../img/default.jpg';
 
 
 const Galery = ({imgs}) => {
@@ -28,7 +29,12 @@ const Galery = ({imgs}) => {
                     imgs?.map((imgen, index) => {
                         return (
                             <SwiperSlide key={index}>
-                                <img src={imgen} alt={index} />
+                                {
+                                    typeof imgen === 'string' && imgen.endsWith('.jpg') || imgen.endsWith('.jpeg') || imgen.endsWith('.gif') || imgen.endsWith('.png')
+                                    ? <img src={imgen} alt={index} />
+                                    : <img src={defaultImg} alt={index} />
+                                }
+                                
                             </SwiperSlide> 
                         )
                     })
@@ -47,7 +53,11 @@ const Galery = ({imgs}) => {
                     imgs?.map((imgen, index) => {
                         return (
                             <SwiperSlide key={index}>
-                                <img src={imgen} alt={index} />
+                                {
+                                    typeof imgen === 'string' && imgen.endsWith('.jpg') || imgen.endsWith('.jpeg') || imgen.endsWith('.gif') || imgen.endsWith('.png')
+                                    ? <img src={imgen} alt={index} />
+                                    : <img src={defaultImg} alt={index} />
+                                }
                             </SwiperSlide> 
                         )
                     })

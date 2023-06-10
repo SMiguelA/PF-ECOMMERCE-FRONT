@@ -1,10 +1,12 @@
+import { Link } from 'react-router-dom';
 import { A11y, Navigation, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import defaultImg from '../../../img/default.jpg';
 import style from './Card.module.css';
-import { Link } from 'react-router-dom';
+
 const Card = ({data}) => {
     const {id} = data
     const formattedPrice = data.price.toLocaleString();
@@ -24,8 +26,12 @@ const Card = ({data}) => {
                 >
                     {
                         data.pictures.map((picture) => (
-                            <SwiperSlide>
-                                <img  className={style.imgs} src={picture} alt={data.name} />
+                            <SwiperSlide key={picture}>
+                              {typeof picture === 'string' && picture.endsWith('.jpg') || picture.endsWith('.jpeg') || picture.endsWith('.gif') || picture.endsWith('.png') ? (
+                                <img className={style.imgs} src={picture} alt={data.name} />
+                              ) : (
+                                <img className={style.imgs} src={defaultImg} alt={data.name} />
+                              )}
                             </SwiperSlide>
                         ))
                     }
