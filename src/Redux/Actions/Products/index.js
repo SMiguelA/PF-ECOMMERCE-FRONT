@@ -62,7 +62,7 @@ export const deletProductId = () => {
   return async function (dispatch) {
     try {
       return dispatch({
-        type: DELETE_PRODUCT_BY_ID
+        type: DELETE_PRODUCT_BY_ID,
       });
     } catch (error) {
       window.alert(error.response.data.Error);
