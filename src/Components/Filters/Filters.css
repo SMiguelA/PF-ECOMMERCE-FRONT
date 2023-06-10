@@ -19,3 +19,11 @@
 .filter {
   border-bottom: 1px solid black;
 }
+
+.filterType {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  text-align: left;
+  border-bottom: 1px solid black;
+}

@@ -16,7 +16,7 @@ export default function Store() {
   const [productsPerPage, setProductsPerPage] = useState(9);
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirsProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = allProducts.slice(
+  const currentProducts = productsFiltered.slice(
     indexOfFirsProduct,
     indexOfLastProduct
   );
