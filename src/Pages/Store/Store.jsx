@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Paginated } from "../../Components";
 import { Outlet, useLocation } from "react-router";
+import { Paginated } from "../../Components";
 import Filters from "../../Components/Filters/Filters";
+import { DivContainer } from "../../ComponentsStyles";
 import Cards from "./Components/Cards";
 import style from "./Store.module.css";
-import { DivContainer } from "../../ComponentsStyles";
 export default function Store() {
   const location = useLocation();
 
@@ -17,7 +17,7 @@ export default function Store() {
   const [productsPerPage, setProductsPerPage] = useState(9);
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirsProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = allProducts.slice(
+  const currentProducts = productsFiltered.slice(
     indexOfFirsProduct,
     indexOfLastProduct
   );
@@ -37,13 +37,13 @@ export default function Store() {
             <div className={style.paginated}>
               <Paginated
                 productsPerPage={productsPerPage}
-                allProducts={allProducts.length}
+                allProducts={productsFiltered.length}
                 paginated={paginated}
               />
             </div>
             <div className="divProducts">
               {currentProducts && currentProducts.length > 0 && (
-                <Cards products={allProducts} />
+                <Cards currentProducts={currentProducts} />
               )}
             </div>
           </div>

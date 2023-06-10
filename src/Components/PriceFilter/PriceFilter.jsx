@@ -8,8 +8,8 @@ const PriceFilter = () => {
 
   const product = useSelector((state) => state.products);
 
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
+  const [minPrice, setMinPrice] = useState("0");
+  const [maxPrice, setMaxPrice] = useState("99999");
 
   const handleMinPriceChange = (event) => {
     setMinPrice(event.target.value);
@@ -34,7 +34,7 @@ const PriceFilter = () => {
           <input
             type="range"
             min="0"
-            max="1000"
+            max="9999"
             value={minPrice}
             onChange={handleMinPriceChange}
           />
@@ -44,7 +44,7 @@ const PriceFilter = () => {
           <input
             type="range"
             min="0"
-            max="1000"
+            max="9999"
             value={maxPrice}
             onChange={handleMaxPriceChange}
           />

@@ -46,16 +46,6 @@ export default function Filters() {
   };
   return (
     <div className="Container">
-      <span>Filtro por Categoria</span>
-
-      <div className="filter">
-        <select onChange={handleFilterProductsByCategory}>
-          <option value="All">Todos</option>
-          <option value="Mouse">Mouse</option>
-          <option value="Teclado">Teclado</option>
-        </select>
-      </div>
-
       <div className="filter">
         <span>Nombre del producto</span>
         <input
@@ -69,13 +59,26 @@ export default function Filters() {
       </div>
 
       <div className="filter">
+        <span>FILTRO DE PRECIO</span>
+        <PriceFilter />
+      </div>
+
+      <div>
+        <span>Filtro por Categoria</span>
+
+        <div className="filter">
+          <select onChange={handleFilterProductsByCategory}>
+            <option value="All">Todos</option>
+            <option value="Mouse">Mouse</option>
+            <option value="Teclado">Teclado</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="filter">
         <span>Nombre o categoria (ESTE NO FUNCIONA)</span>
 
         <Autocomplete />
-      </div>
-      <div className="filter">
-        <span>FILTRO DE PRECIO</span>
-        <PriceFilter />
       </div>
     </div>
   );
