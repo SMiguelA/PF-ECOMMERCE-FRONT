@@ -1,6 +1,5 @@
 import "./App.css";
-import Navigation from "./Components/Navigation/Navigation";
-import Footer from "./Pages/Home/components/Footer";
+import { Footer, Navigation } from "./Components";
 import RoutesMain from "./Routes/RoutesApp";
 
 
