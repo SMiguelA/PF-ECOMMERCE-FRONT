@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import {
   filterProductsByCategory,
@@ -8,7 +8,6 @@ import {
   getProducts,
 } from "../../Redux/Actions";
 
-import Autocomplete from "../../Components/AutoComplete/AutoComplete";
 import PriceFilter from "../PriceFilter/PriceFilter";
 import "./Filters.css";
 
@@ -16,7 +15,6 @@ export default function Filters() {
   const dispatch = useDispatch();
 
   const [product, setProduct] = useState("");
-  const allProducts = useSelector((state) => state.allProducts);
 
   //checkbox
   const [isChecked, setIsChecked] = useState({
@@ -148,12 +146,6 @@ export default function Filters() {
             <option value="Teclado">Teclado</option>
           </select>
         </div>
-      </div>
-
-      <div className="filter">
-        <span>Nombre o categoria (ESTE NO FUNCIONA)</span>
-
-        <Autocomplete />
       </div>
     </div>
   );
