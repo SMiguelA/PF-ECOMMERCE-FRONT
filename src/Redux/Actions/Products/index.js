@@ -3,6 +3,7 @@ import axios from "../../../axios";
 import {
   DELETE_PRODUCT_BY_ID,
   FILTER_PRODUCTS_BY_CATEGORY,
+  FILTER_PRODUCTS_BY_TYPE,
   FILTER_PRODUCT_BY_PRICE,
   GET_PRODUCTS,
   GET_PRODUCT_BY_ID,
@@ -72,6 +73,15 @@ export const deletProductId = () => {
 export const filterProductsByPrice = (payload) => {
   return {
     type: FILTER_PRODUCT_BY_PRICE,
+    payload,
+  };
+};
+
+export const filterProductsByType = (payload) => {
+  console.log("payload en action es:");
+  console.log(payload);
+  return {
+    type: FILTER_PRODUCTS_BY_TYPE,
     payload,
   };
 };
