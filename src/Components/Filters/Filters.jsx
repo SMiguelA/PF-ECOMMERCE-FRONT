@@ -15,6 +15,7 @@ export default function Filters() {
   const dispatch = useDispatch();
 
   const [product, setProduct] = useState("");
+  const [category, setCategory] = useState(false);
 
   //checkbox
   const [isChecked, setIsChecked] = useState({
@@ -50,11 +51,25 @@ export default function Filters() {
   };
 
   const handleFilterProductsByCategory = (e) => {
+    const { value } = e.target;
+
+    if (value === "All") {
+      setCategory(false);
+      dispatch(getProducts());
+
+      return;
+    }
     dispatch(filterProductsByCategory(e.target.value));
+    setCategory(true);
   };
 
   const handleClose = (e) => {
     setProduct("");
+    dispatch(getProducts());
+  };
+
+  const handleCloseCategory = (e) => {
+    setCategory(false);
     dispatch(getProducts());
   };
 
@@ -90,6 +105,12 @@ export default function Filters() {
           <div>
             <p>Texto: {product}</p>
             <button onClick={handleClose}>X</button>
+          </div>
+        )}
+        {category && (
+          <div>
+            <p>Categoria</p>
+            <button onClick={handleCloseCategory}>X</button>
           </div>
         )}
       </div>
