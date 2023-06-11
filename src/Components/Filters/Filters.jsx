@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
   filterProductsByCategory,
+  filterProductsByType,
   getProductByName,
   getProducts,
 } from "../../Redux/Actions";
@@ -29,6 +30,12 @@ export default function Filters() {
       ...isChecked,
       [name]: checked,
     });
+
+    if (name === "videoGames") {
+      dispatch(filterProductsByType({ type: "videoGames", checked }));
+    } else if (name === "componentsPC") {
+      dispatch(filterProductsByType({ type: "componentsPC", checked }));
+    }
   };
   //termina checkbox
 
@@ -52,6 +59,15 @@ export default function Filters() {
     setProduct("");
     dispatch(getProducts());
   };
+
+  const handleCloseType = (e) => {
+    const { name } = e.target;
+    setIsChecked((prevState) => ({
+      ...prevState,
+      [name]: false,
+    }));
+    dispatch(getProducts());
+  };
   return (
     <div className="Container">
       <div>
@@ -59,17 +75,23 @@ export default function Filters() {
         {isChecked.videoGames && (
           <div>
             <p>Video Games</p>
+            <button onClick={handleCloseType} name="videoGames">
+              X
+            </button>
           </div>
         )}
         {isChecked.componentsPC && (
           <div>
             <p>Components PC</p>
+            <button onClick={handleCloseType} name="componentsPC">
+              X
+            </button>
           </div>
         )}
         {product.length > 0 && (
           <div>
             <p>Texto: {product}</p>
-            <button onClick={handleClose}>Cerrar</button>
+            <button onClick={handleClose}>X</button>
           </div>
         )}
       </div>
