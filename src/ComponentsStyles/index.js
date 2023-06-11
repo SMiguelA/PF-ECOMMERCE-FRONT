@@ -6,11 +6,12 @@ text-decoration:none;
 color:white;
 `
 export const DivContainer = styled.div`
-  background-color: #151515;
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  width: 92%;
+background-color: #151515;
+display: flex;
+justify-content: space-between;
+flex-direction: row;
+height:100%;
+width:100%;
 `;
 
 export const ImgSlide = styled.img`

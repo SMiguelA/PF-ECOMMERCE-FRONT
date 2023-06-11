@@ -8,9 +8,8 @@ const Paginated = ({ productsPerPage, allProducts, paginated }) => {
   }
 
   return (
-    <nav>
       <ul className={style.pagination}>
-        {pageNumbers &&
+        {pageNumbers && 
           pageNumbers.map((number) => (
             <li key={number}>
               <a href="#" onClick={() => paginated(number)}>
@@ -19,7 +18,6 @@ const Paginated = ({ productsPerPage, allProducts, paginated }) => {
             </li>
           ))}
       </ul>
-    </nav>
   );
 };
 

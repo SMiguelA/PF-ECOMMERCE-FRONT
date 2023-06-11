@@ -2,7 +2,7 @@
     /* border: 1px solid black; */
     border-radius: 1em;
     width: 20em;
-    height: 22em;
+    height: 24em;
     margin-bottom: 1.5em;
     background-color: #202020;
     color: aliceblue;
@@ -19,8 +19,7 @@
 .container:hover{
     transform: scale(1.03);
     height: 30em;
-    transition: 0.3;
-    position: relative;
+    position: static;
 }
 .container:hover .infoSecundaria{
     display: block;
@@ -55,7 +54,8 @@
 
 .info{
     margin-top: -1em;
-    padding-left: 2em;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 .containerImgs{
