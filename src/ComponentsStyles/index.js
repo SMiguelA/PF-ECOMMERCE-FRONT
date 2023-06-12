@@ -1,6 +1,21 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+
+
+export const DivForm = styled.div`
+display: flex;
+background-color: rgba(17, 24, 39, 1);
+border-radius: 0.75rem;
+color: rgba(243, 244, 246, 1);
+width: 28%;
+height:58%;
+flex-direction: column;
+align-items:center;
+justify-content:center;
+
+`;
+
 export const StyledLink = styled(Link)`
 text-decoration:none;
 color:white;
@@ -8,9 +23,18 @@ color:white;
 export const DivContainer = styled.div`
 background-color: #151515;
 display: flex;
-justify-content: space-between;
+justify-content: center;
 flex-direction: row;
 height:100%;
+width:100%;
+`;
+export const DivContainerForm = styled.div`
+background-color: #151515;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: row;
+height:60rem;
 width:100%;
 `;
 
