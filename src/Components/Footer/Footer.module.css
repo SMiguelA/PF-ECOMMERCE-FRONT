@@ -49,6 +49,9 @@
     color: #797979;
     transition: all 0.2s ease;
 }
+.links{
+    text-decoration: none;
+}
 .content p:hover{
     color: aliceblue;
     transition: all 0.2s ease;
