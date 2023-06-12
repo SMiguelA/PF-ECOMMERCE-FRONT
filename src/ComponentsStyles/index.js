@@ -33,3 +33,24 @@ align-items:center;
 justify-content:center;
 color: white;
 `
+// border:3px solid orange;
+
+export const Aside =styled.aside`
+display:flex;
+height:100%;
+width:15%;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+color: white;
+`
+// border:3px solid yellow;
+export const Main =styled.main`
+display:flex;
+height:100%;
+width:85%;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+color: white;
+`
