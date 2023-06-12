@@ -16,7 +16,7 @@
 .mySwiper2{
     height: 68%;
     width: 100%;
-    border-radius: 2em;
+    border-radius: 0.5em;
 }
 
 .swiper-slide{
@@ -33,7 +33,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 1em;
+    /* border-radius: 1em; */
 }
 
 .mySwiper{

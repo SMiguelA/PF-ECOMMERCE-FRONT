@@ -9,7 +9,6 @@
     text-align: left;
     box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
     transition: transform 0.3s ease-out;
-    position: static;
 }
 
 .container .infoSecundaria{
@@ -19,7 +18,8 @@
 .container:hover{
     transform: scale(1.03);
     height: 30em;
-    position: static;
+    position: absolute;
+    z-index: 999;
 }
 .container:hover .infoSecundaria{
     display: block;

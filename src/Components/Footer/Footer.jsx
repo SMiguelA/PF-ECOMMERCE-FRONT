@@ -2,6 +2,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import { Link } from "react-router-dom";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -45,8 +46,14 @@ export default function Footer() {
             <div><hr /></div>
             <div>
                 <h3>Pages</h3>
-                <p>Home</p>
+                <Link to="/" className={styles.links}>
+                  <p>Home</p>
+                </Link>
+                <Link to="/store" className={styles.links}>
+                  <p>Store</p>
+                </Link>
                 <p>Login</p>
+                <p>Cart</p>
             </div>
         </div>
         <hr />
