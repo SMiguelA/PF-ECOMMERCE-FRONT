@@ -1,0 +1,29 @@
+.Container {
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 20%;
+}
+
+.price {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.price input {
+  width: 20%;
+}
+
+.filter {
+  border-bottom: 1px solid black;
+}
+
+.filterType {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  text-align: left;
+  border-bottom: 1px solid black;
+}
