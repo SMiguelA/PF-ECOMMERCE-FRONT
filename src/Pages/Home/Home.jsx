@@ -20,14 +20,14 @@ export default function Home() {
     {
       (location.pathname === "/" ) &&
       <DivContainer>
-      <div className={styles.containerLink}>
+      {/* <div className={styles.containerLink}>
               <div className={styles.firstchildLink}>
               <Navbar/>
               </div>
               <div className={styles.secondChildLink}>
 
               </div>
-      </div>
+      </div> */}
       <div className={styles.containerHome}>
          <div className={styles.containerSlide}>
               <Slide/>

@@ -10,7 +10,9 @@ import { FaUserFriends } from 'react-icons/fa';
 export default function Navbar(){
 
     return(
-        <Nav>
+        <div className={styles.containerLink}>
+              <div className={styles.firstchildLink}>
+              <Nav>
             <ul className={styles.containerUl}>
 
                 <StyledLink to="/" style={{listStyle:"none"}}>
@@ -36,5 +38,11 @@ export default function Navbar(){
                 
             </ul>
         </Nav>
+              </div>
+              <div className={styles.secondChildLink}>
+
+              </div>
+      </div>
+        
     )
 }

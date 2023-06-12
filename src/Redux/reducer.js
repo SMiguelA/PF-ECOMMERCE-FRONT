@@ -3,6 +3,7 @@ import {
   CREATE_ORDER,
   DELETE_PRODUCT_BY_ID,
   FILTER_PRODUCTS_BY_CATEGORY,
+  FILTER_PRODUCTS_BY_TYPE,
   FILTER_PRODUCT_BY_PRICE,
   GET_PRODUCTS,
   GET_PRODUCT_BY_ID,
@@ -73,6 +74,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         products: filteredProducts,
       };
 
+<<<<<<< HEAD
     case SIGNUP:
       return {
         ...state,
@@ -103,6 +105,36 @@ const rootReducer = (state = initialState, { type, payload }) => {
       console.log("reducer create order");
       return {
         ...state,
+=======
+    case FILTER_PRODUCTS_BY_TYPE:
+      const { type, checked } = payload;
+
+      const products = state.allProducts;
+      let filteredProductsByType = null;
+
+      if (type === "videoGames" && checked) {
+        // Aplicar filtro para videoGames
+        filteredProductsByType = products.filter(
+          (product) => product.type === "videoGames"
+        );
+      } else if (type === "componentsPC" && checked) {
+        // Aplicar filtro para componentsPC
+        filteredProductsByType = products.filter(
+          (product) => product.type === "componentsPC"
+        );
+      } else if (type === "videoGames" && !checked) {
+        // Quitar filtro para videoGames
+        filteredProductsByType = products;
+      } else if (type === "componentsPC" && !checked) {
+        // Quitar filtro para videoGames
+        filteredProductsByType = products;
+      }
+
+      //codigoaca
+      return {
+        ...state,
+        products: filteredProductsByType,
+>>>>>>> fafce39ed5fe4ae5ce9506f3856176ae727702d1
       };
 
     default:

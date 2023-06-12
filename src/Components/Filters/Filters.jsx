@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import {
   filterProductsByCategory,
+  filterProductsByType,
   getProductByName,
   getProducts,
 } from "../../Redux/Actions";
 
-import Autocomplete from "../../Components/AutoComplete/AutoComplete";
 import PriceFilter from "../PriceFilter/PriceFilter";
 import "./Filters.css";
 
@@ -15,7 +15,7 @@ export default function Filters() {
   const dispatch = useDispatch();
 
   const [product, setProduct] = useState("");
-  const allProducts = useSelector((state) => state.allProducts);
+  const [category, setCategory] = useState(false);
 
   //checkbox
   const [isChecked, setIsChecked] = useState({
@@ -29,6 +29,12 @@ export default function Filters() {
       ...isChecked,
       [name]: checked,
     });
+
+    if (name === "videoGames") {
+      dispatch(filterProductsByType({ type: "videoGames", checked }));
+    } else if (name === "componentsPC") {
+      dispatch(filterProductsByType({ type: "componentsPC", checked }));
+    }
   };
   //termina checkbox
 
@@ -45,11 +51,34 @@ export default function Filters() {
   };
 
   const handleFilterProductsByCategory = (e) => {
+    const { value } = e.target;
+
+    if (value === "All") {
+      setCategory(false);
+      dispatch(getProducts());
+
+      return;
+    }
     dispatch(filterProductsByCategory(e.target.value));
+    setCategory(true);
   };
 
   const handleClose = (e) => {
     setProduct("");
+    dispatch(getProducts());
+  };
+
+  const handleCloseCategory = (e) => {
+    setCategory(false);
+    dispatch(getProducts());
+  };
+
+  const handleCloseType = (e) => {
+    const { name } = e.target;
+    setIsChecked((prevState) => ({
+      ...prevState,
+      [name]: false,
+    }));
     dispatch(getProducts());
   };
   return (
@@ -59,17 +88,29 @@ export default function Filters() {
         {isChecked.videoGames && (
           <div>
             <p>Video Games</p>
+            <button onClick={handleCloseType} name="videoGames">
+              X
+            </button>
           </div>
         )}
         {isChecked.componentsPC && (
           <div>
             <p>Components PC</p>
+            <button onClick={handleCloseType} name="componentsPC">
+              X
+            </button>
           </div>
         )}
         {product.length > 0 && (
           <div>
             <p>Texto: {product}</p>
-            <button onClick={handleClose}>Cerrar</button>
+            <button onClick={handleClose}>X</button>
+          </div>
+        )}
+        {category && (
+          <div>
+            <p>Categoria</p>
+            <button onClick={handleCloseCategory}>X</button>
           </div>
         )}
       </div>
@@ -126,12 +167,6 @@ export default function Filters() {
             <option value="Teclado">Teclado</option>
           </select>
         </div>
-      </div>
-
-      <div className="filter">
-        <span>Nombre o categoria (ESTE NO FUNCIONA)</span>
-
-        <Autocomplete />
       </div>
     </div>
   );

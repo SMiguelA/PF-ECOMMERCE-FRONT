@@ -4,6 +4,7 @@ import {
   ADD_TO_CART,
   DELETE_PRODUCT_BY_ID,
   FILTER_PRODUCTS_BY_CATEGORY,
+  FILTER_PRODUCTS_BY_TYPE,
   FILTER_PRODUCT_BY_PRICE,
   GET_PRODUCTS,
   GET_PRODUCT_BY_ID,
@@ -78,6 +79,7 @@ export const filterProductsByPrice = (payload) => {
   };
 };
 
+<<<<<<< HEAD
 export const signup = (payload) => {
   return function (dispatch) {
     const { name, email, password } = payload;
@@ -113,5 +115,13 @@ export const addToCart = (payload) => {
         console.log(error);
         console.log(`Error registrando usuario: ${error}`);
       });
+=======
+export const filterProductsByType = (payload) => {
+  console.log("payload en action es:");
+  console.log(payload);
+  return {
+    type: FILTER_PRODUCTS_BY_TYPE,
+    payload,
+>>>>>>> fafce39ed5fe4ae5ce9506f3856176ae727702d1
   };
 };

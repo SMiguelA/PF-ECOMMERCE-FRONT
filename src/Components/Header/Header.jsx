@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/Components/Navigation/Navigation.jsx
 import { useDispatch, useSelector } from "react-redux";
 
 import React, { useState } from "react";
@@ -21,6 +22,12 @@ export default function Home() {
     setIsHovered(!isHovered);
   };
 
+=======
+import { Link } from 'react-router-dom';
+import style from './Header.module.css';
+
+export default function Header() {
+>>>>>>> fafce39ed5fe4ae5ce9506f3856176ae727702d1:src/Components/Header/Header.jsx
   return (
     <div className={style.container}>
       <div className={style.leftItem}>
