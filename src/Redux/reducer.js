@@ -1,4 +1,6 @@
 import {
+  ADD_TO_CART,
+  CREATE_ORDER,
   DELETE_PRODUCT_BY_ID,
   FILTER_PRODUCTS_BY_CATEGORY,
   FILTER_PRODUCTS_BY_TYPE,
@@ -7,13 +9,18 @@ import {
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
   GET_USERS,
+  LOGIN,
+  LOGOUT,
+  SIGNUP,
 } from "./actionsTypes";
 
 const initialState = {
   products: [],
   allProducts: [],
   users: [],
+  user: null,
   productId: [],
+  cart: [],
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -67,6 +74,38 @@ const rootReducer = (state = initialState, { type, payload }) => {
         products: filteredProducts,
       };
 
+<<<<<<< HEAD
+    case SIGNUP:
+      return {
+        ...state,
+        user: payload,
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        user: null,
+      };
+
+    case LOGIN:
+      return {
+        ...state,
+        user: payload,
+      };
+
+    case ADD_TO_CART:
+      console.log("add to cart este payload:");
+      console.log(payload);
+      return {
+        ...state,
+        cart: payload,
+      };
+
+    case CREATE_ORDER:
+      console.log("reducer create order");
+      return {
+        ...state,
+=======
     case FILTER_PRODUCTS_BY_TYPE:
       const { type, checked } = payload;
 
@@ -95,6 +134,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         products: filteredProductsByType,
+>>>>>>> fafce39ed5fe4ae5ce9506f3856176ae727702d1
       };
 
     default:
