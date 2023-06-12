@@ -1,4 +1,6 @@
 import {
+  ADD_TO_CART,
+  CREATE_ORDER,
   DELETE_PRODUCT_BY_ID,
   FILTER_PRODUCTS_BY_CATEGORY,
   FILTER_PRODUCT_BY_PRICE,
@@ -6,13 +8,18 @@ import {
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
   GET_USERS,
+  LOGIN,
+  LOGOUT,
+  SIGNUP,
 } from "./actionsTypes";
 
 const initialState = {
   products: [],
   allProducts: [],
   users: [],
+  user: null,
   productId: [],
+  cart: [],
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -64,6 +71,38 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         products: filteredProducts,
+      };
+
+    case SIGNUP:
+      return {
+        ...state,
+        user: payload,
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        user: null,
+      };
+
+    case LOGIN:
+      return {
+        ...state,
+        user: payload,
+      };
+
+    case ADD_TO_CART:
+      console.log("add to cart este payload:");
+      console.log(payload);
+      return {
+        ...state,
+        cart: payload,
+      };
+
+    case CREATE_ORDER:
+      console.log("reducer create order");
+      return {
+        ...state,
       };
 
     default:
