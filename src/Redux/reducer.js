@@ -74,7 +74,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
         products: filteredProducts,
       };
 
-<<<<<<< HEAD
     case SIGNUP:
       return {
         ...state,
@@ -105,7 +104,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
       console.log("reducer create order");
       return {
         ...state,
-=======
+      };
+
     case FILTER_PRODUCTS_BY_TYPE:
       const { type, checked } = payload;
 
@@ -134,7 +134,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         products: filteredProductsByType,
->>>>>>> fafce39ed5fe4ae5ce9506f3856176ae727702d1
       };
 
     default:
