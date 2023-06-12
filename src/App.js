@@ -2,16 +2,15 @@ import "./App.css";
 import { Footer, Header } from "./Components";
 import RoutesMain from "./Routes/RoutesApp";
 
-
 function App() {
   //traer user del estado (useSelector)
 
   return (
     <div className="App">
-      <Header/>
+      <Header />
       {/* Main */}
-      <RoutesMain/>
-      <Footer/>
+      <RoutesMain />
+      <Footer />
     </div>
   );
 }
