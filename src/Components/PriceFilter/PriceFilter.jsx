@@ -1,27 +1,65 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { filterProductsByPrice } from "../../Redux/Actions";
+import { filterProductsByPrice, getProducts } from "../../Redux/Actions";
 
 const PriceFilter = () => {
   const dispatch = useDispatch();
 
-  const product = useSelector((state) => state.products);
+  // const product = useSelector((state) => state.products);
 
-  const [minPrice, setMinPrice] = useState("0");
-  const [maxPrice, setMaxPrice] = useState("99999");
+  const [minPrice2, setMinPrice2] = useState(0);
+  const [maxPrice2, setMaxPrice2] = useState(99999);
+  const [timer, setTimer] = useState(null);
 
   const handleMinPriceChange = (event) => {
-    setMinPrice(event.target.value);
+    setMinPrice2(event.target.value);
+
+    timer && clearTimeout(timer);
+    setTimer(
+      setTimeout(() => {
+        if (!event.target.value) {
+          console.log("NO HAY NADA");
+        } else {
+          const minPrice = event.target.value;
+
+          const maxPrice = maxPrice2;
+          dispatch(filterProductsByPrice({ minPrice, maxPrice }));
+        }
+      }, 600)
+    );
+
+    if (!event.target.value) {
+      dispatch(getProducts());
+    }
   };
 
   const handleMaxPriceChange = (event) => {
-    setMaxPrice(event.target.value);
+    setMaxPrice2(event.target.value);
+
+    timer && clearTimeout(timer);
+    setTimer(
+      setTimeout(() => {
+        if (!event.target.value) {
+          console.log("NO HAY NADA");
+        } else {
+          const maxPrice = Number(event.target.value);
+          console.log(minPrice2, maxPrice);
+          const minPrice = minPrice2;
+
+          dispatch(filterProductsByPrice({ minPrice, maxPrice }));
+        }
+      }, 600)
+    );
+
+    if (!event.target.value) {
+      dispatch(getProducts());
+    }
   };
 
   const handleFilter = (e) => {
     e.preventDefault();
-    dispatch(filterProductsByPrice({ minPrice, maxPrice }));
+    // dispatch(filterProductsByPrice({ minPrice, maxPrice }));
 
     // Realiza el filtrado de datos utilizando minPrice y maxPrice
     // Puedes almacenar los resultados del filtrado en otro estado o pasarlos a otro componente para su visualización.
@@ -30,22 +68,18 @@ const PriceFilter = () => {
     <div>
       <div style={{ display: "flex", alignItems: "center" }}>
         <label style={{ marginRight: "10px" }}>
-          Precio mínimo: {minPrice}
+          Precio mínimo: {minPrice2}
           <input
-            type="range"
-            min="0"
-            max="9999"
-            value={minPrice}
+            type="number"
+            value={minPrice2}
             onChange={handleMinPriceChange}
           />
         </label>
         <label>
-          Precio máximo: {maxPrice}
+          Precio máximo: {maxPrice2}
           <input
-            type="range"
-            min="0"
-            max="9999"
-            value={maxPrice}
+            type="number"
+            value={maxPrice2}
             onChange={handleMaxPriceChange}
           />
         </label>

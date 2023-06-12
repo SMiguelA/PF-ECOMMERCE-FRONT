@@ -1,9 +1,12 @@
 import { AiFillAppstore, AiFillFire } from "react-icons/ai";
+import { CgShoppingCart } from "react-icons/cg";
 import { FaUserFriends } from "react-icons/fa";
 import { HiHome } from "react-icons/hi";
 import { LuLogIn } from "react-icons/lu";
 import { Nav, StyledLink } from "../../ComponentsStyles";
-import styles from "./styles.module.css";
+import styles from "./Navbar.module.css";
+
+// import style from "./Header.module.css";
 
 export default function Navbar() {
   return (
@@ -13,31 +16,29 @@ export default function Navbar() {
           <ul className={styles.containerUl}>
             <StyledLink to="/" style={{ listStyle: "none" }}>
               <li>
-                <HiHome
-                  size={25}
-                  style={{ marginBottom: "5px", marginRight: "5px" }}
-                />{" "}
-                Home
+                <HiHome size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} /> Home
               </li>
             </StyledLink>
             <StyledLink to="/store">
               <li>
-                <AiFillFire
-                  size={25}
-                  style={{ marginBottom: "5px", marginRight: "13px" }}
-                />{" "}
-                Store
+                <AiFillFire size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} /> Store
               </li>
             </StyledLink>
             <StyledLink to="">
               <li>
-                <AiFillAppstore size={25} style={{ marginBottom: "5px" }} />{" "}
-                Library
+                <AiFillAppstore size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} />{" "}
+                Favorites
               </li>
             </StyledLink>
             <StyledLink to="">
               <li>
-                <FaUserFriends size={25} style={{ marginBottom: "5px" }} />{" "}
+                <CgShoppingCart size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} />{" "}
+                Cart
+              </li>
+            </StyledLink>
+            <StyledLink to="">
+              <li>
+                <FaUserFriends size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} />{" "}
                 Friends
               </li>
             </StyledLink>{" "}

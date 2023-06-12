@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   filterProductsByCategory,
-  filterProductsByType,
+  filterProductsByGender,
   getProductByName,
   getProducts,
 } from "../../Redux/Actions";
@@ -16,27 +16,42 @@ export default function Filters() {
 
   const [product, setProduct] = useState("");
   const [category, setCategory] = useState(false);
+  const [timer, setTimer] = useState(null);
+
+  //Buscar el array de gender y category de allProducts
+  const allProducts = useSelector((state) => state.allProducts);
+  const arrayCategory = allProducts
+    .map((object) => object.category)
+    .filter((category, index, array) => array.indexOf(category) === index);
+  const arrayGender = allProducts
+    .map((object) => object.gender)
+    .filter((gender, index, array) => array.indexOf(gender) === index);
 
   //checkbox
-  const [isChecked, setIsChecked] = useState({
-    videoGames: false,
-    componentsPC: false,
-  });
+  const [isChecked, setIsChecked] = useState({});
+  const [isCheckedGender, setIsCheckedGender] = useState({});
 
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
-    setIsChecked({
+    const updatedState = {
       ...isChecked,
       [name]: checked,
-    });
+    };
+    setIsChecked(updatedState);
 
-    if (name === "videoGames") {
-      dispatch(filterProductsByType({ type: "videoGames", checked }));
-    } else if (name === "componentsPC") {
-      dispatch(filterProductsByType({ type: "componentsPC", checked }));
-    }
+    dispatch(filterProductsByCategory(updatedState));
   };
-  //termina checkbox
+
+  const handleCheckboxChangeGender = (event) => {
+    const { name, checked } = event.target;
+    const updatedStateGender = {
+      ...isCheckedGender,
+      [name]: checked,
+    };
+    setIsCheckedGender(updatedStateGender);
+
+    dispatch(filterProductsByGender(updatedStateGender));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,7 +59,16 @@ export default function Filters() {
   };
   const NameHandleInputChange = (e) => {
     setProduct(e.target.value);
-    dispatch(getProductByName(product));
+
+    timer && clearTimeout(timer);
+    setTimer(
+      setTimeout(() => {
+        if (product == "") {
+          console.log("NO HAY NADA");
+        } else dispatch(getProductByName(product));
+      }, 600)
+    );
+
     if (e.target.value == "") {
       dispatch(getProducts());
     }
@@ -135,38 +159,40 @@ export default function Filters() {
 
       <div className="filterType">
         <div>
-          <span>FILTRO DE TIPO</span>
+          <span>FILTRO DE CATEGORIA</span>
         </div>
-        <div className="checkbox">
-          <input
-            type="checkbox"
-            name="videoGames"
-            checked={isChecked.videoGames}
-            onChange={handleCheckboxChange}
-          />
-          <label>Videojuego</label>
-        </div>
-        <div className="checkbox">
-          <input
-            type="checkbox"
-            name="componentsPC"
-            checked={isChecked.componentsPC}
-            onChange={handleCheckboxChange}
-          />
-          <label>Componentes de computadora</label>
-        </div>
+
+        {arrayCategory.map((category) => (
+          <div className="checkbox" key={category}>
+            <input
+              type="checkbox"
+              id={category}
+              name={category}
+              checked={isChecked[category] || false}
+              onChange={handleCheckboxChange}
+            />
+            <label htmlFor={category}>{category}</label>
+          </div>
+        ))}
       </div>
 
-      <div>
-        <span>Filtro por Categoria</span>
-
-        <div className="filter">
-          <select onChange={handleFilterProductsByCategory}>
-            <option value="All">Todos</option>
-            <option value="Mouse">Mouse</option>
-            <option value="Teclado">Teclado</option>
-          </select>
+      <div className="filterType">
+        <div>
+          <span>FILTRO DE GENERO</span>
         </div>
+
+        {arrayGender.map((gender) => (
+          <div className="checkbox" key={gender}>
+            <input
+              type="checkbox"
+              id={gender}
+              name={gender}
+              checked={isCheckedGender[gender] || false}
+              onChange={handleCheckboxChangeGender}
+            />
+            <label htmlFor={gender}>{gender}</label>
+          </div>
+        ))}
       </div>
     </div>
   );

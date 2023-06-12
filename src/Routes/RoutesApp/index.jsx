@@ -30,7 +30,7 @@ function RoutesMain() {
               <Route path="detail/:id" element={<Detail />} />
             </Route>
             <Route />
-          </Route>
+          </Route> 
 
           {!user && (
             <>

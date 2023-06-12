@@ -4,6 +4,7 @@ import {
   ADD_TO_CART,
   DELETE_PRODUCT_BY_ID,
   FILTER_PRODUCTS_BY_CATEGORY,
+  FILTER_PRODUCTS_BY_GENDER,
   FILTER_PRODUCTS_BY_TYPE,
   FILTER_PRODUCT_BY_PRICE,
   GET_PRODUCTS,
@@ -29,6 +30,13 @@ export const getProducts = () => {
 export const filterProductsByCategory = (payload) => {
   return {
     type: FILTER_PRODUCTS_BY_CATEGORY,
+    payload,
+  };
+};
+
+export const filterProductsByGender = (payload) => {
+  return {
+    type: FILTER_PRODUCTS_BY_GENDER,
     payload,
   };
 };
