@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { Navbar } from "../../Components";
+import { Header, Navbar } from "../../Components";
 import { Aside, Main } from "../../ComponentsStyles";
 import Cart from "../../Pages/Cart/Cart";
 import Detail from "../../Pages/Detail/Detail";
@@ -16,6 +16,7 @@ function RoutesMain() {
     <div style={{ display: "flex", flexDirection: "row" }}>
       <Aside>
         <Navbar />
+        <Header />
       </Aside>
       <Main>
         <Routes>
