@@ -12,7 +12,7 @@ export default function Store() {
   //Para el paginado
   const productsFiltered = useSelector((state) => state.products);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(3);
+  const [productsPerPage, setProductsPerPage] = useState(6);
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirsProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = productsFiltered.slice(
