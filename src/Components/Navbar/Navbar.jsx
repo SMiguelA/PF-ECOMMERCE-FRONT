@@ -16,29 +16,29 @@ export default function Navbar() {
           <ul className={styles.containerUl}>
             <StyledLink to="/" style={{ listStyle: "none" }}>
               <li>
-                <HiHome size={25} style={{ marginBottom: "5px" }} /> Home
+                <HiHome size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} /> Home
               </li>
             </StyledLink>
             <StyledLink to="/store">
               <li>
-                <AiFillFire size={25} style={{ marginBottom: "5px" }} /> Store
+                <AiFillFire size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} /> Store
               </li>
             </StyledLink>
             <StyledLink to="">
               <li>
-                <AiFillAppstore size={25} style={{ marginBottom: "5px" }} />{" "}
+                <AiFillAppstore size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} />{" "}
                 Favorites
               </li>
             </StyledLink>
             <StyledLink to="">
               <li>
-                <CgShoppingCart size={25} style={{ marginBottom: "5px" }} />{" "}
+                <CgShoppingCart size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} />{" "}
                 Cart
               </li>
             </StyledLink>
             <StyledLink to="">
               <li>
-                <FaUserFriends size={25} style={{ marginBottom: "5px" }} />{" "}
+                <FaUserFriends size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} />{" "}
                 Friends
               </li>
             </StyledLink>{" "}
