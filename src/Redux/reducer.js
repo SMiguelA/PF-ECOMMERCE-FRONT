@@ -65,7 +65,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     case FILTER_PRODUCT_BY_PRICE:
       const { minPrice, maxPrice } = payload;
-      const filteredProducts = state.products.filter((product) => {
+
+      const filteredProducts = state.allProducts.filter((product) => {
         const productPrice = product.price; // Asumiendo que el precio de cada producto se encuentra en la propiedad 'price'
         return productPrice >= minPrice && productPrice <= maxPrice;
       });

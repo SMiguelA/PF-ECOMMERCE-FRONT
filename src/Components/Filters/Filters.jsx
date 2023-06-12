@@ -16,6 +16,7 @@ export default function Filters() {
 
   const [product, setProduct] = useState("");
   const [category, setCategory] = useState(false);
+  const [timer, setTimer] = useState(null);
 
   //checkbox
   const [isChecked, setIsChecked] = useState({
@@ -44,7 +45,16 @@ export default function Filters() {
   };
   const NameHandleInputChange = (e) => {
     setProduct(e.target.value);
-    dispatch(getProductByName(product));
+
+    timer && clearTimeout(timer);
+    setTimer(
+      setTimeout(() => {
+        if (product == "") {
+          console.log("NO HAY NADA");
+        } else dispatch(getProductByName(product));
+      }, 600)
+    );
+
     if (e.target.value == "") {
       dispatch(getProducts());
     }
