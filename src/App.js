@@ -1,5 +1,5 @@
 import "./App.css";
-import { Footer, Navigation } from "./Components";
+import { Footer, Header } from "./Components";
 import RoutesMain from "./Routes/RoutesApp";
 
 
@@ -8,12 +8,9 @@ function App() {
 
   return (
     <div className="App">
-      <header>
-        <Navigation />
-      </header>
-
+      <Header/>
+      {/* Main */}
       <RoutesMain/>
-
       <Footer/>
     </div>
   );

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import style from './Navigation.module.css';
+import style from './Header.module.css';
 
-export default function Home() {
+export default function Header() {
   return (
     <div className={style.container}>
       <Link to="/" className={style.noLinea}>

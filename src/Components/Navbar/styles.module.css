@@ -22,3 +22,25 @@
     border-radius: 10px ;
 
 }
+
+.containerLink {
+    /* border:2px solid white; */
+    border-right: 1px solid rgb(195, 190, 190, 0.5);
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px 0 0;
+    align-items: center;
+    height: 60rem;
+    width: 100%;
+  }
+  .firstchildLink {
+    margin: 20px 0 0 0;
+    /* border: 2px solid white; */
+    width: 100%;
+    height: 50%;
+  }
+  .secondChildLink {
+    /* border: 2px solid white; */
+    width: 100%;
+    height: 50%;
+  }
