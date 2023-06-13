@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { addToCart, deletProductId, getProductById } from "../../Redux/Actions";
+import axios from "../../axios";
 import style from "./Detail.module.css";
 import Galery from "./components/Galery";
 import Starts from "./components/Starts";
@@ -14,27 +15,25 @@ export default function Detail() {
 
   // console.log(id, "id en detail");
 
-  // useEffect(() => {
-  //   axios.get(`/products/${id}`).then(({ data }) => {
-    // setProduct(data);
-    //   });
-    // }, [id]);
-    
-    const { productId } = useSelector((state) => state);
-    useEffect(() => {
-      console.log(id, "Entro al IF");
-      if (id){
-        dispatch(getProductById(id));
-    } 
+  useEffect(() => {
+    axios.get(`/products/${id}`).then(({ data }) => {
+      setProduct(data);
+    });
+  }, [id]);
+
+  const { productId } = useSelector((state) => state);
+  useEffect(() => {
+    console.log(id, "Entro al IF");
+    if (id) {
+      dispatch(getProductById(id));
+    }
 
     return () => dispatch(deletProductId());
   }, [id]);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
-    console.log("antes del if de handleadd");
     if (user && user._id) {
-      console.log("entro al handleAddtocart");
       // Check if user and user._id exist
       dispatch(
         addToCart({
@@ -45,7 +44,6 @@ export default function Detail() {
       );
     }
   };
-
 
   return (
     <>
