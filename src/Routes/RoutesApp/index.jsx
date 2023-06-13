@@ -30,12 +30,17 @@ function RoutesMain() {
               <Route path="detail/:id" element={<Detail />} />
             </Route>
             <Route />
-          </Route> 
+          </Route>
 
           {!user && (
             <>
               <Route path="/login" element={<Login />} />
+<<<<<<< HEAD
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/logout" element={<Home />} />
+=======
               <Route path="/register_user" element={<Signup />} />
+>>>>>>> 2582230cee73514efcb0e719800200bdd8540510
             </>
           )}
 
@@ -43,6 +48,7 @@ function RoutesMain() {
             <>
               <Route path="/cart" element={<Cart />} />
               <Route path="/orders" element={<Orders />} />
+              <Route path="/logout" element={<Home />} />
             </>
           )}
         </Routes>

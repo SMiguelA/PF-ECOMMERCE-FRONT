@@ -13,7 +13,6 @@ export default function Home() {
     dispatch(getUsers());
   }, []);
 
-  console.log("test");
   return (
     <>
       {location.pathname === "/" && (
