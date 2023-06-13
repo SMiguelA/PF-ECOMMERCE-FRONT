@@ -3,6 +3,7 @@ import axios from "../../../axios";
 import {
   ADD_TO_CART,
   DELETE_PRODUCT_BY_ID,
+  FILTER_PRODUCTS,
   FILTER_PRODUCTS_BY_CATEGORY,
   FILTER_PRODUCTS_BY_GENDER,
   FILTER_PRODUCTS_BY_TYPE,
@@ -10,7 +11,7 @@ import {
   GET_PRODUCTS,
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
-  SIGNUP,
+  SIGNUP
 } from "../../actionsTypes.js";
 
 export const getProducts = () => {
@@ -19,6 +20,7 @@ export const getProducts = () => {
       .get("/products")
       .then((response) => {
         const products = response.data;
+        console.log(products, "Log de products");
         dispatch({ type: GET_PRODUCTS, payload: products });
       })
       .catch((error) => {
@@ -26,6 +28,24 @@ export const getProducts = () => {
       });
   };
 };
+
+
+
+export const filterProducts = (filters) => {
+  return async function (dispatch){
+    try {
+      let data = await axios.get(`/products?filterCategory=${filters.filterCategory}&filterPlatform=${filters.filterPlatform}&filterPrice=${filters.filterPrice}`);
+      return dispatch({
+        type:FILTER_PRODUCTS,
+        payload: data.data
+      });
+    } catch (error) {
+      window.alert(error.response.data.Error);
+    }
+  }
+}
+
+
 
 export const filterProductsByCategory = (payload) => {
   return {
@@ -57,6 +77,7 @@ export const getProductByName = (name) => {
 
 export const getProductById = (id) => {
   return async function (dispatch) {
+    console.log(dispatch, "ID EN ACTIONS");
     try {
       const json = await axios.get(`/products/${id}`);
       return dispatch({

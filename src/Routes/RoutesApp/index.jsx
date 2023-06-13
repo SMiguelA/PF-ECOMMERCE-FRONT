@@ -35,12 +35,9 @@ function RoutesMain() {
           {!user && (
             <>
               <Route path="/login" element={<Login />} />
-<<<<<<< HEAD
               <Route path="/signup" element={<Signup />} />
               <Route path="/logout" element={<Home />} />
-=======
               <Route path="/register_user" element={<Signup />} />
->>>>>>> 2582230cee73514efcb0e719800200bdd8540510
             </>
           )}
 

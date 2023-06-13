@@ -2,6 +2,7 @@ import {
   ADD_TO_CART,
   CREATE_ORDER,
   DELETE_PRODUCT_BY_ID,
+  FILTER_PRODUCTS,
   FILTER_PRODUCTS_BY_CATEGORY,
   FILTER_PRODUCTS_BY_GENDER,
   FILTER_PRODUCTS_BY_TYPE,
@@ -31,6 +32,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         users: payload,
       };
+    
+    case FILTER_PRODUCTS:
+      return{
+        ...state,
+        products:payload
+      }
 
     case GET_PRODUCTS:
       localStorage.setItem("allProducts", JSON.stringify(payload));

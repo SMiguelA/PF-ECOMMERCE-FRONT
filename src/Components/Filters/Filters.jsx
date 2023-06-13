@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
+  filterProducts,
   filterProductsByCategory,
   filterProductsByGender,
   getProductByName,
@@ -15,7 +16,8 @@ export default function Filters() {
   const dispatch = useDispatch();
 
   const [product, setProduct] = useState("");
-  const [category, setCategory] = useState(false);
+  const [category, setCategory] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState("");
   const [timer, setTimer] = useState(null);
 
   //Buscar el array de gender y category de allProducts
@@ -25,11 +27,25 @@ export default function Filters() {
     .filter((category, index, array) => array.indexOf(category) === index);
   const arrayPlatform = allProducts
     .map((object) => object.platform)
-    .filter((platform, index, array) => array.indexOf(platform) === index);
+    .filter((gender, index, array) => array.indexOf(gender) === index);
 
   //checkbox
   const [isChecked, setIsChecked] = useState({});
   const [isCheckedPlatform, setIsCheckedPlatform] = useState({});
+
+  const [filterData, setFilterData] = useState({
+    filterCategory:"",
+    filterPlatform:"",
+    filterPrice:""
+  });
+
+
+  useEffect(() => {
+    dispatch(filterProducts(filterData))
+  },[filterData])
+
+
+
 
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
@@ -38,8 +54,14 @@ export default function Filters() {
       [name]: checked,
     };
     setIsChecked(updatedState);
-
+  
     dispatch(filterProductsByCategory(updatedState));
+
+    const selectedCategoriesArray = Object.keys(updatedState).filter(
+      (category) => updatedState[category]
+    );
+    const selectedCategoriesString = selectedCategoriesArray.join("-");
+    setSelectedCategories(selectedCategoriesString);
   };
 
   const handleCheckboxChangePlatform = (event) => {
@@ -74,19 +96,6 @@ export default function Filters() {
     }
   };
 
-  const handleFilterProductsByCategory = (e) => {
-    const { value } = e.target;
-
-    if (value === "All") {
-      setCategory(false);
-      dispatch(getProducts());
-
-      return;
-    }
-    dispatch(filterProductsByCategory(e.target.value));
-    setCategory(true);
-  };
-
   const handleClose = (e) => {
     setProduct("");
     dispatch(getProducts());
@@ -99,32 +108,36 @@ export default function Filters() {
 
   const handleCloseType = (e) => {
     const { name } = e.target;
-    setIsChecked((prevState) => ({
-      ...prevState,
-      [name]: false,
-    }));
+
+    setIsChecked((prevState) => {
+      const updatedState = { ...prevState };
+      delete updatedState[name];
+      return updatedState;
+    });
+
+    const updatedState = {...isChecked};
+
+    const selectedCategoriesArray = Object.keys(updatedState).filter(
+      (category) => updatedState[category]
+    );
+    const selectedCategoriesString = selectedCategoriesArray.join("-");
+    setSelectedCategories(selectedCategoriesString);
+
     dispatch(getProducts());
   };
   return (
     <div className="Container">
       <div>
         FILTROS ACTIVOS:
-        {isChecked.videoGames && (
-          <div>
-            <p>Video Games</p>
-            <button onClick={handleCloseType} name="videoGames">
-              X
-            </button>
-          </div>
-        )}
-        {isChecked.componentsPC && (
-          <div>
-            <p>Components PC</p>
-            <button onClick={handleCloseType} name="componentsPC">
-              X
-            </button>
-          </div>
-        )}
+        {selectedCategories &&
+          selectedCategories.split("-").map((category) => (
+            <div key={category}>
+              <p>{category}</p>
+              <button onClick={handleCloseType} name={category}>
+                X
+              </button>
+            </div>
+          ))}
         {product.length > 0 && (
           <div>
             <p>Texto: {product}</p>
@@ -178,7 +191,7 @@ export default function Filters() {
 
       <div className="filterType">
         <div>
-          <span>FILTRO DE GENERO</span>
+          <span>FILTRO DE PLATAFORMA</span>
         </div>
 
         {arrayPlatform.map((platform) => (
