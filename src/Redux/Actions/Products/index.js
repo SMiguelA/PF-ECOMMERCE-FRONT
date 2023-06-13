@@ -2,6 +2,7 @@ import axios from "../../../axios";
 
 import {
   ADD_TO_CART,
+  DECREASE_CART,
   DELETE_PRODUCT_BY_ID,
   FILTER_PRODUCTS,
   FILTER_PRODUCTS_BY_CATEGORY,
@@ -11,7 +12,7 @@ import {
   GET_PRODUCTS,
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
-  SIGNUP
+  SIGNUP,
 } from "../../actionsTypes.js";
 
 export const getProducts = () => {
@@ -20,7 +21,6 @@ export const getProducts = () => {
       .get("/products")
       .then((response) => {
         const products = response.data;
-        console.log(products, "Log de products");
         dispatch({ type: GET_PRODUCTS, payload: products });
       })
       .catch((error) => {
@@ -29,23 +29,21 @@ export const getProducts = () => {
   };
 };
 
-
-
 export const filterProducts = (filters) => {
-  return async function (dispatch){
+  return async function (dispatch) {
     try {
-      let data = await axios.get(`/products?filterCategory=${filters.filterCategory}&filterPlatform=${filters.filterPlatform}&filterPrice=${filters.filterPrice}`);
+      let data = await axios.get(
+        `/products?filterCategory=${filters.filterCategory}&filterPlatform=${filters.filterPlatform}&filterPrice=${filters.filterPrice}`
+      );
       return dispatch({
-        type:FILTER_PRODUCTS,
-        payload: data.data
+        type: FILTER_PRODUCTS,
+        payload: data.data,
       });
     } catch (error) {
       window.alert(error.response.data.Error);
     }
-  }
-}
-
-
+  };
+};
 
 export const filterProductsByCategory = (payload) => {
   return {
@@ -135,13 +133,34 @@ export const addToCart = (payload) => {
       .post(`/products/add-to-cart`, { userId, productId, price })
       .then((response) => {
         const user = response.data;
-        console.log("se hizo el dispatch de actions a reducer ");
-        console.log(user);
-        dispatch({ type: ADD_TO_CART, payload: user });
+        console.log(
+          "se hizo el dispatch de actions a reducer se manda esto al payload: "
+        );
+        console.log(user.cart);
+        dispatch({ type: ADD_TO_CART, payload: user.cart });
       })
       .catch((error) => {
         console.log(error);
         console.log(`Error registrando usuario: ${error}`);
+      });
+  };
+};
+
+export const decreaseCart = (payload) => {
+  return function (dispatch) {
+    const { productId, price, userId } = payload;
+
+    axios
+      .post(`/products/decrease-cart`, { productId, price, userId })
+      .then((response) => {
+        const user = response.data;
+        console.log(
+          "se hizo el dispatch de actions a reducer se manda esto al payload: "
+        );
+        dispatch({ type: DECREASE_CART, payload: user });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 };

@@ -12,7 +12,7 @@ import Store from "../../Pages/Store/Store";
 
 function RoutesMain() {
   const user = useSelector((state) => state.user);
-  const location = useLocation()
+  const location = useLocation();
   return (
     <div style={{display: "flex", flexDirection: "row" ,width:"100%",height:"100%"}}>
       {
