@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import React from "react";
 import { CheckoutForm } from "../../Components";
-import { decreaseCart } from "../../Redux/Actions";
+import {
+  decreaseCart,
+  increaseCart,
+  removeFromCart,
+} from "../../Redux/Actions";
 import "./Cart.css";
 
 const stripePromise = loadStripe(
@@ -17,7 +21,6 @@ function Cart() {
   const user = useSelector((state) => state.user);
   const products = useSelector((state) => state.products);
   const userCartObj = user.cart;
-  console.log(user);
 
   let cart = Object.keys(userCartObj)
     .map((productId) => {
@@ -29,11 +32,21 @@ function Cart() {
     .filter(Boolean);
 
   function handleDecrease(product) {
-    const { productId, price, userId } = product;
-
+    console.log("click en decrease");
     const quantity = user.cart.count;
+    console.log(quantity, "quantity");
     if (quantity <= 0) return alert("Can't proceed");
     dispatch(decreaseCart(product));
+  }
+
+  function handleIncrease(product) {
+    dispatch(increaseCart(product));
+  }
+
+  function handleRemoveFromCart(product) {
+    console.log(product, "product en Card");
+
+    dispatch(removeFromCart(product));
   }
 
   return (
@@ -70,8 +83,18 @@ function Cart() {
                     <tr key={item.id}>
                       <td>&nbsp;</td>
                       <td>
-                        <i style={{ marginRight: 10, cursor: "pointer" }}></i>
-                        {console.log(item.pictures[0])}
+                        <button
+                          style={{ marginRight: 10, cursor: "pointer" }}
+                          onClick={() =>
+                            handleRemoveFromCart({
+                              productId: item.id,
+                              price: item.price,
+                              userId: user._id,
+                            })
+                          }
+                        >
+                          X
+                        </button>
                         <img
                           src={item.pictures[0]}
                           style={{
@@ -96,7 +119,17 @@ function Cart() {
                             -
                           </button>
                           <span>{user.cart[item.id]}</span>
-                          <i></i>
+                          <button
+                            onClick={() => {
+                              handleIncrease({
+                                productId: item.id,
+                                price: item.price,
+                                userId: user._id,
+                              });
+                            }}
+                          >
+                            +
+                          </button>
                         </span>
                       </td>
                       <td>${item.price * user.cart[item.id]}</td>
@@ -105,7 +138,9 @@ function Cart() {
                 </tbody>
               </table>
               <div>
-                <h3>Total: ${user.cart.total.toFixed(2)}</h3>
+                <h3>
+                  Total: ${user.cart.total ? user.cart.total.toFixed(2) : 0}
+                </h3>
               </div>
             </>
           </div>

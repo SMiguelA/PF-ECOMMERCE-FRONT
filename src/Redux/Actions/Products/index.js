@@ -12,6 +12,8 @@ import {
   GET_PRODUCTS,
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
+  INCREASE_CART,
+  REMOVE_FROM_CART,
   SIGNUP,
 } from "../../actionsTypes.js";
 
@@ -133,14 +135,10 @@ export const addToCart = (payload) => {
       .post(`/products/add-to-cart`, { userId, productId, price })
       .then((response) => {
         const user = response.data;
-        console.log(
-          "se hizo el dispatch de actions a reducer se manda esto al payload: "
-        );
-        console.log(user.cart);
+
         dispatch({ type: ADD_TO_CART, payload: user.cart });
       })
       .catch((error) => {
-        console.log(error);
         console.log(`Error registrando usuario: ${error}`);
       });
   };
@@ -154,10 +152,43 @@ export const decreaseCart = (payload) => {
       .post(`/products/decrease-cart`, { productId, price, userId })
       .then((response) => {
         const user = response.data;
-        console.log(
-          "se hizo el dispatch de actions a reducer se manda esto al payload: "
-        );
+
         dispatch({ type: DECREASE_CART, payload: user });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+export const increaseCart = (payload) => {
+  return function (dispatch) {
+    const { productId, price, userId } = payload;
+
+    axios
+      .post(`/products/increase-cart`, { productId, price, userId })
+      .then((response) => {
+        const user = response.data;
+
+        dispatch({ type: INCREASE_CART, payload: user });
+      })
+      .catch((error) => {
+        console.log("ERROR EN EL ACTION DE PRODUCTS");
+        console.log(error);
+      });
+  };
+};
+
+export const removeFromCart = (payload) => {
+  return function (dispatch) {
+    const { productId, price, userId } = payload;
+
+    axios
+      .post(`/products/remove-from-cart`, { productId, price, userId })
+      .then((response) => {
+        const user = response.data;
+        console.log(user);
+        dispatch({ type: REMOVE_FROM_CART, payload: user });
       })
       .catch((error) => {
         console.log(error);
