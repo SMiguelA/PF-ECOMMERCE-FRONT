@@ -34,6 +34,7 @@ export default function Detail() {
   const handleAddToCart = (e) => {
     e.preventDefault();
     if (user && user._id) {
+      console.log(user._id, id, product.price, "user._id, id, product.price");
       // Check if user and user._id exist
       dispatch(
         addToCart({

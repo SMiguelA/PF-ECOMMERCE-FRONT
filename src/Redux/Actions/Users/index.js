@@ -29,6 +29,8 @@ export const login = (payload) => {
       .post("/users/login", { email, password })
       .then((response) => {
         const users = response.data;
+        console.log("user en el user actions");
+        console.log(users);
         localStorage.setItem("user", JSON.stringify(users));
         dispatch({ type: LOGIN, payload: users });
       })
