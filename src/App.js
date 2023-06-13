@@ -4,21 +4,26 @@ import { Footer, Header } from "./Components";
 import RoutesMain from "./Routes/RoutesApp";
 
 function App() {
-  const location = useLocation()
+  const location = useLocation();
 
   return (
     <div className="App">
-      {
-        (location.pathname !== "/login" && location.pathname !== "/register_user" )
-        && <Header/>
-      }
+      {location.pathname !== "/login" &&
+        location.pathname !== "/register_user" && (
+          <div className="Header">
+            <Header />
+          </div>
+        )}
       {/* Main */}
-      <RoutesMain/>
-      {
-        (location.pathname !== "/login" && location.pathname !== "/register_user" ) 
-        &&  <Footer/>
-      }
-     
+      <div className="Main">
+      <RoutesMain />
+      </div>
+      {location.pathname !== "/login" &&
+        location.pathname !== "/register_user" && (
+          <div className="Footer">
+            <Footer />
+          </div>
+        )}
     </div>
   );
 }

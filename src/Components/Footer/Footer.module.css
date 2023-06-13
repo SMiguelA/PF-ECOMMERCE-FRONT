@@ -1,6 +1,7 @@
 .container{
     padding: 2em;
     background-color: #202020;
+    z-index: 999;
 
 }
 
