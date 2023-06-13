@@ -12,8 +12,10 @@ import {
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
   GET_USERS,
+  INCREASE_CART,
   LOGIN,
   LOGOUT,
+  REMOVE_FROM_CART,
   SIGNUP,
 } from "./actionsTypes";
 
@@ -140,6 +142,18 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
 
     case DECREASE_CART:
+      return {
+        ...state,
+        user: payload,
+      };
+
+    case REMOVE_FROM_CART:
+      return {
+        ...state,
+        user: payload,
+      };
+
+    case INCREASE_CART:
       return {
         ...state,
         user: payload,
