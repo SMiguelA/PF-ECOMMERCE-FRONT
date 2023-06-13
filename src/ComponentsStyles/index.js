@@ -24,8 +24,9 @@ export const DivContainer = styled.div`
 background-color: #151515;
 display: flex;
 justify-content: center;
-flex-direction: row;
-height:100%;
+align-items:center;
+flex-direction: column;
+height:120vh;
 width:100%;
 `;
 export const DivContainerForm = styled.div`
@@ -60,18 +61,22 @@ export const Nav = styled.nav`
 // border:3px solid orange;
 
 export const Aside = styled.aside`
-  display: flex;
-  height: 100%;
-  width: 15%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
+display: flex;
+height: 100%;
+width: 15%;
+flex-direction: column;
+-webkit-box-align: center;
+align-items: center;
+-webkit-box-pack: center;
+justify-content: center;
+color: white;
+position: fixed;
+left: 0;
 `;
 // border:3px solid yellow;
 export const Main = styled.main`
   display: flex;
-  height: 100%;
+  height: 70%;
   width: 85%;
   flex-direction: column;
   align-items: center;

@@ -1,10 +1,13 @@
 .App {
   display: flex;
+  position: relative;
+  min-height: 100vh;
   text-align: center;
   height: 100%;
   flex-direction: column;
   background-color: #151515;
 }
+
 
 
 
