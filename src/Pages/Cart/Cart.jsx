@@ -33,7 +33,9 @@ function Cart() {
 
   function handleDecrease(product) {
     console.log("click en decrease");
-    const quantity = user.cart.count;
+
+    const { productId } = product;
+    const quantity = user.cart[productId];
     console.log(quantity, "quantity");
     if (quantity <= 0) return alert("Can't proceed");
     dispatch(decreaseCart(product));
