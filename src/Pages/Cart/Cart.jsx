@@ -10,7 +10,7 @@ const stripePromise = loadStripe(
 );
 
 function Cart() {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.cart);
   const products = useSelector((state) => state.allProducts);
   const userCartObj = user.cart;
   let cart = products.filter((product) => {
