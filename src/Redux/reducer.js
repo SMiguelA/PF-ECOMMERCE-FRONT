@@ -33,6 +33,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
 
     case GET_PRODUCTS:
+      localStorage.setItem("allProducts", JSON.stringify(payload));
+      localStorage.setItem("products", JSON.stringify(payload));
       return {
         ...state,
         products: payload,
@@ -106,6 +108,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
 
     case LOGOUT:
+      console.log("entro al reducer logout");
       return {
         ...state,
         user: null,

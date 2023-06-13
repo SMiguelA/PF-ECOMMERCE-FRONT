@@ -24,12 +24,13 @@ function RoutesMain() {
               <Route path="detail/:id" element={<Detail />} />
             </Route>
             <Route />
-          </Route> 
+          </Route>
 
           {!user && (
             <>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/logout" element={<Home />} />
             </>
           )}
 
@@ -37,6 +38,7 @@ function RoutesMain() {
             <>
               <Route path="/cart" element={<Cart />} />
               <Route path="/orders" element={<Orders />} />
+              <Route path="/logout" element={<Home />} />
             </>
           )}
         </Routes>

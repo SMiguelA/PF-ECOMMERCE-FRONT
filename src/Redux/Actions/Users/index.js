@@ -15,7 +15,8 @@ export const getUsers = () => {
   };
 };
 
-export const logout = () => {
+export const logoutUser = () => {
+  console.log("entro al actions de user logout");
   return {
     type: LOGOUT,
   };
@@ -28,6 +29,7 @@ export const login = (payload) => {
       .post("/users/login", { email, password })
       .then((response) => {
         const users = response.data;
+        localStorage.setItem("user", JSON.stringify(users));
         dispatch({ type: LOGIN, payload: users });
       })
       .catch((error) => {
