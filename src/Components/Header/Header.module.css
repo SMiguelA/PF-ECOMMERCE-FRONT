@@ -2,15 +2,18 @@
 
 .container {
   font-family: "Geologica", sans-serif;
+  position: fixed;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   height: 3em;
+  width: 100%;
   padding: 1em;
   background-color: #202020;
   text-align: left;
   /* position: relative; */
   display: flex;
   justify-content: space-between;
+  z-index: 9999999;
 }
 
 .container h1 {
