@@ -12,17 +12,25 @@ import Store from "../../Pages/Store/Store";
 
 function RoutesMain() {
   const user = useSelector((state) => state.user);
-  const location = useLocation()
+  const location = useLocation();
   return (
-    <div style={{ alignItems:"center",justifyContent:"center",display: "flex", flexDirection: "row" ,width:"100%",height:"100%"}}>
-      {
-        (location.pathname !== "/login" && location.pathname !== "/register_user" )
-        && 
-        <Aside>
-        <Navbar />
-      </Aside>
-      }
-      
+    <div
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        display: "flex",
+        flexDirection: "row",
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      {location.pathname !== "/login" &&
+        location.pathname !== "/register_user" && (
+          <Aside>
+            <Navbar />
+          </Aside>
+        )}
+
       <Main>
         <Routes>
           <Route path="/" element={<Home />}>
@@ -35,12 +43,9 @@ function RoutesMain() {
           {!user && (
             <>
               <Route path="/login" element={<Login />} />
-<<<<<<< HEAD
               <Route path="/signup" element={<Signup />} />
               <Route path="/logout" element={<Home />} />
-=======
               <Route path="/register_user" element={<Signup />} />
->>>>>>> 2582230cee73514efcb0e719800200bdd8540510
             </>
           )}
 
