@@ -30,7 +30,7 @@ export default function Navbar() {
                 Favorites
               </li>
             </StyledLink>
-            <StyledLink to="">
+            <StyledLink to="/cart">
               <li>
                 <CgShoppingCart size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} />{" "}
                 Cart
