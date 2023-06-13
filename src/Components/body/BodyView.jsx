@@ -22,14 +22,14 @@ export const BodyView = () => {
   };
   return (
     <div className={styles.containerStoreContent}>
-      <div className={styles.paginated}>
-        <Paginated
-          productsPerPage={productsPerPage}
-          allProducts={productsFiltered.length}
-          paginated={paginated}
-        />
-      </div>
-      <div className="divProducts">
+      <div className={styles.productsContainer}>
+        <div className={styles.paginated}>
+              <Paginated
+                productsPerPage={productsPerPage}
+                allProducts={productsFiltered.length}
+                paginated={paginated}
+              />
+        </div>
         <div className={styles.containerCards}>
           {currentProducts && currentProducts.length > 0 && (
             <Cards products={currentProducts} />

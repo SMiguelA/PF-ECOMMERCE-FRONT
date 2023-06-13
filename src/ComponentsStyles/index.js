@@ -21,13 +21,16 @@ export const StyledLink = styled(Link)`
   color: white;
 `;
 export const DivContainer = styled.div`
-background-color: #151515;
-display: flex;
-justify-content: center;
-align-items:center;
-flex-direction: column;
-height:120vh;
-width:100%;
+  background-color: rgb(21, 21, 21);
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding-top: 5em;
 `;
 export const DivContainerForm = styled.div`
 background-color: #151515;
@@ -61,6 +64,8 @@ export const Nav = styled.nav`
 // border:3px solid orange;
 
 export const Aside = styled.aside`
+margin-top: 5em;
+top: 5em;
 display: flex;
 height: 100%;
 width: 15%;
@@ -70,14 +75,14 @@ align-items: center;
 -webkit-box-pack: center;
 justify-content: center;
 color: white;
-position: fixed;
+position: sticky;
 left: 0;
 `;
 // border:3px solid yellow;
 export const Main = styled.main`
   display: flex;
-  height: 70%;
-  width: 85%;
+  height: 100%;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
