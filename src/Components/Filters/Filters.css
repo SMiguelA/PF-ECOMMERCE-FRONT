@@ -1,10 +1,11 @@
 .Container {
   background-color: red;
   display: flex;
+  margin-top: 1em;
   flex-direction: column;
   justify-content: flex-start;
   width: 20%;
-  height: 50%;
+  height: 100%;
 }
 
 .price {

@@ -14,23 +14,15 @@ function RoutesMain() {
   const user = useSelector((state) => state.user);
   const location = useLocation();
   return (
-    <div
-      style={{
-        alignItems: "center",
-        justifyContent: "center",
-        display: "flex",
-        flexDirection: "row",
-        width: "100%",
-        height: "100%",
-      }}
-    >
-      {location.pathname !== "/login" &&
-        location.pathname !== "/register_user" && (
-          <Aside>
-            <Navbar />
-          </Aside>
-        )}
-
+    <div style={{display: "flex", flexDirection: "row" ,width:"100%",height:"100%"}}>
+      {
+        (location.pathname !== "/login" && location.pathname !== "/register_user" )
+        && 
+        <Aside>
+        <Navbar />
+      </Aside>
+      }
+      
       <Main>
         <Routes>
           <Route path="/" element={<Home />}>
