@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { addToCart, deletProductId, getProductById } from "../../Redux/Actions";
-import axios from "../../axios";
 import style from "./Detail.module.css";
 import Galery from "./components/Galery";
 import Starts from "./components/Starts";
@@ -13,15 +12,20 @@ export default function Detail() {
   const user = useSelector((state) => state.user);
   const [product, setProduct] = useState(null);
 
-  useEffect(() => {
-    axios.get(`/products/${id}`).then(({ data }) => {
-      setProduct(data);
-    });
-  }, [id]);
+  // console.log(id, "id en detail");
 
-  const { productId } = useSelector((state) => state);
-  useEffect(() => {
-    if (id) dispatch(getProductById(id));
+  // useEffect(() => {
+  //   axios.get(`/products/${id}`).then(({ data }) => {
+    // setProduct(data);
+    //   });
+    // }, [id]);
+    
+    const { productId } = useSelector((state) => state);
+    useEffect(() => {
+      console.log(id, "Entro al IF");
+      if (id){
+        dispatch(getProductById(id));
+    } 
 
     return () => dispatch(deletProductId());
   }, [id]);
@@ -42,9 +46,10 @@ export default function Detail() {
     }
   };
 
+
   return (
     <>
-      {productId.name ? (
+      {productId && productId.name ? (
         <div className={style.container}>
           <div className={style.contLeft}>
             <h1>{productId.name}</h1>

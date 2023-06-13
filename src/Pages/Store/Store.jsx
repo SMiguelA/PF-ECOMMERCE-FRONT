@@ -18,9 +18,9 @@ export default function Store() {
   const currentProducts = productsFiltered.slice(
     indexOfFirsProduct,
     indexOfLastProduct
-  );
+    );
+    console.log(currentProducts, "Currenty productssssss");
 
-  console.log(currentProducts);
   const paginated = (pageNumber) => {
     setCurrentPage(pageNumber);
   };

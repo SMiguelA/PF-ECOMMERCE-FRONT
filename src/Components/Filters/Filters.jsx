@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
+  filterProducts,
   filterProductsByCategory,
   filterProductsByGender,
   getProductByName,
@@ -24,13 +25,27 @@ export default function Filters() {
   const arrayCategory = allProducts
     .map((object) => object.category)
     .filter((category, index, array) => array.indexOf(category) === index);
-  const arrayGender = allProducts
+  const arrayPlatform = allProducts
     .map((object) => object.platform)
     .filter((gender, index, array) => array.indexOf(gender) === index);
 
   //checkbox
   const [isChecked, setIsChecked] = useState({});
-  const [isCheckedGender, setIsCheckedGender] = useState({});
+  const [isCheckedPlatform, setIsCheckedPlatform] = useState({});
+
+  const [filterData, setFilterData] = useState({
+    filterCategory:"",
+    filterPlatform:"",
+    filterPrice:""
+  });
+
+
+  useEffect(() => {
+    dispatch(filterProducts(filterData))
+  },[filterData])
+
+
+
 
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
@@ -49,13 +64,13 @@ export default function Filters() {
     setSelectedCategories(selectedCategoriesString);
   };
 
-  const handleCheckboxChangeGender = (event) => {
+  const handleCheckboxChangePlatform = (event) => {
     const { name, checked } = event.target;
     const updatedStateGender = {
-      ...isCheckedGender,
+      ...isCheckedPlatform,
       [name]: checked,
     };
-    setIsCheckedGender(updatedStateGender);
+    setIsCheckedPlatform(updatedStateGender);
 
     dispatch(filterProductsByGender(updatedStateGender));
   };
@@ -179,16 +194,16 @@ export default function Filters() {
           <span>FILTRO DE PLATAFORMA</span>
         </div>
 
-        {arrayGender.map((gender) => (
-          <div className="checkbox" key={gender}>
+        {arrayPlatform.map((platform) => (
+          <div className="checkbox" key={platform}>
             <input
               type="checkbox"
-              id={gender}
-              name={gender}
-              checked={isCheckedGender[gender] || false}
-              onChange={handleCheckboxChangeGender}
+              id={platform}
+              name={platform}
+              checked={isCheckedPlatform[platform] || false}
+              onChange={handleCheckboxChangePlatform}
             />
-            <label htmlFor={gender}>{gender}</label>
+            <label htmlFor={platform}>{platform}</label>
           </div>
         ))}
       </div>

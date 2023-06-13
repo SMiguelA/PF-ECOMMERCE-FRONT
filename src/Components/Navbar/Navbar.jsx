@@ -2,13 +2,35 @@ import { AiFillAppstore, AiFillFire } from "react-icons/ai";
 import { CgShoppingCart } from "react-icons/cg";
 import { FaUserFriends } from "react-icons/fa";
 import { HiHome } from "react-icons/hi";
-import { LuLogIn } from "react-icons/lu";
+import { LuLogIn, LuLogOut } from "react-icons/lu";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Nav, StyledLink } from "../../ComponentsStyles";
 import styles from "./Navbar.module.css";
 
-// import style from "./Header.module.css";
+import { logoutUser } from "../../Redux/Actions";
 
 export default function Navbar() {
+  const user = useSelector((state) => state.user);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    console.log("entró al handleLogout");
+
+    // Llama a la acción de Redux para cerrar sesión
+    dispatch(logoutUser());
+
+    console.log("hizo dispatch de logout usr");
+
+    // Borra el usuario del localStorage
+    localStorage.removeItem("user");
+
+    // Redirige al usuario a la página de inicio
+    navigate("/logout");
+  };
+
   return (
     <div className={styles.containerLink}>
       <div className={styles.firstchildLink}>
@@ -16,44 +38,88 @@ export default function Navbar() {
           <ul className={styles.containerUl}>
             <StyledLink to="/" style={{ listStyle: "none" }}>
               <li>
-                <HiHome size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} /> Home
+                <HiHome
+                  size={25}
+                  style={{ marginBottom: "5px" }}
+                  className={styles.iconsNav}
+                />{" "}
+                Home
               </li>
             </StyledLink>
             <StyledLink to="/store">
               <li>
-                <AiFillFire size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} /> Store
+                <AiFillFire
+                  size={25}
+                  style={{ marginBottom: "5px" }}
+                  className={styles.iconsNav}
+                />{" "}
+                Store
               </li>
             </StyledLink>
             <StyledLink to="">
               <li>
-                <AiFillAppstore size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} />{" "}
+                <AiFillAppstore
+                  size={25}
+                  style={{ marginBottom: "5px" }}
+                  className={styles.iconsNav}
+                />{" "}
                 Favorites
               </li>
             </StyledLink>
             <StyledLink to="/cart">
               <li>
-                <CgShoppingCart size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} />{" "}
+                <CgShoppingCart
+                  size={25}
+                  style={{ marginBottom: "5px" }}
+                  className={styles.iconsNav}
+                />{" "}
                 Cart
               </li>
             </StyledLink>
             <StyledLink to="">
               <li>
-                <FaUserFriends size={25} style={{ marginBottom: "5px" }} className={styles.iconsNav} />{" "}
+                <FaUserFriends
+                  size={25}
+                  style={{ marginBottom: "5px" }}
+                  className={styles.iconsNav}
+                />{" "}
                 Friends
               </li>
             </StyledLink>{" "}
           </ul>
         </Nav>
       </div>
-      <div className={styles.secondChildLink}>
-        <ul style={{ listStyle: "none" }}>
-          <StyledLink to="/login">
-            <li>
-              <LuLogIn size={25} style={{ marginBottom: "5px" }} /> Login
-            </li>
-          </StyledLink>
-        </ul>
-      </div>
+
+      {!user && (
+        <div className={styles.secondChildLink}>
+          <ul style={{ listStyle: "none" }}>
+            <StyledLink to="/login">
+              <li>
+                <LuLogIn size={25} style={{ marginBottom: "5px" }} /> Login
+              </li>
+            </StyledLink>
+          </ul>
+        </div>
+      )}
+
+      {user && (
+        <div className={styles.secondChildLink}>
+          <ul style={{ listStyle: "none" }}>
+            <StyledLink to="/">
+              <li>
+                <span onClick={handleLogout}>
+                  <LuLogOut
+                    size={25}
+                    style={{ marginBottom: "5px" }}
+                    className={styles.iconsNav}
+                  />{" "}
+                  LogoutTTT
+                </span>
+              </li>
+            </StyledLink>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
