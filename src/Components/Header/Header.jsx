@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { StyledLink } from "../../ComponentsStyles";
 import style from "./Header.module.css";
 
+
 export default function Header() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
