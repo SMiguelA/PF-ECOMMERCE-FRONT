@@ -1,6 +1,7 @@
 import {
   ADD_TO_CART,
   CREATE_ORDER,
+  DECREASE_CART,
   DELETE_PRODUCT_BY_ID,
   FILTER_PRODUCTS,
   FILTER_PRODUCTS_BY_CATEGORY,
@@ -32,12 +33,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         users: payload,
       };
-    
+
     case FILTER_PRODUCTS:
-      return{
+      return {
         ...state,
-        products:payload
-      }
+        products: payload,
+      };
 
     case GET_PRODUCTS:
       localStorage.setItem("allProducts", JSON.stringify(payload));
@@ -132,7 +133,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
       console.log(payload);
       return {
         ...state,
-        cart: payload,
+        user: {
+          ...state.user,
+          cart: payload,
+        },
+      };
+
+    case DECREASE_CART:
+      return {
+        ...state,
+        user: payload,
       };
 
     case CREATE_ORDER:

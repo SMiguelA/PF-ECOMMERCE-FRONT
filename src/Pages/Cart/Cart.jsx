@@ -1,8 +1,10 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { useDispatch, useSelector } from "react-redux";
+
 import React from "react";
-import { useSelector } from "react-redux";
-import CheckoutForm from "../../Components/CheckoutForm/CheckoutForm";
+import { CheckoutForm } from "../../Components";
+import { decreaseCart } from "../../Redux/Actions";
 import "./Cart.css";
 
 const stripePromise = loadStripe(
@@ -10,18 +12,28 @@ const stripePromise = loadStripe(
 );
 
 function Cart() {
-  const user = useSelector((state) => state.cart);
-  const products = useSelector((state) => state.allProducts);
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
+  const products = useSelector((state) => state.products);
   const userCartObj = user.cart;
-  let cart = products.filter((product) => {
-    console.log(userCartObj[product.id]);
-    return userCartObj[product.id] != null;
-  });
+  console.log(user);
+
+  let cart = Object.keys(userCartObj)
+    .map((productId) => {
+      const product = products.find((product) => product.id === productId);
+      if (product) {
+        return product;
+      }
+    })
+    .filter(Boolean);
 
   function handleDecrease(product) {
-    // const quantity = user.cart.count;
-    // if (quantity <= 0) return alert("Can't proceed");
-    // decreaseCart(product);
+    const { productId, price, userId } = product;
+
+    const quantity = user.cart.count;
+    if (quantity <= 0) return alert("Can't proceed");
+    dispatch(decreaseCart(product));
   }
 
   return (
@@ -55,12 +67,13 @@ function Cart() {
                 <tbody>
                   {/* loop through cart products */}
                   {cart.map((item) => (
-                    <tr key={item._id}>
+                    <tr key={item.id}>
                       <td>&nbsp;</td>
                       <td>
                         <i style={{ marginRight: 10, cursor: "pointer" }}></i>
+                        {console.log(item.pictures[0])}
                         <img
-                          src={item.pictures[0].url}
+                          src={item.pictures[0]}
                           style={{
                             width: 100,
                             height: 100,
@@ -71,18 +84,28 @@ function Cart() {
                       <td>${item.price}</td>
                       <td>
                         <span>
-                          <i></i>
-                          <span>{user.cart[item._id]}</span>
+                          <button
+                            onClick={() => {
+                              handleDecrease({
+                                productId: item.id,
+                                price: item.price,
+                                userId: user._id,
+                              });
+                            }}
+                          >
+                            -
+                          </button>
+                          <span>{user.cart[item.id]}</span>
                           <i></i>
                         </span>
                       </td>
-                      <td>${item.price * user.cart[item._id]}</td>
+                      <td>${item.price * user.cart[item.id]}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
               <div>
-                <h3>Total: ${user.cart.total}</h3>
+                <h3>Total: ${user.cart.total.toFixed(2)}</h3>
               </div>
             </>
           </div>
