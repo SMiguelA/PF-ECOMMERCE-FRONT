@@ -130,12 +130,18 @@ export const signup = (payload) => {
 export const addToCart = (payload) => {
   return function (dispatch) {
     const { userId, productId, price, image } = payload;
+    console.log(
+      userId,
+      productId,
+      price,
+      "userId, productId, price EN EL ACTIONS"
+    );
 
     axios
       .post(`/products/add-to-cart`, { userId, productId, price })
       .then((response) => {
         const user = response.data;
-
+        console.log(user, "ESTA ES LA RESP DE ADD TO CART");
         dispatch({ type: ADD_TO_CART, payload: user.cart });
       })
       .catch((error) => {
