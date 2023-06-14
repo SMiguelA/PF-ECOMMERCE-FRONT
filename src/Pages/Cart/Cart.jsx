@@ -26,7 +26,9 @@ function Cart() {
     let cartt = Object.keys(userCartObj)
       .map((productId) => {
         const product = products.find((product) => {
-          return product.id === productId;
+          let bandera = product.id === productId || product._id === productId;
+
+          return bandera;
         });
 
         if (product) {
@@ -34,8 +36,10 @@ function Cart() {
         }
       })
       .filter(Boolean);
-    console.log();
     setCart(cartt);
+    return () => {
+      setCart(null);
+    };
   }, [userCartObj]);
 
   //obtiene las claves, mapea y filtra los productos equivalentes
@@ -59,6 +63,7 @@ function Cart() {
     <div style={{ minHeight: "95vh" }} className="cart-container">
       <h1>Shopping cart</h1>
 
+      {console.log(cart, "cart antes del div")}
       {cart?.length ? (
         <div>
           <div>
@@ -81,16 +86,16 @@ function Cart() {
                 <tbody>
                   {/* loop through cart products */}
                   {cart.map((item) => (
-                    <tr key={item._id}>
+                    <tr key={item._id || item.id}>
                       <td>&nbsp;</td>
                       <td>
                         <button
                           style={{ marginRight: 10, cursor: "pointer" }}
                           onClick={() =>
                             handleRemoveFromCart({
-                              productId: item._id,
+                              productId: item._id || item.id,
                               price: item.price,
-                              userId: user._id,
+                              userId: user._id || user.id,
                             })
                           }
                         >
@@ -111,21 +116,21 @@ function Cart() {
                           <button
                             onClick={() => {
                               handleDecrease({
-                                productId: item._id,
+                                productId: item._id || item.id,
                                 price: item.price,
-                                userId: user._id,
+                                userId: user._id || user.id,
                               });
                             }}
                           >
                             -
                           </button>
-                          <span>{user.cart[item.id]}</span>
+                          <span>{user.cart[item._id || item.id]}</span>
                           <button
                             onClick={() => {
                               handleIncrease({
-                                productId: item._id,
+                                productId: item._id || item.id,
                                 price: item.price,
-                                userId: user._id,
+                                userId: user._id || user.id,
                               });
                             }}
                           >
@@ -133,7 +138,7 @@ function Cart() {
                           </button>
                         </span>
                       </td>
-                      <td>${item.price * user.cart[item._id]}</td>
+                      <td>${item.price * user.cart[item._id || item.id]}</td>
                     </tr>
                   ))}
                 </tbody>
