@@ -1,5 +1,5 @@
 import { AiFillAppstore, AiFillFire } from "react-icons/ai";
-import { CgShoppingCart } from "react-icons/cg";
+import { CgList, CgShoppingCart } from "react-icons/cg";
 import { FaUserFriends } from "react-icons/fa";
 import { HiHome } from "react-icons/hi";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
@@ -84,6 +84,16 @@ export default function Navbar() {
                   className={styles.iconsNav}
                 />{" "}
                 Friends
+              </li>
+            </StyledLink>{" "}
+            <StyledLink to="/orders">
+              <li>
+                <CgList
+                  size={25}
+                  style={{ marginBottom: "5px" }}
+                  className={styles.iconsNav}
+                />{" "}
+                Orders
               </li>
             </StyledLink>{" "}
           </ul>
