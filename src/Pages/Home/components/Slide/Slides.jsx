@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { dataImg } from "./index";
-import styles from "./Styled.module.css";
 import { ImgSlide } from "../../../../ComponentsStyles";
-import imagePrueba from "./Images/SlideHome/COD.jpg";
-import {imageMap} from "./data"
+import styles from "./Styled.module.css";
+import { imageMap } from "./data";
+import { dataImg } from "./index";
 export default function Slide() {
   const images = [
     "COD.jpg",
@@ -48,7 +47,6 @@ export default function Slide() {
     };
   }, [selectedIndex]);
 
-  console.log(selectImage);
   return (
     <div className={styles.carousel}>
       <div className={styles.container_carouselImg}>
