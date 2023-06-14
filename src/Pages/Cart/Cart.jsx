@@ -1,9 +1,8 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import React from "react";
-import { CheckoutForm } from "../../Components";
+import CheckoutForm from "../../Components/CheckoutForm/CheckoutForm";
 import {
   decreaseCart,
   increaseCart,
@@ -22,16 +21,24 @@ function Cart() {
   const products = useSelector((state) => state.products);
   const userCartObj = user.cart;
 
+  const [cart, setCart] = useState(null);
+  useEffect(() => {
+    let cartt = Object.keys(userCartObj)
+      .map((productId) => {
+        const product = products.find((product) => {
+          return product.id === productId;
+        });
+
+        if (product) {
+          return product;
+        }
+      })
+      .filter(Boolean);
+    console.log();
+    setCart(cartt);
+  }, [userCartObj]);
+
   //obtiene las claves, mapea y filtra los productos equivalentes
-  let cart = Object.keys(userCartObj)
-    .map((productId) => {
-      const product = products.find((product) => product._id === productId);
-      if (product) {
-        return product;
-      }
-    })
-    .filter(Boolean);
-  console.log(cart, "cart");
 
   function handleDecrease(product) {
     const { productId } = product;
@@ -51,19 +58,14 @@ function Cart() {
   return (
     <div style={{ minHeight: "95vh" }} className="cart-container">
       <h1>Shopping cart</h1>
-      <div className="content">
-        {cart.length === 0 ? (
-          <div>Shopping cart is empty. Add products to your cart</div>
-        ) : (
+
+      {cart?.length ? (
+        <div>
           <div>
             <Elements stripe={stripePromise}>
               <CheckoutForm />
             </Elements>
           </div>
-        )}
-      </div>
-      {cart.length > 0 && (
-        <div>
           <div>
             <>
               <table className="cart-table">
@@ -143,6 +145,10 @@ function Cart() {
               </div>
             </>
           </div>
+        </div>
+      ) : (
+        <div>
+          <div>Shopping cart is empty. Add products to your cart</div>
         </div>
       )}
     </div>
