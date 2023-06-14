@@ -34,7 +34,6 @@ export const getProducts = () => {
 export const filterProducts = (filters) => {
   return async function (dispatch) {
     try {
-      console.log(filters);
       let data = await axios.get(
         `/products?filterCategory=${filters.filterCategory}&filterPlatform=${filters.filterPlatform}&filterPrice=${filters.filterPrice}&name=${filters.name}`
       );
@@ -64,8 +63,8 @@ export const filterProductsByGender = (payload) => {
 
 export const getProductByName = (name) => {
   return async function (dispatch) {
-    if(!name.length) {
-      const data = await axios.get("/products")
+    if (!name.length) {
+      const data = await axios.get("/products");
       return dispatch({ type: GET_PRODUCTS, payload: data.data });
     }
 
@@ -83,7 +82,6 @@ export const getProductByName = (name) => {
 
 export const getProductById = (id) => {
   return async function (dispatch) {
-    console.log(dispatch, "ID EN ACTIONS");
     try {
       const json = await axios.get(`/products/${id}`);
       return dispatch({
@@ -117,17 +115,13 @@ export const filterProductsByPrice = (payload) => {
 export const signup = (payload) => {
   return function (dispatch) {
     const { name, email, password } = payload;
-    console.log(name, email, password);
     axios
       .post("/users/signup", { name, email, password })
       .then((response) => {
         const user = response.data;
-        console.log("user es: en el actions");
-        console.log(user);
         dispatch({ type: SIGNUP, payload: user });
       })
       .catch((error) => {
-        console.log(error);
         console.log(`Error registrando usuario: ${error}`);
       });
   };
@@ -136,18 +130,11 @@ export const signup = (payload) => {
 export const addToCart = (payload) => {
   return function (dispatch) {
     const { userId, productId, price, image } = payload;
-    console.log(
-      userId,
-      productId,
-      price,
-      "userId, productId, price EN EL ACTIONS"
-    );
 
     axios
       .post(`/products/add-to-cart`, { userId, productId, price })
       .then((response) => {
         const user = response.data;
-        console.log(user, "ESTA ES LA RESP DE ADD TO CART");
         dispatch({ type: ADD_TO_CART, payload: user.cart });
       })
       .catch((error) => {
@@ -185,7 +172,6 @@ export const increaseCart = (payload) => {
         dispatch({ type: INCREASE_CART, payload: user });
       })
       .catch((error) => {
-        console.log("ERROR EN EL ACTION DE PRODUCTS");
         console.log(error);
       });
   };
@@ -199,7 +185,6 @@ export const removeFromCart = (payload) => {
       .post(`/products/remove-from-cart`, { productId, price, userId })
       .then((response) => {
         const user = response.data;
-        console.log(user);
         dispatch({ type: REMOVE_FROM_CART, payload: user });
       })
       .catch((error) => {
@@ -209,8 +194,6 @@ export const removeFromCart = (payload) => {
 };
 
 export const filterProductsByType = (payload) => {
-  console.log("payload en action es:");
-  console.log(payload);
   return {
     type: FILTER_PRODUCTS_BY_TYPE,
     payload,

@@ -22,7 +22,6 @@ export const getUsers = () => {
 };
 
 export const logoutUser = () => {
-  console.log("entro al actions de user logout");
   return {
     type: LOGOUT,
   };
@@ -35,20 +34,16 @@ export const login = (payload) => {
       .post("/users/login", { email, password })
       .then((response) => {
         const users = response.data;
-        console.log("user en el user actions");
-        console.log(users);
         localStorage.setItem("user", JSON.stringify(users));
         dispatch({ type: LOGIN, payload: users });
       })
       .catch((error) => {
-        console.log(error);
         console.log(`Error en el login: ${error}`);
       });
   };
 };
 
 export const createOrder = (payload) => {
-  console.log("createorder ACtions");
   return {
     type: CREATE_ORDER,
   };
