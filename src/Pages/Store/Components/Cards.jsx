@@ -6,16 +6,9 @@ const Cards = (props) => {
   const { products } = props;
   return (
     <div className={style.container}>
-      {products.map((product) => {
+      {products?.map((product) => {
         return <Card data={product} />;
       })}
-      {/* <div className={style.paginated}>
-              <Paginated
-                productsPerPage={productsPerPage}
-                allProducts={productsss.length}
-                paginated={paginated}
-              />
-            </div> */}
     </div>
   );
 };
