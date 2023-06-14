@@ -7,6 +7,7 @@ const Cards = (props) => {
   return (
     <div className={style.container}>
       {products.map((product) => {
+        console.log("product es:", product);
         return <Card data={product} />;
       })}
       {/* <div className={style.paginated}>
