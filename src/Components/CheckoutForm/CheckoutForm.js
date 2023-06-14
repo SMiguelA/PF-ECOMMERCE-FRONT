@@ -65,7 +65,7 @@ function CheckoutForm() {
         <div>
           {alertMessage && <div>{alertMessage}</div>}
           <div>
-            <label htmlFor="firstName">First Name</label>
+            <label>First Name</label>
             <input
               id="firstName"
               type="text"
@@ -75,7 +75,7 @@ function CheckoutForm() {
             />
           </div>
           <div>
-            <label htmlFor="email">Email</label>
+            <label>Email</label>
             <input
               id="email"
               type="text"
@@ -87,7 +87,7 @@ function CheckoutForm() {
         </div>
         <div>
           <div>
-            <label htmlFor="address">Address</label>
+            <label>Address</label>
             <input
               id="address"
               type="text"
@@ -98,7 +98,7 @@ function CheckoutForm() {
             />
           </div>
           <div>
-            <label htmlFor="country">Country</label>
+            <label>Country</label>
             <input
               id="country"
               type="text"
@@ -109,14 +109,10 @@ function CheckoutForm() {
             />
           </div>
         </div>
-        <label htmlFor="cardElement">Card</label>
-        <label htmlFor="card-element">Card</label>
+        <label>Card</label>
+        <label>Month</label>
         <CardElement id="card-element" />
-        <button
-          className="mt-3"
-          type="submit"
-          disabled={user.cart.count <= 0 || paying}
-        >
+        <button type="submit" disabled={user.cart.count <= 0 || paying}>
           {paying ? "Processing..." : "Pay"}
         </button>
       </form>

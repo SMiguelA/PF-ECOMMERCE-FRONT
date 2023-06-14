@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 import axios from "../../axios";
 import { Loading } from "../../Components";
+import styles from "./Orders.module.css";
 
 export default function Orders() {
   const user = useSelector((state) => state.user);
@@ -33,7 +34,7 @@ export default function Orders() {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Your orders</h1>
       <table>
         <thead>

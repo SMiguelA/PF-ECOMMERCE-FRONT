@@ -86,16 +86,6 @@ export default function Navbar() {
                 Friends
               </li>
             </StyledLink>{" "}
-            <StyledLink to="/orders">
-              <li>
-                <CgList
-                  size={25}
-                  style={{ marginBottom: "5px" }}
-                  className={styles.iconsNav}
-                />{" "}
-                Orders
-              </li>
-            </StyledLink>{" "}
           </ul>
         </Nav>
       </div>
@@ -115,6 +105,16 @@ export default function Navbar() {
       {user && (
         <div className={styles.secondChildLink}>
           <ul style={{ listStyle: "none" }}>
+            <StyledLink to="/orders">
+              <li>
+                <CgList
+                  size={25}
+                  style={{ marginBottom: "5px" }}
+                  className={styles.iconsNav}
+                />{" "}
+                Orders
+              </li>
+            </StyledLink>{" "}
             <StyledLink to="/">
               <li>
                 <span onClick={handleLogout}>
