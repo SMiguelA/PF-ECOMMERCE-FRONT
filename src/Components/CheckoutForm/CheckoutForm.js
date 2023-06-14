@@ -21,6 +21,8 @@ function CheckoutForm() {
     e.preventDefault();
     if (!stripe || !elements || user.cart.count <= 0) return;
     setPaying(true);
+    console.log("user.cart.count", user.cart.count);
+    console.log("user.cart.total", user.cart.total);
     const { client_secret } = await fetch(
       "http://localhost:3001/create-payment",
       {
@@ -59,6 +61,7 @@ function CheckoutForm() {
     }
   }
 
+  console.log(user);
   return (
     <div className="cart-payment-container">
       <form onSubmit={handlePay}>
