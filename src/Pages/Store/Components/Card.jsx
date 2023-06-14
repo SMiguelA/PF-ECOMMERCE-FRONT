@@ -9,7 +9,6 @@ import style from "./Card.module.css";
 
 const Card = ({ data }) => {
   const { _id } = data;
-  console.log("en el component cart el id es:", _id);
   const formattedPrice = data.price.toLocaleString();
   return (
     <Link to={`detail/${_id}`} style={{ textDecoration: "none" }}>

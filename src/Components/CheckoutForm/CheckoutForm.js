@@ -39,7 +39,6 @@ function CheckoutForm() {
       },
     });
 
-    console.log(paymentIntent);
     setPaying(false);
 
     if (paymentIntent) {
