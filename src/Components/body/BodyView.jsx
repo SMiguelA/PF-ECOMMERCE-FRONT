@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Paginated } from "../../Components";
 import Filters from "../../Components/Filters/Filters";
@@ -20,6 +20,11 @@ export const BodyView = () => {
   const paginated = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [productsFiltered])
+
   return (
     <div className={styles.containerStoreContent}>
       <div className={styles.productsContainer}>
