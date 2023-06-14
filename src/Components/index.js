@@ -5,6 +5,5 @@ export { default as Header } from './Header/Header';
 export { default as Loading } from './Loading/Loading';
 export { default as Navbar } from './Navbar/Navbar';
 export { default as Paginated } from './Paginated/Paginated';
-export { default as PriceFilter } from './PriceFilter/PriceFilter';
 export * from './body/BodyView';
 

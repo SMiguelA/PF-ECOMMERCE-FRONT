@@ -34,8 +34,9 @@ export const getProducts = () => {
 export const filterProducts = (filters) => {
   return async function (dispatch) {
     try {
+      console.log(filters);
       let data = await axios.get(
-        `/products?filterCategory=${filters.filterCategory}&filterPlatform=${filters.filterPlatform}&filterPrice=${filters.filterPrice}`
+        `/products?filterCategory=${filters.filterCategory}&filterPlatform=${filters.filterPlatform}&filterPrice=${filters.filterPrice}&name=${filters.name}`
       );
       return dispatch({
         type: FILTER_PRODUCTS,
@@ -63,8 +64,13 @@ export const filterProductsByGender = (payload) => {
 
 export const getProductByName = (name) => {
   return async function (dispatch) {
+    if(!name.length) {
+      const data = await axios.get("/products")
+      return dispatch({ type: GET_PRODUCTS, payload: data.data });
+    }
+
     try {
-      var json = await axios.get(`/products?name=${name}`);
+      const json = await axios.get(`/products?name=${name}`);
       return dispatch({
         type: GET_PRODUCT_BY_NAME,
         payload: json.data,
