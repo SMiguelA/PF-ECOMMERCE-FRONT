@@ -16,6 +16,7 @@ import {
   LOGIN,
   LOGOUT,
   REMOVE_FROM_CART,
+  RESTART_CART,
   SIGNUP,
 } from "./actionsTypes";
 
@@ -138,6 +139,18 @@ const rootReducer = (state = initialState, { type, payload }) => {
         user: {
           ...state.user,
           cart: payload,
+        },
+      };
+
+    case RESTART_CART:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          cart: {
+            total: 0,
+            count: 0,
+          },
         },
       };
 
