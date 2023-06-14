@@ -1,5 +1,11 @@
 import axios from "../../../axios";
-import { CREATE_ORDER, GET_USERS, LOGIN, LOGOUT } from "../../actionsTypes";
+import {
+  CREATE_ORDER,
+  GET_USERS,
+  LOGIN,
+  LOGOUT,
+  RESTART_CART,
+} from "../../actionsTypes";
 
 export const getUsers = () => {
   return function (dispatch) {
@@ -45,5 +51,17 @@ export const createOrder = (payload) => {
   console.log("createorder ACtions");
   return {
     type: CREATE_ORDER,
+  };
+};
+
+export const restartCart = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: RESTART_CART,
+      });
+    } catch (error) {
+      window.alert(error.response.data.Error);
+    }
   };
 };

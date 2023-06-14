@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Loading from "../../Components/Loading/Loading";
-import axios from "../../axios";
 
-function Orders() {
+import axios from "../../axios";
+import { Loading } from "../../Components";
+
+export default function Orders() {
   const user = useSelector((state) => state.user);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -48,16 +49,7 @@ function Orders() {
             <tr key={order._id}>
               <td>{order._id}</td>
               <td>
-                <span
-                  style={{
-                    backgroundColor:
-                      order.status === "processing" ? "yellow" : "green",
-                    color: "white",
-                    padding: "5px 10px",
-                  }}
-                >
-                  {order.status}
-                </span>
+                <span>{order.status}</span>
               </td>
               <td>{order.date}</td>
               <td>${order.total}</td>
@@ -68,5 +60,3 @@ function Orders() {
     </div>
   );
 }
-
-export default Orders;

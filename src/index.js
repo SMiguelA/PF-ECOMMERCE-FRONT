@@ -6,7 +6,7 @@ import App from "./App";
 import store from "./Redux/store";
 import "./index.css";
 
-import useLocalStorageUser from "./Utils/useLocalStorageUser";
+import useLocalStorageUser from "./Hooks/useLocalStorageUser";
 
 function LocalStorageProvider({ children }) {
   useLocalStorageUser();
