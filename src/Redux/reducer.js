@@ -14,10 +14,11 @@ import {
   GET_USERS,
   INCREASE_CART,
   LOGIN,
+  LOGIN_GOOGLE,
   LOGOUT,
   REMOVE_FROM_CART,
   RESTART_CART,
-  SIGNUP,
+  SIGNUP
 } from "./actionsTypes";
 
 const initialState = {
@@ -36,7 +37,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         users: payload,
       };
-
+    case LOGIN_GOOGLE:
+      return {
+        ...state,
+        user:payload
+      }
     case FILTER_PRODUCTS:
       return {
         ...state,
