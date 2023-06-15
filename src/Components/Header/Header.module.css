@@ -27,8 +27,7 @@
   text-decoration: none;
 }
 
-.right-items {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+.rightItem{
+  width: 84%;
+  align-items: start;
 }
