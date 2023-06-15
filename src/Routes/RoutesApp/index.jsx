@@ -51,10 +51,13 @@ function RoutesMain() {
           {user && (
             <>
               <Route path="/cart" element={<Cart />} />
-              <Route path="/new-product" element={<NewProduct />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/logout" element={<Home />} />
             </>
+          )}
+
+          {user && user.isAdmin && (
+            <Route path="/new-product" element={<NewProduct />} />
           )}
         </Routes>
       </Main>

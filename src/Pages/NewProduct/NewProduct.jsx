@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import axios from "../../axios";
 import "./NewProduct.css";
 
+import { createProduct } from "../../Redux/Actions";
+
 export default function NewProduct() {
+  const dispatch = useDispatch();
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -41,6 +46,11 @@ export default function NewProduct() {
     }
 
     //Aca el dispatch de create product
+    console.log(name, description, price, category, platform, pictures);
+
+    dispatch(
+      createProduct(name, description, price, category, platform, pictures)
+    );
   }
 
   function showWidget() {
@@ -106,14 +116,14 @@ export default function NewProduct() {
             <option disabled selected>
               -- Select One --
             </option>
-            <option value="estrategiaPorTurnos">Estrategia por turnos</option>
-            <option value="aventura">Aventura</option>
-            <option value="indie">Indie</option>
-            <option value="mundoAbierto">Mundo abierto</option>
-            <option value="accion">Acción</option>
-            <option value="juegosDeRitmo">Juegos de ritmo</option>
-            <option value="carrera">Carrera</option>
-            <option value="deportes">Deportes</option>
+            <option value="Estrategia por Turnos">Estrategia por turnos</option>
+            <option value="Aventura">Aventura</option>
+            <option value="Indie">Indie</option>
+            <option value="Mundo Abierto">Mundo abierto</option>
+            <option value="Accion">Acción</option>
+            <option value="Juegos de ritmo">Juegos de ritmo</option>
+            <option value="Carrera">Carrera</option>
+            <option value="Deportes">Deportes</option>
           </select>
         </div>
 
@@ -123,13 +133,13 @@ export default function NewProduct() {
             <option disabled selected>
               -- Select One --
             </option>
-            <option value="playStation">Play Station</option>
-            <option value="xboxLive">Xbox live</option>
-            <option value="steam">Steam</option>
-            <option value="epicGames">Epic Games</option>
-            <option value="battleNet">Battle net</option>
-            <option value="origin">Origin</option>
-            <option value="ubisoft">Ubisoft</option>
+            <option value="PlayStation">Play Station</option>
+            <option value="Xbox Live">Xbox live</option>
+            <option value="Steam">Steam</option>
+            <option value="Epic Games">Epic Games</option>
+            <option value="Battle.Net">Battle net</option>
+            <option value="Origin">Origin</option>
+            <option value="Ubisoft">Ubisoft</option>
           </select>
         </div>
 

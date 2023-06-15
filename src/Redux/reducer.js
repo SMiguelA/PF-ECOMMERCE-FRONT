@@ -1,6 +1,7 @@
 import {
   ADD_TO_CART,
   CREATE_ORDER,
+  CREATE_PRODUCT,
   DECREASE_CART,
   DELETE_PRODUCT_BY_ID,
   FILTER_PRODUCTS,
@@ -174,6 +175,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
     case CREATE_ORDER:
       console.log("reducer create order");
+      return {
+        ...state,
+      };
+
+    case CREATE_PRODUCT:
       return {
         ...state,
       };

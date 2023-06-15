@@ -2,6 +2,7 @@ import axios from "../../../axios";
 
 import {
   ADD_TO_CART,
+  CREATE_PRODUCT,
   DECREASE_CART,
   DELETE_PRODUCT_BY_ID,
   FILTER_PRODUCTS,
@@ -186,6 +187,49 @@ export const removeFromCart = (payload) => {
       .then((response) => {
         const user = response.data;
         dispatch({ type: REMOVE_FROM_CART, payload: user });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+export const createProduct = (
+  name,
+  description,
+  price,
+  category,
+  platform,
+  pictures,
+  stock
+) => {
+  console.log(name, description, price, category, platform, pictures, stock);
+  return function (dispatch) {
+    console.log(
+      name,
+      description,
+      price,
+      category,
+      platform,
+      pictures,
+      stock,
+      "esto es en el createproduct actions"
+    );
+
+    axios
+      .post("/products", {
+        name,
+        description,
+        price,
+        category,
+        platform,
+        pictures,
+        stock,
+      })
+      .then((response) => {
+        const product = response.data;
+
+        dispatch({ type: CREATE_PRODUCT, payload: product });
       })
       .catch((error) => {
         console.log(error);
