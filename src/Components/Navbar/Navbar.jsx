@@ -106,16 +106,18 @@ export default function Navbar() {
       {user && (
         <div className={styles.secondChildLink}>
           <ul style={{ listStyle: "none" }}>
-            <StyledLink to="/new-product">
-              <li>
-                <MdCreateNewFolder
-                  size={25}
-                  style={{ marginBottom: "5px" }}
-                  className={styles.iconsNav}
-                />{" "}
-                New Products
-              </li>
-            </StyledLink>{" "}
+            {user.isAdmin && (
+              <StyledLink to="/new-product">
+                <li>
+                  <MdCreateNewFolder
+                    size={25}
+                    style={{ marginBottom: "5px" }}
+                    className={styles.iconsNav}
+                  />{" "}
+                  New Products
+                </li>
+              </StyledLink>
+            )}
             <StyledLink to="/orders">
               <li>
                 <CgList

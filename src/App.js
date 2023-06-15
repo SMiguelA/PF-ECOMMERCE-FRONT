@@ -16,7 +16,7 @@ function App() {
         )}
       {/* Main */}
       <div className="Main">
-      <RoutesMain />
+        <RoutesMain />
       </div>
       {location.pathname !== "/login" &&
         location.pathname !== "/register_user" && (
