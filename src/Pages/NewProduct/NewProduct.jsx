@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import axios from "../../axios";
+import "./NewProduct.css";
 
 export default function NewProduct() {
   const [name, setName] = useState("");
@@ -26,7 +27,6 @@ export default function NewProduct() {
       .catch((e) => console.log(e));
   }
 
-  console.log("renderizo newproduct");
   function handleSubmit(e) {
     e.preventDefault();
     if (
@@ -40,11 +40,25 @@ export default function NewProduct() {
       return alert("Please fill out all the fields");
     }
 
-    //create product dispatch
+    //Aca el dispatch de create product
   }
 
   function showWidget() {
-    //widget cloudinary
+    const widget = window.cloudinary.createUploadWidget(
+      {
+        cloudName: "diiu7oy9z",
+        uploadPreset: "front-end-preset",
+      },
+      (error, result) => {
+        if (!error && result.event === "success") {
+          setPictures((prev) => [
+            ...prev,
+            { url: result.info.url, public_id: result.info.public_id },
+          ]);
+        }
+      }
+    );
+    widget.open();
   }
 
   return (
@@ -123,12 +137,12 @@ export default function NewProduct() {
           <button type="button" onClick={showWidget}>
             Upload Images
           </button>
-          <div>
+          <div className="images-preview-container">
             {pictures.map((image) => (
-              <div>
+              <div className="image-preview">
                 <img src={image.url} alt="Preview" />
                 {imgToRemove !== image.public_id && (
-                  <i onClick={() => handleRemoveImg(image)}></i>
+                  <i onClick={() => handleRemoveImg(image)}>X</i>
                 )}
               </div>
             ))}
