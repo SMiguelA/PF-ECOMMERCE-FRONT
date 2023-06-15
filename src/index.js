@@ -6,10 +6,20 @@ import App from "./App";
 import store from "./Redux/store";
 import "./index.css";
 
+import useLocalStorageUser from "./Hooks/useLocalStorageUser";
+
+function LocalStorageProvider({ children }) {
+  useLocalStorageUser();
+
+  return <>{children}</>;
+}
+
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <LocalStorageProvider>
+        <App />
+      </LocalStorageProvider>
     </BrowserRouter>
   </Provider>
 );

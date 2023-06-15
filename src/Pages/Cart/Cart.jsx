@@ -1,8 +1,13 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CheckoutForm from "../../Components/CheckoutForm/CheckoutForm";
+import {
+  decreaseCart,
+  increaseCart,
+  removeFromCart,
+} from "../../Redux/Actions";
 import "./Cart.css";
 
 const stripePromise = loadStripe(
@@ -10,36 +15,62 @@ const stripePromise = loadStripe(
 );
 
 function Cart() {
+  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.user);
-  const products = useSelector((state) => state.allProducts);
+  const products = useSelector((state) => state.products);
   const userCartObj = user.cart;
-  let cart = products.filter((product) => {
-    console.log(userCartObj[product.id]);
-    return userCartObj[product.id] != null;
-  });
+
+  const [cart, setCart] = useState(null);
+  useEffect(() => {
+    let cartt = Object.keys(userCartObj)
+      .map((productId) => {
+        const product = products.find((product) => {
+          let bandera = product.id === productId || product._id === productId;
+
+          return bandera;
+        });
+
+        if (product) {
+          return product;
+        }
+      })
+      .filter(Boolean);
+    setCart(cartt);
+    return () => {
+      setCart(null);
+    };
+  }, [userCartObj]);
+
+  //obtiene las claves, mapea y filtra los productos equivalentes
 
   function handleDecrease(product) {
-    // const quantity = user.cart.count;
-    // if (quantity <= 0) return alert("Can't proceed");
-    // decreaseCart(product);
+    const { productId } = product;
+    const quantity = user.cart[productId];
+    if (quantity <= 0) return alert("Can't proceed");
+    dispatch(decreaseCart(product));
+  }
+
+  function handleIncrease(product) {
+    dispatch(increaseCart(product));
+  }
+
+  function handleRemoveFromCart(product) {
+    dispatch(removeFromCart(product));
   }
 
   return (
     <div style={{ minHeight: "95vh" }} className="cart-container">
       <h1>Shopping cart</h1>
-      <div className="content">
-        {cart.length === 0 ? (
-          <div>Shopping cart is empty. Add products to your cart</div>
-        ) : (
+
+      {console.log(cart, "cart antes del div")}
+      {cart?.length ? (
+        <div>
           <div>
             <Elements stripe={stripePromise}>
               <CheckoutForm />
             </Elements>
           </div>
-        )}
-      </div>
-      {cart.length > 0 && (
-        <div>
           <div>
             <>
               <table className="cart-table">
@@ -55,12 +86,23 @@ function Cart() {
                 <tbody>
                   {/* loop through cart products */}
                   {cart.map((item) => (
-                    <tr key={item._id}>
+                    <tr key={item._id || item.id}>
                       <td>&nbsp;</td>
                       <td>
-                        <i style={{ marginRight: 10, cursor: "pointer" }}></i>
+                        <button
+                          style={{ marginRight: 10, cursor: "pointer" }}
+                          onClick={() =>
+                            handleRemoveFromCart({
+                              productId: item._id || item.id,
+                              price: item.price,
+                              userId: user._id || user.id,
+                            })
+                          }
+                        >
+                          X
+                        </button>
                         <img
-                          src={item.pictures[0].url}
+                          src={item.pictures[0]}
                           style={{
                             width: 100,
                             height: 100,
@@ -71,21 +113,47 @@ function Cart() {
                       <td>${item.price}</td>
                       <td>
                         <span>
-                          <i></i>
-                          <span>{user.cart[item._id]}</span>
-                          <i></i>
+                          <button
+                            onClick={() => {
+                              handleDecrease({
+                                productId: item._id || item.id,
+                                price: item.price,
+                                userId: user._id || user.id,
+                              });
+                            }}
+                          >
+                            -
+                          </button>
+                          <span>{user.cart[item._id || item.id]}</span>
+                          <button
+                            onClick={() => {
+                              handleIncrease({
+                                productId: item._id || item.id,
+                                price: item.price,
+                                userId: user._id || user.id,
+                              });
+                            }}
+                          >
+                            +
+                          </button>
                         </span>
                       </td>
-                      <td>${item.price * user.cart[item._id]}</td>
+                      <td>${item.price * user.cart[item._id || item.id]}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
               <div>
-                <h3>Total: ${user.cart.total}</h3>
+                <h3>
+                  Total: ${user.cart.total ? user.cart.total.toFixed(2) : 0}
+                </h3>
               </div>
             </>
           </div>
+        </div>
+      ) : (
+        <div>
+          <div>Shopping cart is empty. Add products to your cart</div>
         </div>
       )}
     </div>

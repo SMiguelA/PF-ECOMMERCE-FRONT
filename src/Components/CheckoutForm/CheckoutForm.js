@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 
-import { createOrder } from "../../Redux/Actions";
+import { createOrder, restartCart } from "../../Redux/Actions";
 
 function CheckoutForm() {
   const stripe = useStripe();
@@ -21,13 +21,15 @@ function CheckoutForm() {
     e.preventDefault();
     if (!stripe || !elements || user.cart.count <= 0) return;
     setPaying(true);
+    console.log("user.cart.count", user.cart.count);
+    console.log("user.cart.total", user.cart.total);
     const { client_secret } = await fetch(
       "http://localhost:3001/create-payment",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer pk_test_51N8O0ND2954uHErKoG1T2lk4aJZ8dAKHXYg9ojVmzMcy3j63g2RpmgnBzHm0CRey97o5ZCwm52F931uvtIzL9Bk400pvawEOTQ`,
+          "Stripe-Version": "2020-08-27", // Versión de la API de Stripe
         },
         body: JSON.stringify({ amount: parseInt(user.cart.total) }),
       }
@@ -39,7 +41,6 @@ function CheckoutForm() {
       },
     });
 
-    console.log(paymentIntent);
     setPaying(false);
 
     if (paymentIntent) {
@@ -48,6 +49,9 @@ function CheckoutForm() {
           createOrder({ userId: user._id, cart: user.cart, address, country })
         );
         setAlertMessage(`Payment ${paymentIntent.status}`);
+
+        dispatch(restartCart());
+
         setTimeout(() => {
           navigate("/orders");
         }, 3000);
@@ -57,13 +61,14 @@ function CheckoutForm() {
     }
   }
 
+  console.log(user);
   return (
     <div className="cart-payment-container">
       <form onSubmit={handlePay}>
         <div>
           {alertMessage && <div>{alertMessage}</div>}
           <div>
-            <label htmlFor="firstName">First Name</label>
+            <label>First Name</label>
             <input
               id="firstName"
               type="text"
@@ -73,7 +78,7 @@ function CheckoutForm() {
             />
           </div>
           <div>
-            <label htmlFor="email">Email</label>
+            <label>Email</label>
             <input
               id="email"
               type="text"
@@ -85,7 +90,7 @@ function CheckoutForm() {
         </div>
         <div>
           <div>
-            <label htmlFor="address">Address</label>
+            <label>Address</label>
             <input
               id="address"
               type="text"
@@ -96,7 +101,7 @@ function CheckoutForm() {
             />
           </div>
           <div>
-            <label htmlFor="country">Country</label>
+            <label>Country</label>
             <input
               id="country"
               type="text"
@@ -107,14 +112,10 @@ function CheckoutForm() {
             />
           </div>
         </div>
-        <label htmlFor="cardElement">Card</label>
-        <label htmlFor="card-element">Card</label>
+        <label>Card</label>
+        <label>Month</label>
         <CardElement id="card-element" />
-        <button
-          className="mt-3"
-          type="submit"
-          disabled={user.cart.count <= 0 || paying}
-        >
+        <button type="submit" disabled={user.cart.count <= 0 || paying}>
           {paying ? "Processing..." : "Pay"}
         </button>
       </form>

@@ -13,19 +13,10 @@ export default function Home() {
     dispatch(getUsers());
   }, []);
 
-  console.log("test");
   return (
     <>
       {location.pathname === "/" && (
         <DivContainer>
-          {/* <div className={styles.containerLink}>
-              <div className={styles.firstchildLink}>
-              <Navbar/>
-              </div>
-              <div className={styles.secondChildLink}>
-
-              </div>
-      </div> */}
           <div className={styles.containerHome}>
             <div className={styles.containerSlide}>
               <Slide />

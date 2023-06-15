@@ -1,20 +1,24 @@
 
 .containerStoreContent {
-  /* margin-left: 20em; */
-  width: 80%;
-  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  min-height: 70rem;
 }
 
-
+.containerCards {
+  border:3px solid red
+}
 
 
 .paginated {
   background-color: #151515;
   display: flex;
   flex-direction: row;
-  margin-top: 5em;
-  margin-bottom: -2em;
+  /* margin-top: 5em;
+  margin-bottom: -2em; */
   justify-content: center;
+  border: 3px solid orange;
 }
 
 .divContainer {
@@ -24,4 +28,5 @@
 
 .divProducts {
   margin-left: 25%;
+  
 }

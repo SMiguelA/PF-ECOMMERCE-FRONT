@@ -1,16 +1,23 @@
 import {
   ADD_TO_CART,
   CREATE_ORDER,
+  CREATE_PRODUCT,
+  DECREASE_CART,
   DELETE_PRODUCT_BY_ID,
+  FILTER_PRODUCTS,
   FILTER_PRODUCTS_BY_CATEGORY,
+  FILTER_PRODUCTS_BY_GENDER,
   FILTER_PRODUCTS_BY_TYPE,
   FILTER_PRODUCT_BY_PRICE,
   GET_PRODUCTS,
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
   GET_USERS,
+  INCREASE_CART,
   LOGIN,
   LOGOUT,
+  REMOVE_FROM_CART,
+  RESTART_CART,
   SIGNUP,
 } from "./actionsTypes";
 
@@ -31,7 +38,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
         users: payload,
       };
 
+    case FILTER_PRODUCTS:
+      return {
+        ...state,
+        products: payload,
+      };
+
     case GET_PRODUCTS:
+      localStorage.setItem("allProducts", JSON.stringify(payload));
+      localStorage.setItem("products", JSON.stringify(payload));
       return {
         ...state,
         products: payload,
@@ -49,13 +64,36 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     case FILTER_PRODUCTS_BY_CATEGORY:
       const allProducts = state.allProducts;
-      const productFilter =
-        payload === "All"
-          ? allProducts
-          : allProducts.filter((el) => el.category === payload);
+      const selectedCategories = payload;
+
+      const productFilter = allProducts.filter((product) => {
+        for (const category in selectedCategories) {
+          if (selectedCategories[category] && product.category === category) {
+            return true;
+          }
+        }
+        return false;
+      });
       return {
         ...state,
-        products: productFilter,
+        products: productFilter.length > 0 ? productFilter : allProducts,
+      };
+
+    case FILTER_PRODUCTS_BY_GENDER:
+      const allProducts2 = state.allProducts;
+      const selectedGender = payload;
+
+      const productFilter2 = allProducts2.filter((product) => {
+        for (const category in selectedGender) {
+          if (selectedGender[category] && product.gender === category) {
+            return true;
+          }
+        }
+        return false;
+      });
+      return {
+        ...state,
+        products: productFilter2.length > 0 ? productFilter2 : allProducts2,
       };
 
     case GET_PRODUCT_BY_NAME:
@@ -65,8 +103,9 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     case FILTER_PRODUCT_BY_PRICE:
       const { minPrice, maxPrice } = payload;
+
       const filteredProducts = state.products.filter((product) => {
-        const productPrice = product.price; // Asumiendo que el precio de cada producto se encuentra en la propiedad 'price'
+        const productPrice = product.price;
         return productPrice >= minPrice && productPrice <= maxPrice;
       });
       return {
@@ -81,6 +120,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
 
     case LOGOUT:
+      console.log("entro al reducer logout");
       return {
         ...state,
         user: null,
@@ -97,11 +137,49 @@ const rootReducer = (state = initialState, { type, payload }) => {
       console.log(payload);
       return {
         ...state,
-        cart: payload,
+        user: {
+          ...state.user,
+          cart: payload,
+        },
+      };
+
+    case RESTART_CART:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          cart: {
+            total: 0,
+            count: 0,
+          },
+        },
+      };
+
+    case DECREASE_CART:
+      return {
+        ...state,
+        user: payload,
+      };
+
+    case REMOVE_FROM_CART:
+      return {
+        ...state,
+        user: payload,
+      };
+
+    case INCREASE_CART:
+      return {
+        ...state,
+        user: payload,
       };
 
     case CREATE_ORDER:
       console.log("reducer create order");
+      return {
+        ...state,
+      };
+
+    case CREATE_PRODUCT:
       return {
         ...state,
       };

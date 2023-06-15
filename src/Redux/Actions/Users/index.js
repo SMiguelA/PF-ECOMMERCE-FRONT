@@ -1,5 +1,11 @@
 import axios from "../../../axios";
-import { CREATE_ORDER, GET_USERS, LOGIN, LOGOUT } from "../../actionsTypes";
+import {
+  CREATE_ORDER,
+  GET_USERS,
+  LOGIN,
+  LOGOUT,
+  RESTART_CART,
+} from "../../actionsTypes";
 
 export const getUsers = () => {
   return function (dispatch) {
@@ -15,7 +21,7 @@ export const getUsers = () => {
   };
 };
 
-export const logout = () => {
+export const logoutUser = () => {
   return {
     type: LOGOUT,
   };
@@ -28,18 +34,29 @@ export const login = (payload) => {
       .post("/users/login", { email, password })
       .then((response) => {
         const users = response.data;
+        localStorage.setItem("user", JSON.stringify(users));
         dispatch({ type: LOGIN, payload: users });
       })
       .catch((error) => {
-        console.log(error);
         console.log(`Error en el login: ${error}`);
       });
   };
 };
 
 export const createOrder = (payload) => {
-  console.log("createorder ACtions");
   return {
     type: CREATE_ORDER,
+  };
+};
+
+export const restartCart = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: RESTART_CART,
+      });
+    } catch (error) {
+      window.alert(error.response.data.Error);
+    }
   };
 };

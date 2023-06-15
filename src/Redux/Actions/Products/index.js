@@ -2,13 +2,19 @@ import axios from "../../../axios";
 
 import {
   ADD_TO_CART,
+  CREATE_PRODUCT,
+  DECREASE_CART,
   DELETE_PRODUCT_BY_ID,
+  FILTER_PRODUCTS,
   FILTER_PRODUCTS_BY_CATEGORY,
+  FILTER_PRODUCTS_BY_GENDER,
   FILTER_PRODUCTS_BY_TYPE,
   FILTER_PRODUCT_BY_PRICE,
   GET_PRODUCTS,
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
+  INCREASE_CART,
+  REMOVE_FROM_CART,
   SIGNUP,
 } from "../../actionsTypes.js";
 
@@ -26,6 +32,22 @@ export const getProducts = () => {
   };
 };
 
+export const filterProducts = (filters) => {
+  return async function (dispatch) {
+    try {
+      let data = await axios.get(
+        `/products?filterCategory=${filters.filterCategory}&filterPlatform=${filters.filterPlatform}&filterPrice=${filters.filterPrice}&name=${filters.name}`
+      );
+      return dispatch({
+        type: FILTER_PRODUCTS,
+        payload: data.data,
+      });
+    } catch (error) {
+      window.alert(error.response.data.Error);
+    }
+  };
+};
+
 export const filterProductsByCategory = (payload) => {
   return {
     type: FILTER_PRODUCTS_BY_CATEGORY,
@@ -33,10 +55,22 @@ export const filterProductsByCategory = (payload) => {
   };
 };
 
+export const filterProductsByGender = (payload) => {
+  return {
+    type: FILTER_PRODUCTS_BY_GENDER,
+    payload,
+  };
+};
+
 export const getProductByName = (name) => {
   return async function (dispatch) {
+    if (!name.length) {
+      const data = await axios.get("/products");
+      return dispatch({ type: GET_PRODUCTS, payload: data.data });
+    }
+
     try {
-      var json = await axios.get(`/products?name=${name}`);
+      const json = await axios.get(`/products?name=${name}`);
       return dispatch({
         type: GET_PRODUCT_BY_NAME,
         payload: json.data,
@@ -82,17 +116,13 @@ export const filterProductsByPrice = (payload) => {
 export const signup = (payload) => {
   return function (dispatch) {
     const { name, email, password } = payload;
-    console.log(name, email, password);
     axios
       .post("/users/signup", { name, email, password })
       .then((response) => {
         const user = response.data;
-        console.log("user es: en el actions");
-        console.log(user);
         dispatch({ type: SIGNUP, payload: user });
       })
       .catch((error) => {
-        console.log(error);
         console.log(`Error registrando usuario: ${error}`);
       });
   };
@@ -106,20 +136,108 @@ export const addToCart = (payload) => {
       .post(`/products/add-to-cart`, { userId, productId, price })
       .then((response) => {
         const user = response.data;
-        console.log("se hizo el dispatch de actions a reducer ");
-        console.log(user);
-        dispatch({ type: ADD_TO_CART, payload: user });
+        dispatch({ type: ADD_TO_CART, payload: user.cart });
       })
       .catch((error) => {
-        console.log(error);
         console.log(`Error registrando usuario: ${error}`);
       });
   };
 };
 
+export const decreaseCart = (payload) => {
+  return function (dispatch) {
+    const { productId, price, userId } = payload;
+
+    axios
+      .post(`/products/decrease-cart`, { productId, price, userId })
+      .then((response) => {
+        const user = response.data;
+
+        dispatch({ type: DECREASE_CART, payload: user });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+export const increaseCart = (payload) => {
+  return function (dispatch) {
+    const { productId, price, userId } = payload;
+
+    axios
+      .post(`/products/increase-cart`, { productId, price, userId })
+      .then((response) => {
+        const user = response.data;
+
+        dispatch({ type: INCREASE_CART, payload: user });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+export const removeFromCart = (payload) => {
+  return function (dispatch) {
+    const { productId, price, userId } = payload;
+
+    axios
+      .post(`/products/remove-from-cart`, { productId, price, userId })
+      .then((response) => {
+        const user = response.data;
+        dispatch({ type: REMOVE_FROM_CART, payload: user });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+export const createProduct = (
+  name,
+  description,
+  price,
+  category,
+  platform,
+  pictures,
+  stock
+) => {
+  console.log(name, description, price, category, platform, pictures, stock);
+  return function (dispatch) {
+    console.log(
+      name,
+      description,
+      price,
+      category,
+      platform,
+      pictures,
+      stock,
+      "esto es en el createproduct actions"
+    );
+
+    axios
+      .post("/products", {
+        name,
+        description,
+        price,
+        category,
+        platform,
+        pictures,
+        stock,
+      })
+      .then((response) => {
+        const product = response.data;
+
+        dispatch({ type: CREATE_PRODUCT, payload: product });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
 export const filterProductsByType = (payload) => {
-  console.log("payload en action es:");
-  console.log(payload);
   return {
     type: FILTER_PRODUCTS_BY_TYPE,
     payload,

@@ -1,16 +1,29 @@
+import { useLocation } from "react-router-dom";
 import "./App.css";
 import { Footer, Header } from "./Components";
 import RoutesMain from "./Routes/RoutesApp";
 
 function App() {
-  //traer user del estado (useSelector)
+  const location = useLocation();
 
   return (
     <div className="App">
-      <Header />
+      {location.pathname !== "/login" &&
+        location.pathname !== "/register_user" && (
+          <div className="Header">
+            <Header />
+          </div>
+        )}
       {/* Main */}
-      <RoutesMain />
-      <Footer />
+      <div className="Main">
+        <RoutesMain />
+      </div>
+      {location.pathname !== "/login" &&
+        location.pathname !== "/register_user" && (
+          <div className="Footer">
+            <Footer />
+          </div>
+        )}
     </div>
   );
 }
