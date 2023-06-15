@@ -6,6 +6,7 @@ import Cart from "../../Pages/Cart/Cart";
 import Detail from "../../Pages/Detail/Detail";
 import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
+import NewProduct from "../../Pages/NewProduct/NewProduct";
 import Orders from "../../Pages/Orders/Orders";
 import Signup from "../../Pages/Signup/Signup";
 import Store from "../../Pages/Store/Store";
@@ -14,15 +15,21 @@ function RoutesMain() {
   const user = useSelector((state) => state.user);
   const location = useLocation();
   return (
-    <div style={{display: "flex", flexDirection: "row" ,width:"100%",height:"100%"}}>
-      {
-        (location.pathname !== "/login" && location.pathname !== "/register_user" )
-        && 
-        <Aside>
-        <Navbar />
-      </Aside>
-      }
-      
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      {location.pathname !== "/login" &&
+        location.pathname !== "/register_user" && (
+          <Aside>
+            <Navbar />
+          </Aside>
+        )}
+
       <Main>
         <Routes>
           <Route path="/" element={<Home />}>
@@ -47,6 +54,10 @@ function RoutesMain() {
               <Route path="/orders" element={<Orders />} />
               <Route path="/logout" element={<Home />} />
             </>
+          )}
+
+          {user && user.isAdmin && (
+            <Route path="/new-product" element={<NewProduct />} />
           )}
         </Routes>
       </Main>

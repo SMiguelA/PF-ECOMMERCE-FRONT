@@ -1,24 +1,32 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { StyledLink, DivForm, DivContainerForm } from "../../ComponentsStyles";
-import styles from "./Login.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import styles from "./Login.module.css"
+import { useEffect } from "react";
+import { DivContainerForm, DivForm, StyledLink } from "../../ComponentsStyles";
 import { login } from "../../Redux/Actions";
 import { LoginGoogle } from "../../Components";
 
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  function handleLogin(e) {
-    e.preventDefault()
-    alert("Login normal")
+
+  useEffect(() => {}, [user, navigate]);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    navigate("/store");
+
+    alert("Login normal");
     dispatch(login({ email, password }));
-    
-  }
-  function handleGoogle(e){
-    alert("google")
-  }
+  };
+
+
+
   return (
     <DivContainerForm>
       <DivForm>
@@ -49,7 +57,7 @@ function Login() {
             <a>Forgot Password ?</a>
           </div>
           <div className={styles.sign}>
-            <button  type="submit">Login</button>
+            <button type="submit">Login</button>
           </div>
         </form>
         <div className={styles.social_message}>

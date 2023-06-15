@@ -3,6 +3,7 @@ import { CgList, CgShoppingCart } from "react-icons/cg";
 import { FaUserFriends } from "react-icons/fa";
 import { HiHome } from "react-icons/hi";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
+import { MdCreateNewFolder } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Nav, StyledLink } from "../../ComponentsStyles";
@@ -105,6 +106,18 @@ export default function Navbar() {
       {user && (
         <div className={styles.secondChildLink}>
           <ul style={{ listStyle: "none" }}>
+            {user.isAdmin && (
+              <StyledLink to="/new-product">
+                <li>
+                  <MdCreateNewFolder
+                    size={25}
+                    style={{ marginBottom: "5px" }}
+                    className={styles.iconsNav}
+                  />{" "}
+                  New Products
+                </li>
+              </StyledLink>
+            )}
             <StyledLink to="/orders">
               <li>
                 <CgList
