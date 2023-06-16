@@ -187,7 +187,6 @@ export const increaseCart = (payload) => {
       .post(`/products/increase-cart`, { productId, price, userId })
       .then((response) => {
         const user = response.data;
-
         dispatch({ type: INCREASE_CART, payload: user });
       })
       .catch((error) => {
@@ -200,10 +199,13 @@ export const removeFromCart = (payload) => {
   return function (dispatch) {
     const { productId, price, userId } = payload;
 
+    console.log(price, "price en removeFromCart");
+
     axios
       .post(`/products/remove-from-cart`, { productId, price, userId })
       .then((response) => {
         const user = response.data;
+        console.log(user, "user en la consulta al back");
         dispatch({ type: REMOVE_FROM_CART, payload: user });
       })
       .catch((error) => {

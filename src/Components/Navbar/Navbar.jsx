@@ -19,12 +19,8 @@ export default function Navbar() {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    console.log("entró al handleLogout");
-
     // Llama a la acción de Redux para cerrar sesión
     dispatch(logoutUser());
-
-    console.log("hizo dispatch de logout usr");
 
     // Borra el usuario del localStorage
     localStorage.removeItem("user");
