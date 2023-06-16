@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Navbar } from "../../Components";
+import TableAdmin from "../../Components/Table/TableAdmin";
 import { Aside, Main } from "../../ComponentsStyles";
 import Cart from "../../Pages/Cart/Cart";
 import Detail from "../../Pages/Detail/Detail";
@@ -57,7 +58,10 @@ function RoutesMain() {
           )}
 
           {user && user.isAdmin && (
-            <Route path="/new-product" element={<NewProduct />} />
+            <>
+              <Route path="/new-product" element={<NewProduct />} />
+              <Route path="/admin" element={<TableAdmin />} />
+            </>
           )}
         </Routes>
       </Main>

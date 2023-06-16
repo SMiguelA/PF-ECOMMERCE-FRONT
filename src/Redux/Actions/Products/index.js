@@ -161,6 +161,24 @@ export const decreaseCart = (payload) => {
   };
 };
 
+export const deleteProduct = (payload) => {
+  return function (dispatch) {
+    const { product_id, user_id } = payload;
+    console.log(product_id, user_id, " esto es en el product actions");
+
+    //   axios
+    //     .post(`/products/decrease-cart`, { productId, price, userId })
+    //     .then((response) => {
+    //       const user = response.data;
+
+    //       dispatch({ type: DECREASE_CART, payload: user });
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+  };
+};
+
 export const increaseCart = (payload) => {
   return function (dispatch) {
     const { productId, price, userId } = payload;
