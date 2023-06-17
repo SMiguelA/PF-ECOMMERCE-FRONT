@@ -4,8 +4,7 @@ import {
   GET_USERS,
   LOGIN,
   LOGIN_GOOGLE,
-  LOGOUT,
-  RESTART_CART
+  LOGOUT
 } from "../../actionsTypes";
 
 export const getUsers = () => {
@@ -62,19 +61,29 @@ export const googleLogin = (token) => {
 }
 
 export const createOrder = (payload) => {
-  return {
-    type: CREATE_ORDER,
+  return function (dispatch) {
+    const { userId, cart, country, address } = payload;
+    console.log("antes de entrar a post orders");
+    axios
+      .post("/orders", { userId, cart, country, address })
+      .then((response) => {
+        const user = response.data;
+        dispatch({ type: CREATE_ORDER, payload: user });
+      })
+      .catch((error) => {
+        console.log(`Error ${error}`);
+      });
   };
 };
 
-export const restartCart = () => {
-  return async function (dispatch) {
-    try {
-      return dispatch({
-        type: RESTART_CART,
-      });
-    } catch (error) {
-      window.alert(error.response.data.Error);
-    }
-  };
-};
+// export const restartCart = () => {
+//   return async function (dispatch) {
+//     try {
+//       return dispatch({
+//         type: RESTART_CART,
+//       });
+//     } catch (error) {
+//       window.alert(error.response.data.Error);
+//     }
+//   };
+// };

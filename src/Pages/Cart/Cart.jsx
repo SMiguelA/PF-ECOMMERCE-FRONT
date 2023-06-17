@@ -47,8 +47,11 @@ function Cart() {
   function handleDecrease(product) {
     const { productId } = product;
     const quantity = user.cart[productId];
+
     if (quantity <= 0) return alert("Can't proceed");
-    dispatch(decreaseCart(product));
+    else {
+      dispatch(decreaseCart(product));
+    }
   }
 
   function handleIncrease(product) {
@@ -63,7 +66,6 @@ function Cart() {
     <div style={{ minHeight: "95vh" }} className="cart-container">
       <h1>Shopping cart</h1>
 
-      {console.log(cart, "cart antes del div")}
       {cart?.length ? (
         <div>
           <div>
@@ -138,7 +140,12 @@ function Cart() {
                           </button>
                         </span>
                       </td>
-                      <td>${item.price * user.cart[item._id || item.id]}</td>
+                      <td>
+                        $
+                        {Number(
+                          item.price * user.cart[item._id || item.id]
+                        ).toFixed(2)}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

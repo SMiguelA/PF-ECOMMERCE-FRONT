@@ -161,6 +161,24 @@ export const decreaseCart = (payload) => {
   };
 };
 
+export const deleteProduct = (payload) => {
+  return function (dispatch) {
+    const { product_id, user_id } = payload;
+    console.log(product_id, user_id, " esto es en el product actions");
+
+    //   axios
+    //     .post(`/products/decrease-cart`, { productId, price, userId })
+    //     .then((response) => {
+    //       const user = response.data;
+
+    //       dispatch({ type: DECREASE_CART, payload: user });
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+  };
+};
+
 export const increaseCart = (payload) => {
   return function (dispatch) {
     const { productId, price, userId } = payload;
@@ -169,7 +187,6 @@ export const increaseCart = (payload) => {
       .post(`/products/increase-cart`, { productId, price, userId })
       .then((response) => {
         const user = response.data;
-
         dispatch({ type: INCREASE_CART, payload: user });
       })
       .catch((error) => {
@@ -182,10 +199,13 @@ export const removeFromCart = (payload) => {
   return function (dispatch) {
     const { productId, price, userId } = payload;
 
+    console.log(price, "price en removeFromCart");
+
     axios
       .post(`/products/remove-from-cart`, { productId, price, userId })
       .then((response) => {
         const user = response.data;
+        console.log(user, "user en la consulta al back");
         dispatch({ type: REMOVE_FROM_CART, payload: user });
       })
       .catch((error) => {

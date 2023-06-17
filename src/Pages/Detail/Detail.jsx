@@ -13,8 +13,6 @@ export default function Detail() {
   const user = useSelector((state) => state.user);
   const [product, setProduct] = useState(null);
 
-  // console.log(id, "id en detail");
-
   useEffect(() => {
     axios.get(`/products/${id}`).then(({ data }) => {
       setProduct(data);
@@ -23,7 +21,6 @@ export default function Detail() {
 
   const { productId } = useSelector((state) => state);
   useEffect(() => {
-    console.log(id, "Entro al IF");
     if (id) {
       dispatch(getProductById(id));
     }
@@ -34,7 +31,6 @@ export default function Detail() {
   const handleAddToCart = (e) => {
     e.preventDefault();
     if (user && user._id) {
-      console.log(user._id, id, product.price, "user._id, id, product.price");
       // Check if user and user._id exist
       dispatch(
         addToCart({

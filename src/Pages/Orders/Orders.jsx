@@ -15,13 +15,11 @@ export default function Orders() {
     axios
       .get(`/users/${user._id}/orders`)
       .then(({ data }) => {
-        console.log(data);
         setLoading(false);
         setOrders(data);
       })
       .catch((e) => {
         setLoading(false);
-        console.log(e);
       });
   }, []);
 
