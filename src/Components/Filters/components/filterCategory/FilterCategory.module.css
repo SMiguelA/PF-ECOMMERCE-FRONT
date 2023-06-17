@@ -1,0 +1,43 @@
+.contenedor{
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    width: 80%;
+    align-items: start;
+    margin-left: 4.2%;
+}
+.contenedor span{
+    font-size: 1.4em;
+    font-weight: 500;
+    align-items: center;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+.categorias{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+}
+
+.categorias label{
+    padding-left: 1em;
+    cursor: pointer;
+}
+.inputs{
+    height: 1.5em;    
+    width: 1.5em;
+    cursor: pointer;
+    border-radius: 6px !important;
+    background-color: #151515;
+    outline: none;
+    appearance: none;
+}
+.inputs:hover{
+    border: 1px solid aliceblue;
+}
+.inputs:checked{
+    background-image: url('../../../../img/check.png');
+    background-size: cover;
+}

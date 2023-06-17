@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { getProducts } from "../../../../Redux/Actions";
+import style from './PriceFilter.module.css';
 
 const PriceFilter = ({ setFilterData, filterData }) => {
   const dispatch = useDispatch();
@@ -29,7 +30,6 @@ const PriceFilter = ({ setFilterData, filterData }) => {
         })
       }, 600)
     );
-
     if (!event.target.value) {
       dispatch(getProducts());
     }
@@ -53,22 +53,22 @@ const PriceFilter = ({ setFilterData, filterData }) => {
   };
 
   return (
-    <div>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <label style={{ marginRight: "10px" }}>
-          <input
-            type="number"
-            value={!minPrice2 ? "" : minPrice2}
-            onChange={handleMinPriceChange}
-            placeholder="Min Price..."
-          />
-          <input
-            type="number"
-            value={maxPrice2 == 99999 ? "" : maxPrice2 }
-            onChange={handleMaxPriceChange}
-            placeholder="Max Price..."
-          />
-        </label>
+    <div className={style.container}>
+      <span>Price (USD)</span>
+      <div className={style.containerInput}>
+        <input
+          type="number"
+          value={!minPrice2 ? "" : minPrice2}
+          onChange={handleMinPriceChange}
+          placeholder="Min"
+        />
+        -
+        <input
+          type="number"
+          value={maxPrice2 == 99999 ? "" : maxPrice2 }
+          onChange={handleMaxPriceChange}
+          placeholder="Max"
+        />
       </div>
     </div>
   );

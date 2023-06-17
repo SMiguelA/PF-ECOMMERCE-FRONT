@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Paginated } from "../../Components";
 import Filters from "../../Components/Filters/Filters";
+import { ActiveFilters } from "../../Pages/Store/Components/ActiveFilters";
 import Cards from "../../Pages/Store/Components/Cards";
 import styles from "./styles.module.css";
 // import { useSelector } from "react-redux";
@@ -35,6 +36,7 @@ export const BodyView = () => {
                 paginated={paginated}
               />
         </div>
+        <ActiveFilters />
         <div className={styles.containerCards}>
           {currentProducts && currentProducts.length > 0 && (
             <Cards products={currentProducts} />
