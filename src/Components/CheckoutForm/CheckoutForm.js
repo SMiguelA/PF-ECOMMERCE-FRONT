@@ -46,14 +46,19 @@ function CheckoutForm() {
         await dispatch(
           createOrder({ userId: user._id, cart: user.cart, address, country })
         );
-        setAlertMessage(`Payment ${paymentIntent.status}`);
 
+        setAlertMessage(`Payment ${paymentIntent.status}`);
+        window.alert("Payment succesfull");
         setTimeout(() => {
           navigate("/orders");
         }, 3000);
       } catch (error) {
         console.error("Error creating order:", error);
       }
+    } else {
+      window.alert(
+        "There was an error processing the payment, check your card details"
+      );
     }
   }
 
