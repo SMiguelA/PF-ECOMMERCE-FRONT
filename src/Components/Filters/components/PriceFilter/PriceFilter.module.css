@@ -1,0 +1,38 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    width: 80%;
+    align-items: center;
+    margin-left: 4%;
+}
+
+.container span{
+    font-size: 1.4em;
+    font-weight: 500;
+    margin-bottom: 0.5em;
+}
+
+.container input{
+    width: 20%;
+    height: 2em;
+    outline: none;
+    padding-left: 1em;
+    font-size: 1em;
+    font-size: 1em;
+    color: aliceblue;
+    border: none;
+    background-color: #151515;
+    display: inline;
+}
+
+.containerInput{
+    justify-content: space-around;
+    display: flex;
+}
+
+.container input[type="number"]::-webkit-inner-spin-button,
+.container input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

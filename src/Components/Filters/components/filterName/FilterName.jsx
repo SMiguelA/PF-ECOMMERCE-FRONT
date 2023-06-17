@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { activeFilterName } from '../../../../Redux/Actions';
+import style from './FilterName.module.css';
 
 export const FilterName = ({ setFilterData, filterData }) => {
 
@@ -26,13 +28,15 @@ export const FilterName = ({ setFilterData, filterData }) => {
                     ...filterData,
                     name:product
                 })
+                dispatch(activeFilterName(product))
             }, 400)
-        );
+            );
         
     }, [product]);
 
     return (
-        <div className="filter">
+        <div className={style.container}>
+            <span>Name of the product</span>
             <input
             type="text"
             value={product}

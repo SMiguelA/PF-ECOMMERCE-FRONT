@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import style from './FilterPlatform.module.css';
 
 export const FilterPlatform = ({ setFilterData, filterData }) => {
 
@@ -31,10 +32,12 @@ export const FilterPlatform = ({ setFilterData, filterData }) => {
     };
 
     return (
-        <div>
+        <div className={style.contenedor}>
+            <span>Platform</span>
             {arrayPlatform.map((platform) => (
-            <div className="checkbox" key={platform}>
+            <div key={platform} className={style.categorias}>
                 <input
+                className={style.inputs}
                 type="checkbox"
                 id={platform}
                 name={platform}

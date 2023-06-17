@@ -1,12 +1,15 @@
 import axios from "../../../axios";
 
 import {
+  ACTIVE_PRODUCTS_CATEGORY,
+  ACTIVE_PRODUCTS_NAME,
+  ACTIVE_PRODUCTS_PLATFORM,
+  ACTIVE_PRODUCTS_PRICE,
   ADD_TO_CART,
   CREATE_PRODUCT,
   DECREASE_CART,
   DELETE_PRODUCT_BY_ID,
   FILTER_PRODUCTS,
-  FILTER_PRODUCTS_BY_CATEGORY,
   FILTER_PRODUCTS_BY_GENDER,
   FILTER_PRODUCTS_BY_TYPE,
   FILTER_PRODUCT_BY_PRICE,
@@ -15,7 +18,7 @@ import {
   GET_PRODUCT_BY_NAME,
   INCREASE_CART,
   REMOVE_FROM_CART,
-  SIGNUP,
+  SIGNUP
 } from "../../actionsTypes.js";
 
 export const getProducts = () => {
@@ -48,9 +51,30 @@ export const filterProducts = (filters) => {
   };
 };
 
-export const filterProductsByCategory = (payload) => {
+export const activeFilterName = (payload) => {
   return {
-    type: FILTER_PRODUCTS_BY_CATEGORY,
+    type: ACTIVE_PRODUCTS_NAME,
+    payload,
+  };
+};
+
+export const activeFilterPlatform = (payload) => {
+  return {
+    type: ACTIVE_PRODUCTS_PLATFORM,
+    payload,
+  };
+};
+
+export const activeFilterPrice = (payload) => {
+  return {
+    type: ACTIVE_PRODUCTS_PRICE,
+    payload,
+  };
+};
+
+export const activeFilterCategory = (payload) => {
+  return {
+    type: ACTIVE_PRODUCTS_CATEGORY,
     payload,
   };
 };
