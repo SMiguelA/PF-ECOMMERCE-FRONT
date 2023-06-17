@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 
-import { createOrder, restartCart } from "../../Redux/Actions";
+import { createOrder } from "../../Redux/Actions";
 
 function CheckoutForm() {
   const stripe = useStripe();
@@ -47,8 +47,6 @@ function CheckoutForm() {
           createOrder({ userId: user._id, cart: user.cart, address, country })
         );
         setAlertMessage(`Payment ${paymentIntent.status}`);
-
-        dispatch(restartCart());
 
         setTimeout(() => {
           navigate("/orders");
