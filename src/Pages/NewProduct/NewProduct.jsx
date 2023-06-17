@@ -46,7 +46,6 @@ export default function NewProduct() {
     }
 
     //Aca el dispatch de create product
-    console.log(name, description, price, category, platform, pictures);
 
     dispatch(
       createProduct(name, description, price, category, platform, pictures)
