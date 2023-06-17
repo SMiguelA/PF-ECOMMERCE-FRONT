@@ -1,7 +1,7 @@
 .Container {
   background-color: #3A3A3A;
   display: flex;
-  margin-top: 10em;
+  margin-top: 3em;
   flex-direction: column;
   justify-content: center;
   border-radius: 8px;
