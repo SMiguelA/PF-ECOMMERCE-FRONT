@@ -1,12 +1,12 @@
 import { GoogleLogin } from '@react-oauth/google'
-import React from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { googleLogin } from '../../Redux/Actions'
 
 
 export default function LoginGoogle() {
    const dispatch = useDispatch()
-   
+
     function handleError(){
         console.log("failed Login")
     }
@@ -14,6 +14,7 @@ export default function LoginGoogle() {
     function handleSuccess( CredentialResponse){
       // console.log(CredentialResponse);
         dispatch(googleLogin(CredentialResponse.credential))
+        
     }
 
   return (

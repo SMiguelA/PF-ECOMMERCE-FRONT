@@ -85,12 +85,7 @@ text-align: center;
     padding-top: 1rem;
   }
   
-  .line {
-    height: 1px;
-    flex: 1 1 0%;
-    background-color: rgba(55, 65, 81, 1);
-  }
-  
+
   .social_message .message {
     padding-left: 0.75rem;
     padding-right: 0.75rem;

@@ -1,16 +1,25 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { DivContainerForm, DivForm , StyledLink} from "../../ComponentsStyles";
 import { signup } from "../../Redux/Actions";
-import style from "./Signup.module.css";
+import { LoginGoogle } from "../../Components";
+import styles from "./Signup.module.css";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  const {user} = useSelector((state) => state)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+
+
+  useEffect(() => {
+    if(user){
+      navigate("/")
+    }
+},[user])
 
   function handleSignup(e) {
     e.preventDefault();
@@ -18,22 +27,24 @@ function Signup() {
   }
 
   return (
-    <div className={style.Container}>
+    <DivContainerForm>
+      <DivForm>
+    
       <h1>Create an account</h1>
-      <form style={{ width: "100%" }} onSubmit={handleSignup}>
-        <div>
-          <label>Name</label>
+      <form className={styles.formhtml} onSubmit={handleSignup}>
+        <div className={styles.inputGroup}>
+        <label htmlFor="name">Name</label>
           <input
             type="text"
-            placeholder="Your name"
+            placeholder="Name..."
             value={name}
             required
             onChange={(e) => setName(e.target.value)}
           />
         </div>
 
-        <div>
-          <label>Email</label>
+        <div className={styles.inputGroup}>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             placeholder="Enter email"
@@ -43,8 +54,8 @@ function Signup() {
           />
         </div>
 
-        <div>
-          <label>Password</label>
+        <div className={styles.inputGroup}>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             placeholder="Enter password"
@@ -54,15 +65,20 @@ function Signup() {
           />
         </div>
 
-        <div>
+        <div className={styles.sign}>
           <button type="submit">Create Account</button>
         </div>
       </form>
-
-      <p className="pt-3 text-center">
-        Don't have an account? <Link to="/login">Login</Link>{" "}
+      <div className={styles.social_message}>
+          <p className={styles.message}>Register with social account</p>
+        </div>
+        <LoginGoogle/>
+      <p className={styles.signup}>
+        You have an account? <StyledLink to="/login">Login</StyledLink>
       </p>
-    </div>
+    
+    </DivForm>
+    </DivContainerForm>
   );
 }
 

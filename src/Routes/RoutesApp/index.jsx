@@ -10,6 +10,8 @@ import NewProduct from "../../Pages/NewProduct/NewProduct";
 import Orders from "../../Pages/Orders/Orders";
 import Signup from "../../Pages/Signup/Signup";
 import Store from "../../Pages/Store/Store";
+import RutaUser from "../RutasProtegidas/RutaUser";
+import RutaAdmin from "../RutasProtegidas/RutaAdmin";
 
 function RoutesMain() {
   const user = useSelector((state) => state.user);
@@ -24,7 +26,7 @@ function RoutesMain() {
       }}
     >
       {location.pathname !== "/login" &&
-        location.pathname !== "/register_user" && (
+        location.pathname !== "/signup" && (
           <Aside>
             <Navbar />
           </Aside>
@@ -38,27 +40,18 @@ function RoutesMain() {
             </Route>
             <Route />
           </Route>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
 
-          {!user && (
-            <>
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/logout" element={<Home />} />
-              <Route path="/register_user" element={<Signup />} />
-            </>
-          )}
+          <Route element={<RutaUser />}>
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/orders" element={<Orders />} />
+            {/* <Route path="/logout" element={<Home />} /> */}
+          </Route>
 
-          {user && (
-            <>
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/orders" element={<Orders />} />
-              <Route path="/logout" element={<Home />} />
-            </>
-          )}
-
-          {user && user.isAdmin && (
+          <Route element={<RutaAdmin/>}>
             <Route path="/new-product" element={<NewProduct />} />
-          )}
+          </Route>
         </Routes>
       </Main>
     </div>

@@ -5,30 +5,37 @@ import styles from "./Login.module.css"
 import { useEffect } from "react";
 import { DivContainerForm, DivForm, StyledLink } from "../../ComponentsStyles";
 import { login } from "../../Redux/Actions";
-import { LoginGoogle } from "../../Components";
+import { LoadingForm, LoginGoogle } from "../../Components";
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
-
+  const {user} = useSelector((state) => state)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {}, [user, navigate]);
+
+  useEffect(() => {
+       if(user){
+         navigate("/")
+       }
+  },[user])
+
 
   const handleLogin = (e) => {
     e.preventDefault();
-    navigate("/store");
 
-    alert("Login normal");
     dispatch(login({ email, password }));
   };
 
 
 
   return (
+    
+    
     <DivContainerForm>
+      {/* <LoadingForm/> */}
+      
       <DivForm>
         <p className={styles.title}>Inicia sesión</p>
         <form className={styles.formhtml} onSubmit={handleLogin}>
@@ -66,7 +73,7 @@ function Login() {
         <LoginGoogle/>
 
 <p className={styles.signup}>Don't have an account?
-<StyledLink to="/register_user">
+<StyledLink to="/signup">
   <b >Sign up</b>
 </StyledLink>
 		
