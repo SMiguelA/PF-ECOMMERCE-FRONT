@@ -36,11 +36,11 @@ export default function Filters() {
   return (
     <div className="Container">
       <FilterName setFilterData={setFilterData} filterData={filterData}/>
-
+      <hr />
       <PriceFilter setFilterData={setFilterData} filterData={filterData}/>
-
+      <hr />
       <FilterCategory setFilterData={setFilterData} filterData={filterData}/>
-
+      <hr />
       <FilterPlatform setFilterData={setFilterData} filterData={filterData}/>
     </div>
   );

@@ -54,19 +54,22 @@ const PriceFilter = ({ setFilterData, filterData }) => {
 
   return (
     <div className={style.container}>
-      <span>FILTRO DE PRECIO</span>
-      <input
-        type="number"
-        value={!minPrice2 ? "" : minPrice2}
-        onChange={handleMinPriceChange}
-        placeholder="Min Price..."
-      />
-      <input
-        type="number"
-        value={maxPrice2 == 99999 ? "" : maxPrice2 }
-        onChange={handleMaxPriceChange}
-        placeholder="Max Price..."
-      />
+      <span>Price (USD)</span>
+      <div className={style.containerInput}>
+        <input
+          type="number"
+          value={!minPrice2 ? "" : minPrice2}
+          onChange={handleMinPriceChange}
+          placeholder="Min"
+        />
+        -
+        <input
+          type="number"
+          value={maxPrice2 == 99999 ? "" : maxPrice2 }
+          onChange={handleMaxPriceChange}
+          placeholder="Max"
+        />
+      </div>
     </div>
   );
 };

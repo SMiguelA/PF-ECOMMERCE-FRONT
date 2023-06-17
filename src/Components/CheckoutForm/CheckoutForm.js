@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 
-import { createOrder, restartCart } from "../../Redux/Actions";
+import { createOrder } from "../../Redux/Actions";
 
 function CheckoutForm() {
   const stripe = useStripe();
@@ -21,8 +21,6 @@ function CheckoutForm() {
     e.preventDefault();
     if (!stripe || !elements || user.cart.count <= 0) return;
     setPaying(true);
-    console.log("user.cart.count", user.cart.count);
-    console.log("user.cart.total", user.cart.total);
     const { client_secret } = await fetch(
       "http://localhost:3001/create-payment",
       {
@@ -50,8 +48,6 @@ function CheckoutForm() {
         );
         setAlertMessage(`Payment ${paymentIntent.status}`);
 
-        dispatch(restartCart());
-
         setTimeout(() => {
           navigate("/orders");
         }, 3000);
@@ -61,7 +57,6 @@ function CheckoutForm() {
     }
   }
 
-  console.log(user);
   return (
     <div className="cart-payment-container">
       <form onSubmit={handlePay}>
