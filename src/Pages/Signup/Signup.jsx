@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DivContainerForm, DivForm , StyledLink} from "../../ComponentsStyles";
-import { signup } from "../../Redux/Actions";
-import { LoginGoogle } from "../../Components";
+import { signup ,LoadingActionForm} from "../../Redux/Actions";
+import { LoadingForm, LoginGoogle } from "../../Components";
 import styles from "./Signup.module.css";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {user} = useSelector((state) => state)
+  const {user, loadingLoagin_Register} = useSelector((state) => state)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -17,17 +17,28 @@ function Signup() {
 
   useEffect(() => {
     if(user){
+     setTimeout(() => {
+       dispatch(LoadingActionForm(false))
       navigate("/")
+     }, 500);
+     
     }
 },[user])
 
   function handleSignup(e) {
     e.preventDefault();
+    dispatch(LoadingActionForm(true))
     dispatch(signup({ name, email, password }));
   }
 
   return (
     <DivContainerForm>
+       {
+      loadingLoagin_Register &&
+      <div className={styles.loading}>
+      <LoadingForm />
+      </div>
+      }
       <DivForm>
     
       <h1>Create an account</h1>

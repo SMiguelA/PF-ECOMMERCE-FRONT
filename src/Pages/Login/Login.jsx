@@ -4,27 +4,31 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css"
 import { useEffect } from "react";
 import { DivContainerForm, DivForm, StyledLink } from "../../ComponentsStyles";
-import { login } from "../../Redux/Actions";
+import { login,LoadingActionForm } from "../../Redux/Actions";
 import { LoadingForm, LoginGoogle } from "../../Components";
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {user} = useSelector((state) => state)
+  const {user, loadingLoagin_Register} = useSelector((state) => state)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
 
   useEffect(() => {
        if(user){
+        setTimeout(() => {
+          dispatch(LoadingActionForm(false))
          navigate("/")
+        }, 500);
+        
        }
   },[user])
 
 
   const handleLogin = (e) => {
     e.preventDefault();
-
+    dispatch(LoadingActionForm(true))
     dispatch(login({ email, password }));
   };
 
@@ -34,7 +38,12 @@ function Login() {
     
     
     <DivContainerForm>
-      {/* <LoadingForm/> */}
+      {
+      loadingLoagin_Register &&
+      <div className={styles.loading}>
+      <LoadingForm />
+      </div>
+      }
       
       <DivForm>
         <p className={styles.title}>Inicia sesión</p>

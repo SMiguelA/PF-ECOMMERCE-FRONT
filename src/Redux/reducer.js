@@ -18,6 +18,7 @@ import {
   GET_PRODUCT_BY_NAME,
   GET_USERS,
   INCREASE_CART,
+  LOADINGFORM,
   LOGIN,
   LOGIN_GOOGLE,
   LOGOUT,
@@ -38,6 +39,7 @@ const initialState = {
   user: null,
   productId: [],
   cart: [],
+  loadingLoagin_Register:false
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -57,7 +59,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         products: payload,
       };
-    
+    case LOADINGFORM:
+      return{
+        ...state,
+        loadingLoagin_Register:payload
+      }
     case ACTIVE_PRODUCTS_NAME:
       return{
         ...state,
