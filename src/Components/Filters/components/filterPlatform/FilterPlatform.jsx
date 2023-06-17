@@ -32,6 +32,7 @@ export const FilterPlatform = ({ setFilterData, filterData }) => {
 
     return (
         <div>
+            <span>FILTRO DE PLATAFORMA</span>
             {arrayPlatform.map((platform) => (
             <div className="checkbox" key={platform}>
                 <input

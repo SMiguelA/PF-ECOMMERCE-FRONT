@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import {
-  filterProducts,
+  activeFilterCategory,
+  activeFilterPlatform,
+  activeFilterPrice,
+  filterProducts
 } from "../../Redux/Actions";
 
 import "./Filters.css";
@@ -23,29 +26,22 @@ export default function Filters() {
 
   useEffect(() => {
     dispatch(filterProducts(filterData))
+    setTimeout(() => {
+      dispatch(activeFilterPrice(filterData.filterPrice))
+      dispatch(activeFilterCategory(filterData.filterCategory))
+      dispatch(activeFilterPlatform(filterData.filterPlatform))
+    },150)
   },[filterData])
 
   return (
     <div className="Container">
-      <div>
-        <span>FILTRO POR NAME</span>
-        <FilterName setFilterData={setFilterData} filterData={filterData}/>
-      </div>
+      <FilterName setFilterData={setFilterData} filterData={filterData}/>
 
-      <div className="filter">
-        <span>FILTRO DE PRECIO</span>
-        <PriceFilter setFilterData={setFilterData} filterData={filterData}/>
-      </div>
+      <PriceFilter setFilterData={setFilterData} filterData={filterData}/>
 
-      <div className="filterType">
-        <span>FILTRO DE CATEGORIA</span>
-        <FilterCategory setFilterData={setFilterData} filterData={filterData}/>
-      </div>
+      <FilterCategory setFilterData={setFilterData} filterData={filterData}/>
 
-      <div className="filterType">
-        <span>FILTRO DE PLATAFORMA</span>
-        <FilterPlatform setFilterData={setFilterData} filterData={filterData}/>
-      </div>
+      <FilterPlatform setFilterData={setFilterData} filterData={filterData}/>
     </div>
   );
 }

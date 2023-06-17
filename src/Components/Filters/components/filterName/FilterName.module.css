@@ -1,0 +1,31 @@
+
+
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: 0 1em;
+    align-items: center;
+}
+
+.container span{
+    font-size: 1.4em;
+    font-weight: 500;
+    margin-bottom: 0.5em;
+}
+
+.container input{
+    width: 70%;
+    height: 2em;
+    outline: none;
+    padding-left: 1em;
+    padding-right: 2em;
+    font-size: 1em;
+    background-image: url('../../../../img/lupa.png');
+    font-size: 1em;
+    background-repeat: no-repeat;
+    background-position: 12.5em;
+    color: aliceblue;
+    background-size: 20px;
+    border: none;
+    background-color: #151515;
+}

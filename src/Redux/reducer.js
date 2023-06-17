@@ -1,4 +1,8 @@
 import {
+  ACTIVE_PRODUCTS_CATEGORY,
+  ACTIVE_PRODUCTS_NAME,
+  ACTIVE_PRODUCTS_PLATFORM,
+  ACTIVE_PRODUCTS_PRICE,
   ADD_TO_CART,
   CREATE_ORDER,
   CREATE_PRODUCT,
@@ -18,11 +22,17 @@ import {
   LOGOUT,
   REMOVE_FROM_CART,
   RESTART_CART,
-  SIGNUP,
+  SIGNUP
 } from "./actionsTypes";
 
 const initialState = {
   products: [],
+  filters:{
+    name:'',
+    price:'',
+    category:[],
+    platform:[]
+  },
   allProducts: [],
   users: [],
   user: null,
@@ -43,6 +53,44 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         products: payload,
       };
+    
+    case ACTIVE_PRODUCTS_NAME:
+      return{
+        ...state,
+        filters:{
+          ...state.filters,
+          name:payload
+        }
+      }
+    case ACTIVE_PRODUCTS_CATEGORY:
+      const dataFilter = payload.split('-')
+      return{
+        ...state,
+        filters:{
+          ...state.filters,
+          category:dataFilter
+        }
+      }
+    
+    case ACTIVE_PRODUCTS_PLATFORM:
+      const dataFilterCategory = payload.split('-')
+      return{
+        ...state,
+        filters:{
+          ...state.filters,
+          platform:dataFilterCategory
+        }
+      }
+
+    case ACTIVE_PRODUCTS_PRICE:
+      if(payload.endsWith('99999')) payload = payload.replace('-99999', '');
+      return{
+        ...state,
+        filters:{
+          ...state.filters,
+          price:payload
+        }
+      }
 
     case GET_PRODUCTS:
       localStorage.setItem("allProducts", JSON.stringify(payload));
