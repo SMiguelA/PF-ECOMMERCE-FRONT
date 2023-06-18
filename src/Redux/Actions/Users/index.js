@@ -1,5 +1,11 @@
 import axios from "../../../axios";
-import { CREATE_ORDER, GET_USERS, LOGIN, LOGOUT } from "../../actionsTypes";
+import {
+  CREATE_ORDER,
+  GET_USERS,
+  LOGIN,
+  LOGIN_GOOGLE,
+  LOGOUT
+} from "../../actionsTypes";
 
 export const getUsers = () => {
   return function (dispatch) {
@@ -36,6 +42,23 @@ export const login = (payload) => {
       });
   };
 };
+
+export const googleLogin = (token) => {
+  return function (dispatch){
+    axios.post("users/check-google-email",null,
+    {headers:{Authorization:`Bearer ${token}`}}
+    ).then(response => {
+      const user = response.data;
+      dispatch({
+        type:LOGIN_GOOGLE,
+        payload:user
+      })
+    })
+    .catch(error => {
+      console.error(error)
+    })
+  }
+}
 
 export const createOrder = (payload) => {
   return function (dispatch) {
