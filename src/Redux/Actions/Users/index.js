@@ -3,8 +3,8 @@ import {
   CREATE_ORDER,
   GET_USERS,
   LOGIN,
-  LOGOUT,
-  RESTART_CART,
+  LOGIN_GOOGLE,
+  LOGOUT
 } from "../../actionsTypes";
 
 export const getUsers = () => {
@@ -43,20 +43,47 @@ export const login = (payload) => {
   };
 };
 
+export const googleLogin = (token) => {
+  return function (dispatch){
+    axios.post("users/check-google-email",null,
+    {headers:{Authorization:`Bearer ${token}`}}
+    ).then(response => {
+      const user = response.data;
+      dispatch({
+        type:LOGIN_GOOGLE,
+        payload:user
+      })
+    })
+    .catch(error => {
+      console.error(error)
+    })
+  }
+}
+
 export const createOrder = (payload) => {
-  return {
-    type: CREATE_ORDER,
+  return function (dispatch) {
+    const { userId, cart, country, address } = payload;
+    console.log("antes de entrar a post orders");
+    axios
+      .post("/orders", { userId, cart, country, address })
+      .then((response) => {
+        const user = response.data;
+        dispatch({ type: CREATE_ORDER, payload: user });
+      })
+      .catch((error) => {
+        console.log(`Error ${error}`);
+      });
   };
 };
 
-export const restartCart = () => {
-  return async function (dispatch) {
-    try {
-      return dispatch({
-        type: RESTART_CART,
-      });
-    } catch (error) {
-      window.alert(error.response.data.Error);
-    }
-  };
-};
+// export const restartCart = () => {
+//   return async function (dispatch) {
+//     try {
+//       return dispatch({
+//         type: RESTART_CART,
+//       });
+//     } catch (error) {
+//       window.alert(error.response.data.Error);
+//     }
+//   };
+// };

@@ -1,6 +1,7 @@
 import { AiFillAppstore, AiFillFire } from "react-icons/ai";
 import { CgList, CgShoppingCart } from "react-icons/cg";
 import { FaUserFriends } from "react-icons/fa";
+import { GrUserAdmin } from "react-icons/gr";
 import { HiHome } from "react-icons/hi";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
 import { MdCreateNewFolder } from "react-icons/md";
@@ -18,12 +19,8 @@ export default function Navbar() {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    console.log("entró al handleLogout");
-
     // Llama a la acción de Redux para cerrar sesión
     dispatch(logoutUser());
-
-    console.log("hizo dispatch de logout usr");
 
     // Borra el usuario del localStorage
     localStorage.removeItem("user");
@@ -107,16 +104,24 @@ export default function Navbar() {
         <div className={styles.secondChildLink}>
           <ul style={{ listStyle: "none" }}>
             {user.isAdmin && (
-              <StyledLink to="/new-product">
-                <li>
-                  <MdCreateNewFolder
-                    size={25}
-                    style={{ marginBottom: "5px" }}
-                    className={styles.iconsNav}
-                  />{" "}
-                  New Products
-                </li>
-              </StyledLink>
+              <>
+                <StyledLink to="/admin">
+                  <li>
+                    <GrUserAdmin size={25} style={{ marginBottom: "5px" }} />{" "}
+                    Admin
+                  </li>
+                </StyledLink>
+                <StyledLink to="/new-product">
+                  <li>
+                    <MdCreateNewFolder
+                      size={25}
+                      style={{ marginBottom: "5px" }}
+                      className={styles.iconsNav}
+                    />{" "}
+                    New Products
+                  </li>
+                </StyledLink>
+              </>
             )}
             <StyledLink to="/orders">
               <li>

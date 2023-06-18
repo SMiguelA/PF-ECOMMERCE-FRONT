@@ -1,4 +1,8 @@
 import {
+  ACTIVE_PRODUCTS_CATEGORY,
+  ACTIVE_PRODUCTS_NAME,
+  ACTIVE_PRODUCTS_PLATFORM,
+  ACTIVE_PRODUCTS_PRICE,
   ADD_TO_CART,
   CREATE_ORDER,
   CREATE_PRODUCT,
@@ -14,20 +18,28 @@ import {
   GET_PRODUCT_BY_NAME,
   GET_USERS,
   INCREASE_CART,
+  LOADINGFORM,
   LOGIN,
+  LOGIN_GOOGLE,
   LOGOUT,
   REMOVE_FROM_CART,
-  RESTART_CART,
-  SIGNUP,
+  SIGNUP
 } from "./actionsTypes";
 
 const initialState = {
   products: [],
+  filters:{
+    name:'',
+    price:'',
+    category:[],
+    platform:[]
+  },
   allProducts: [],
   users: [],
   user: null,
   productId: [],
   cart: [],
+  loadingLoagin_Register:false
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -37,12 +49,58 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         users: payload,
       };
-
+    case LOGIN_GOOGLE:
+      return {
+        ...state,
+        user:payload
+      }
     case FILTER_PRODUCTS:
       return {
         ...state,
         products: payload,
       };
+    case LOADINGFORM:
+      return{
+        ...state,
+        loadingLoagin_Register:payload
+      }
+    case ACTIVE_PRODUCTS_NAME:
+      return{
+        ...state,
+        filters:{
+          ...state.filters,
+          name:payload
+        }
+      }
+    case ACTIVE_PRODUCTS_CATEGORY:
+      const dataFilter = payload.split('-')
+      return{
+        ...state,
+        filters:{
+          ...state.filters,
+          category:dataFilter
+        }
+      }
+    
+    case ACTIVE_PRODUCTS_PLATFORM:
+      const dataFilterCategory = payload.split('-')
+      return{
+        ...state,
+        filters:{
+          ...state.filters,
+          platform:dataFilterCategory
+        }
+      }
+
+    case ACTIVE_PRODUCTS_PRICE:
+      if(payload.endsWith('99999')) payload = payload.replace('-99999', '');
+      return{
+        ...state,
+        filters:{
+          ...state.filters,
+          price:payload
+        }
+      }
 
     case GET_PRODUCTS:
       localStorage.setItem("allProducts", JSON.stringify(payload));
@@ -143,16 +201,21 @@ const rootReducer = (state = initialState, { type, payload }) => {
         },
       };
 
-    case RESTART_CART:
+    // case RESTART_CART:
+    //   return {
+    //     ...state,
+    //     user: {
+    //       ...state.user,
+    //       cart: {
+    //         total: 0,
+    //         count: 0,
+    //       },
+    //     },
+    //   };
+    case CREATE_ORDER:
       return {
         ...state,
-        user: {
-          ...state.user,
-          cart: {
-            total: 0,
-            count: 0,
-          },
-        },
+        user: payload,
       };
 
     case DECREASE_CART:

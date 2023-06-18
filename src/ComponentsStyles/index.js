@@ -69,6 +69,7 @@ top: 5em;
 display: flex;
 height: 100%;
 width: 15%;
+font-weight: 700;
 flex-direction: column;
 -webkit-box-align: center;
 align-items: center;

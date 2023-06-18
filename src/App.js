@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       {location.pathname !== "/login" &&
-        location.pathname !== "/register_user" && (
+        location.pathname !== "/signup" && (
           <div className="Header">
             <Header />
           </div>
@@ -19,7 +19,7 @@ function App() {
         <RoutesMain />
       </div>
       {location.pathname !== "/login" &&
-        location.pathname !== "/register_user" && (
+        location.pathname !== "/signup" && (
           <div className="Footer">
             <Footer />
           </div>

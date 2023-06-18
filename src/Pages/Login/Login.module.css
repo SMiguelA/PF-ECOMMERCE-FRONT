@@ -85,12 +85,7 @@ text-align: center;
     padding-top: 1rem;
   }
   
-  .line {
-    height: 1px;
-    flex: 1 1 0%;
-    background-color: rgba(55, 65, 81, 1);
-  }
-  
+
   .social_message .message {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
@@ -133,4 +128,16 @@ text-align: center;
     line-height: 1rem;
     color: rgba(156, 163, 175, 1);
     margin-bottom: 20px;
+  }
+
+  .loading {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border:2px solid red; */
+    background-color: rgba(0, 0, 0, 0.5); /* Opacidad del 70% */
+    z-index: 1;
+    width: 99%;
+    height: 100%;
   }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import style from './FilterCategory.module.css';
 
 export const FilterCategory = ({ setFilterData, filterData }) => {
 
@@ -31,17 +32,19 @@ export const FilterCategory = ({ setFilterData, filterData }) => {
     };
 
     return (
-        <div>
+        <div className={style.contenedor}>
+            <span>Category</span>
             {arrayCategory.map((category) => (
-                <div className="checkbox" key={category}>
+                <div key={category} className={style.categorias}>
                 <input
+                    className={style.inputs}
                     type="checkbox"
                     id={category}
                     name={category}
                     checked={isChecked[category] || false}
                     onChange={handleCheckboxChange}
                 />
-                <label htmlFor={category}>{category}</label>
+                <label htmlFor={category} className='label'>{category}</label>
                 </div>
             ))}
         </div>
