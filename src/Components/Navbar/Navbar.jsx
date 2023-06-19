@@ -11,24 +11,30 @@ import { Nav, StyledLink } from "../../ComponentsStyles";
 import styles from "./Navbar.module.css";
 
 import { logoutUser } from "../../Redux/Actions";
+import { useState } from "react";
 
 export default function Navbar() {
   const user = useSelector((state) => state.user);
-
+  const [userLogin, setUserLogin] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     // Llama a la acción de Redux para cerrar sesión
     dispatch(logoutUser());
-
     // Borra el usuario del localStorage
     localStorage.removeItem("user");
-
     // Redirige al usuario a la página de inicio
-    navigate("/logout");
+    navigate("/");
   };
 
+  const handleMenuUser = () => {
+    if (userLogin) {
+      setUserLogin(false);
+    } else {
+      setUserLogin(true);
+    }
+  };
   return (
     <div className={styles.containerLink}>
       <div className={styles.firstchildLink}>
@@ -102,50 +108,69 @@ export default function Navbar() {
 
       {user && (
         <div className={styles.secondChildLink}>
-          <ul style={{ listStyle: "none" }}>
-            {user.isAdmin && (
-              <>
-                <StyledLink to="/admin">
-                  <li>
-                    <GrUserAdmin size={25} style={{ marginBottom: "5px" }} />{" "}
-                    Admin
-                  </li>
-                </StyledLink>
-                <StyledLink to="/new-product">
-                  <li>
-                    <MdCreateNewFolder
-                      size={25}
-                      style={{ marginBottom: "5px" }}
-                      className={styles.iconsNav}
-                    />{" "}
-                    New Products
-                  </li>
-                </StyledLink>
-              </>
+          <div className={styles.containerPerfiluser}>
+            <div onClick={handleMenuUser} className={styles.menuUser}>
+              {user.image !== undefined ? (
+                <img src={user.image} alt="PerfilLogo" />
+              ) : (
+                <p>{user.name[0]}</p>
+              )}
+            </div>
+          </div>
+
+          <div className={styles.containerUser}>
+            {userLogin && (
+              <div className={styles.OpenMenuUser}>
+                <ul style={{ listStyle: "none" }}>
+                  {user.isAdmin && (
+                    <>
+                      <StyledLink to="/admin">
+                        <li>
+                          <GrUserAdmin
+                            size={25}
+                            style={{ marginBottom: "5px" }}
+                          />{" "}
+                          Admin
+                        </li>
+                      </StyledLink>
+                      <StyledLink to="/new-product">
+                        <li>
+                          <MdCreateNewFolder
+                            size={25}
+                            style={{ marginBottom: "5px" }}
+                            className={styles.iconsNav}
+                          />{" "}
+                          New Products
+                        </li>
+                      </StyledLink>
+                    </>
+                  )}
+                  <StyledLink to="/orders">
+                    <li>
+                      <CgList
+                        size={25}
+                        style={{ marginBottom: "5px" }}
+                        className={styles.iconsNav}
+                      />{" "}
+                      Orders
+                    </li>
+                  </StyledLink>{" "}
+                  <StyledLink to="/">
+                    <li onClick={handleLogout}>
+                      
+                        <LuLogOut
+                          size={25}
+                          style={{ marginBottom: "5px" }}
+                          className={styles.iconsNav}
+                        />
+                        Logout
+                      
+                    </li>
+                  </StyledLink>
+                </ul>
+              </div>
             )}
-            <StyledLink to="/orders">
-              <li>
-                <CgList
-                  size={25}
-                  style={{ marginBottom: "5px" }}
-                  className={styles.iconsNav}
-                />{" "}
-                Orders
-              </li>
-            </StyledLink>{" "}
-            <StyledLink to="/">
-              <li>
-                <span onClick={handleLogout}>
-                  <LuLogOut
-                    size={25}
-                    style={{ marginBottom: "5px" }}
-                    className={styles.iconsNav}
-                  />{" "}
-                  LogoutTTT
-                </span>
-              </li>
-            </StyledLink>
-          </ul>
+          </div>
         </div>
       )}
     </div>
