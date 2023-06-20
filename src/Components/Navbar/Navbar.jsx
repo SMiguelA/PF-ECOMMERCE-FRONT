@@ -10,8 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { Nav, StyledLink } from "../../ComponentsStyles";
 import styles from "./Navbar.module.css";
 
-import { logoutUser } from "../../Redux/Actions";
 import { useState } from "react";
+import { logoutUser } from "../../Redux/Actions";
 
 export default function Navbar() {
   const user = useSelector((state) => state.user);
@@ -143,6 +143,16 @@ export default function Navbar() {
                           New Products
                         </li>
                       </StyledLink>
+                      <StyledLink to="/orders-admin">
+                        <li>
+                          <CgList
+                            size={25}
+                            style={{ marginBottom: "5px" }}
+                            className={styles.iconsNav}
+                          />{" "}
+                          Orders ADMIN
+                        </li>
+                      </StyledLink>{" "}
                     </>
                   )}
                   <StyledLink to="/orders">
@@ -152,19 +162,17 @@ export default function Navbar() {
                         style={{ marginBottom: "5px" }}
                         className={styles.iconsNav}
                       />{" "}
-                      Orders
+                      Orders User
                     </li>
                   </StyledLink>{" "}
                   <StyledLink to="/">
                     <li onClick={handleLogout}>
-                      
-                        <LuLogOut
-                          size={25}
-                          style={{ marginBottom: "5px" }}
-                          className={styles.iconsNav}
-                        />
-                        Logout
-                      
+                      <LuLogOut
+                        size={25}
+                        style={{ marginBottom: "5px" }}
+                        className={styles.iconsNav}
+                      />
+                      Logout
                     </li>
                   </StyledLink>
                 </ul>
