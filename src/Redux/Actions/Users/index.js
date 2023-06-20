@@ -4,7 +4,7 @@ import {
   GET_USERS,
   LOGIN,
   LOGIN_GOOGLE,
-  LOGOUT
+  LOGOUT,
 } from "../../actionsTypes";
 
 export const getUsers = () => {
@@ -44,28 +44,30 @@ export const login = (payload) => {
 };
 
 export const googleLogin = (token) => {
-  return function (dispatch){
-    axios.post("users/check-google-email",null,
-    {headers:{Authorization:`Bearer ${token}`}}
-    ).then(response => {
-      const user = response.data;
-      dispatch({
-        type:LOGIN_GOOGLE,
-        payload:user
+  return function (dispatch) {
+    axios
+      .post("users/check-google-email", null, {
+        headers: { Authorization: `Bearer ${token}` },
       })
-    })
-    .catch(error => {
-      console.error(error)
-    })
-  }
-}
+      .then((response) => {
+        const user = response.data;
+        dispatch({
+          type: LOGIN_GOOGLE,
+          payload: user,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
 
 export const createOrder = (payload) => {
   return function (dispatch) {
-    const { userId, cart, country, address } = payload;
-    console.log("antes de entrar a post orders");
+    const { userId, cart, country, address, paymentStatus } = payload;
+    console.log("paymentStatus:", paymentStatus);
     axios
-      .post("/orders", { userId, cart, country, address })
+      .post("/orders", { userId, cart, country, address, paymentStatus })
       .then((response) => {
         const user = response.data;
         dispatch({ type: CREATE_ORDER, payload: user });
