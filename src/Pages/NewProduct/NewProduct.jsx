@@ -71,38 +71,37 @@ export default function NewProduct() {
   }
 
   return (
-    <div>
-      <h1>1</h1>
-      <h1>1</h1>
-      <h1>Create a product</h1>
-      <form style={{ width: "100%" }} onSubmit={handleSubmit}>
-        <div>
-          <label>Product name</label>
-          <input
-            type="text"
-            placeholder="Enter product name"
-            value={name}
-            required
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
+    <form className="containerForm" onSubmit={handleSubmit}>
+      <h1>Create Product</h1>
+      <hr />
+      <div className="productName">
+        <label>Name</label>
+        <input
+          type="text"
+          placeholder="Product name"
+          value={name}
+          required
+          onChange={(e) => setName(e.target.value)}
+        />
+      </div>
 
-        <div>
-          <label>Product description</label>
-          <textarea
-            placeholder="Product description"
-            style={{ height: "100px" }}
-            value={description}
-            required
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
+      <div className="productDescription">
+        <label>Description</label>
+        <textarea
+          placeholder="Product description"
+          style={{ height: "100px" }}
+          value={description}
+          required
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </div>
 
+      <div className="productInfoExtra">
         <div>
-          <label>Price($)</label>
+          <label>Price(USD)</label>
           <input
             type="number"
-            placeholder="Price ($)"
+            placeholder="$"
             value={price}
             required
             onChange={(e) => setPrice(e.target.value)}
@@ -113,7 +112,7 @@ export default function NewProduct() {
           <label>Category</label>
           <select onChange={(e) => setCategory(e.target.value)}>
             <option disabled selected>
-              -- Select One --
+              Select...
             </option>
             <option value="Estrategia por Turnos">Estrategia por turnos</option>
             <option value="Aventura">Aventura</option>
@@ -125,12 +124,11 @@ export default function NewProduct() {
             <option value="Deportes">Deportes</option>
           </select>
         </div>
-
         <div>
-          <label>Plataforma</label>
+          <label>Platform</label>
           <select onChange={(e) => setPlatform(e.target.value)}>
             <option disabled selected>
-              -- Select One --
+              Select...
             </option>
             <option value="PlayStation">Play Station</option>
             <option value="Xbox Live">Xbox live</option>
@@ -141,32 +139,37 @@ export default function NewProduct() {
             <option value="Ubisoft">Ubisoft</option>
           </select>
         </div>
+      </div>
 
-        <div>
-          <button type="button" onClick={showWidget}>
-            Upload Images
-          </button>
-          <div className="images-preview-container">
-            {pictures.map((image) => (
-              <div className="image-preview">
-                <img src={image.url} alt="Preview" />
-                {imgToRemove !== image.public_id && (
-                  <i onClick={() => handleRemoveImg(image)}>X</i>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
 
-        <div>
-          <button
-            type="submit"
-            //   disabled={isLoading || isSuccess}
-          >
-            Create Product
-          </button>
+
+      <div className="imgsProducts">
+        <button type="button" onClick={showWidget}>
+          Upload Images
+        </button>
+        <div className="images-preview-container">
+          {pictures.length ? pictures.map((image) => (
+            <div className="image-preview">
+              <img src={image.url} alt="Preview" />
+              {imgToRemove !== image.public_id && (
+                <i onClick={() => handleRemoveImg(image)}>X</i>
+              )}
+            </div>
+          ))
+          : <label>Upload an image</label>
+          }
         </div>
-      </form>
-    </div>
+      </div>
+
+
+      <div>
+        <button
+          type="submit"
+          //   disabled={isLoading || isSuccess}
+        >
+          Create Product
+        </button>
+      </div>
+    </form>
   );
 }
