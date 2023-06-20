@@ -39,16 +39,27 @@ function CheckoutForm() {
       },
     });
 
+    console.log(paymentIntent, "paymentIntent");
+
     setPaying(false);
 
     if (paymentIntent) {
       try {
+        const paymentStatus = paymentIntent.status;
+
         await dispatch(
-          createOrder({ userId: user._id, cart: user.cart, address, country })
+          createOrder({
+            userId: user._id,
+            cart: user.cart,
+            address,
+            country,
+            paymentStatus,
+          })
         );
 
+        console.log(paymentIntent.status);
         setAlertMessage(`Payment ${paymentIntent.status}`);
-        window.alert("Payment succesfull");
+        window.alert(`Payment ${paymentIntent.status}`);
         setTimeout(() => {
           navigate("/orders");
         }, 3000);
