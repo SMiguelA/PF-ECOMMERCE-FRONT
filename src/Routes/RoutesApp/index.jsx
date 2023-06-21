@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Navbar } from "../../Components";
+import TableOrders from "../../Components/Table/TableOrders";
 import { Aside, Main } from "../../ComponentsStyles";
-import AdminDashboard from "../../Pages/AdminDashboard/AdminDashboard";
 import Cart from "../../Pages/Cart/Cart";
 import Detail from "../../Pages/Detail/Detail";
 import Home from "../../Pages/Home/Home";
@@ -11,8 +11,8 @@ import NewProduct from "../../Pages/NewProduct/NewProduct";
 import Orders from "../../Pages/Orders/Orders";
 import Signup from "../../Pages/Signup/Signup";
 import Store from "../../Pages/Store/Store";
-import RutaUser from "../RutasProtegidas/RutaUser";
 import RutaAdmin from "../RutasProtegidas/RutaAdmin";
+import RutaUser from "../RutasProtegidas/RutaUser";
 
 function RoutesMain() {
   const user = useSelector((state) => state.user);
@@ -26,12 +26,11 @@ function RoutesMain() {
         height: "100%",
       }}
     >
-      {location.pathname !== "/login" &&
-        location.pathname !== "/signup" && (
-          <Aside>
-            <Navbar />
-          </Aside>
-        )}
+      {location.pathname !== "/login" && location.pathname !== "/signup" && (
+        <Aside>
+          <Navbar />
+        </Aside>
+      )}
 
       <Main>
         <Routes>
@@ -41,8 +40,8 @@ function RoutesMain() {
             </Route>
             <Route />
           </Route>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
 
           <Route element={<RutaUser />}>
             <Route path="/cart" element={<Cart />} />
@@ -50,8 +49,9 @@ function RoutesMain() {
             {/* <Route path="/logout" element={<Home />} /> */}
           </Route>
 
-          <Route element={<RutaAdmin/>}>
+          <Route element={<RutaAdmin />}>
             <Route path="/new-product" element={<NewProduct />} />
+            <Route path="/orders-admin" element={<TableOrders />} />
           </Route>
         </Routes>
       </Main>

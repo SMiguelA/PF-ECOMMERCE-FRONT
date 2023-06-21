@@ -15,6 +15,7 @@ import {
   FILTER_PRODUCTS_BY_GENDER,
   FILTER_PRODUCTS_BY_TYPE,
   FILTER_PRODUCT_BY_PRICE,
+  GET_ORDERS,
   GET_PRODUCTS,
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
@@ -25,16 +26,16 @@ import {
   LOGIN_GOOGLE,
   LOGOUT,
   REMOVE_FROM_CART,
-  SIGNUP
+  SIGNUP,
 } from "./actionsTypes";
 
 const initialState = {
   products: [],
-  filters:{
-    name:'',
-    price:'',
-    category:[],
-    platform:[]
+  filters: {
+    name: "",
+    price: "",
+    category: [],
+    platform: [],
   },
   allProducts: [],
   users: [],
@@ -42,6 +43,7 @@ const initialState = {
   productId: [],
   cart: [],
   loadingLoagin_Register:false,
+  orders:[],
   errorsBack:{
     errorLogin:[],
   },
@@ -82,47 +84,47 @@ const rootReducer = (state = initialState, { type, payload }) => {
         products: payload,
       };
     case LOADINGFORM:
-      return{
+      return {
         ...state,
-        loadingLoagin_Register:payload
-      }
+        loadingLoagin_Register: payload,
+      };
     case ACTIVE_PRODUCTS_NAME:
-      return{
+      return {
         ...state,
-        filters:{
+        filters: {
           ...state.filters,
-          name:payload
-        }
-      }
+          name: payload,
+        },
+      };
     case ACTIVE_PRODUCTS_CATEGORY:
-      const dataFilter = payload.split('-')
-      return{
+      const dataFilter = payload.split("-");
+      return {
         ...state,
-        filters:{
+        filters: {
           ...state.filters,
-          category:dataFilter
-        }
-      }
-    
+          category: dataFilter,
+        },
+      };
+
     case ACTIVE_PRODUCTS_PLATFORM:
-      const dataFilterCategory = payload.split('-')
-      return{
+      const dataFilterCategory = payload.split("-");
+      return {
         ...state,
-        filters:{
+        filters: {
           ...state.filters,
-          platform:dataFilterCategory
-        }
-      }
+          platform: dataFilterCategory,
+        },
+      };
 
     case ACTIVE_PRODUCTS_PRICE:
-      if(payload.endsWith('99999')) payload = payload.replace('-99999', '');
-      return{
+      if (payload.endsWith("99999")) payload = payload.replace("-99999", "");
+      return {
         ...state,
-        filters:{
+        filters: {
           ...state.filters,
-          price:payload
-        }
-      }
+          price: payload,
+        },
+      };
 
     case GET_PRODUCTS:
       localStorage.setItem("allProducts", JSON.stringify(payload));
@@ -267,6 +269,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case CREATE_PRODUCT:
       return {
         ...state,
+      };
+
+    case GET_ORDERS:
+      return {
+        ...state,
+        orders: payload,
       };
 
     case FILTER_PRODUCTS_BY_TYPE:
