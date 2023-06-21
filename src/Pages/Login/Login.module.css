@@ -17,7 +17,7 @@ text-align: center;
     font-size: 0.875rem;
     line-height: 1.25rem;
     flex-direction: column;
-    
+    /* border:2px solid white; */
   }
 
 .inputGroup label {
@@ -36,6 +36,12 @@ text-align: center;
     background-color: rgba(17, 24, 39, 1);
     padding: 0.75rem 1rem;
     color: rgba(243, 244, 246, 1);
+}
+
+.errors {
+  color:red;
+  margin:10px 0 0 0;
+  font-weight: 600;
 }
 
 .inputGroup input:focus {

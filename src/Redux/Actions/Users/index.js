@@ -1,10 +1,13 @@
 import axios from "../../../axios";
 import {
+  CLEAR_ERRORS,
   CREATE_ORDER,
+  ERROR_LOGIN,
   GET_USERS,
   LOGIN,
   LOGIN_GOOGLE,
-  LOGOUT
+  LOGOUT,
+  SIGNUP
 } from "../../actionsTypes";
 
 export const getUsers = () => {
@@ -27,6 +30,21 @@ export const logoutUser = () => {
   };
 };
 
+export const signup = (payload) => {
+  return function (dispatch) {
+    const { name, email, password } = payload;
+    axios
+      .post("/users/signup", { name, email, password })
+      .then((response) => {
+        const user = response.data;
+        dispatch({ type: SIGNUP, payload: user });
+      })
+      .catch((error) => {
+        console.log(`Error registrando usuario: ${error}`);
+      });
+  };
+};
+
 export const login = (payload) => {
   return function (dispatch) {
     const { email, password } = payload;
@@ -39,9 +57,26 @@ export const login = (payload) => {
       })
       .catch((error) => {
         console.log(`Error en el login: ${error}`);
+        if (error.response && error.response.status === 404) {
+          const errorMessage = error.response.data; 
+          dispatch({ type: ERROR_LOGIN, payload:{ message: errorMessage, status: 404 }});
+        } else if(error.response && error.response.status === 403) {
+          const errorMessage = error.response.data; 
+          dispatch({ type: ERROR_LOGIN, payload: { message: errorMessage, status: 403 } });
+        }else {
+          const errorMessage = error.response.data;
+          dispatch({ type: ERROR_LOGIN, payload: { message: errorMessage, status:error.response.status}})
+        }
       });
   };
 };
+
+export const clearErrors = () => {
+  return {
+    type:CLEAR_ERRORS,
+    
+  }
+}
 
 export const googleLogin = (token) => {
   return function (dispatch){

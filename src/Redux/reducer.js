@@ -4,10 +4,12 @@ import {
   ACTIVE_PRODUCTS_PLATFORM,
   ACTIVE_PRODUCTS_PRICE,
   ADD_TO_CART,
+  CLEAR_ERRORS,
   CREATE_ORDER,
   CREATE_PRODUCT,
   DECREASE_CART,
   DELETE_PRODUCT_BY_ID,
+  ERROR_LOGIN,
   FILTER_PRODUCTS,
   FILTER_PRODUCTS_BY_CATEGORY,
   FILTER_PRODUCTS_BY_GENDER,
@@ -39,7 +41,10 @@ const initialState = {
   user: null,
   productId: [],
   cart: [],
-  loadingLoagin_Register:false
+  loadingLoagin_Register:false,
+  errorsBack:{
+    errorLogin:[],
+  },
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -53,6 +58,23 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         user:payload
+      }
+    case CLEAR_ERRORS: {
+      return {
+        ...state,
+        errorsBack:{
+          ...state.errorsBack,
+          errorLogin:[]
+        }
+      }
+    }
+    case ERROR_LOGIN:
+      return {
+        ...state,
+        errorsBack:{
+          ...state.errorsBack,
+          errorLogin:payload
+        }
       }
     case FILTER_PRODUCTS:
       return {
