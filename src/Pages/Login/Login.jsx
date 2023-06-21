@@ -1,9 +1,8 @@
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
-import { useEffect } from "react";
 import { DivContainerForm, DivForm, StyledLink } from "../../ComponentsStyles";
 import { login, LoadingActionForm, clearErrors } from "../../Redux/Actions";
 import { LoadingForm, LoginGoogle } from "../../Components";
