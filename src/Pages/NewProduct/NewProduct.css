@@ -185,9 +185,9 @@
   width: 100%;
 }
 .imgsProducts label{
-  color: #757566;
+  color: rgba(255, 0, 0, 0.603);
+  width: 9em;
 }
-
 .containerForm button{
   background: none;
   color: aliceblue;

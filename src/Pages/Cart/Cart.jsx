@@ -63,99 +63,101 @@ function Cart() {
   }
 
   return (
-    <div style={{ minHeight: "95vh" }} className="cart-container">
-      <h1>Shopping cart</h1>
-
+    <div style={{ minHeight: "100%" }} className="contenedorCart">
       {cart?.length ? (
-        <div>
-          <div>
+        <div className="infoContainer">
+          <div className="stripeContainer">
+            <h1>Order Summary</h1>
+            <hr />
             <Elements stripe={stripePromise}>
-              <CheckoutForm />
+              <CheckoutForm data={user.cart.total ? user.cart.total.toFixed(2) : 0}/>
             </Elements>
           </div>
-          <div>
-            <>
-              <table className="cart-table">
-                <thead>
-                  <tr>
-                    <th>&nbsp;</th>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* loop through cart products */}
-                  {cart.map((item) => (
-                    <tr key={item._id || item.id}>
-                      <td>&nbsp;</td>
-                      <td>
-                        <button
+          <div className="itemsContent">
+            <h1>Shopping Cart</h1>
+            <hr />
+            <table className="cart-table">
+              <thead>
+                <tr>
+                  {/* <th>&nbsp;</th> */}
+                  <th>Product Detail</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* loop through cart products */}
+                {cart.map((item) => (
+                  <tr key={item._id || item.id} className="itemContainer">
+                    {/* <td>&nbsp;</td> */}
+                    <td className="productInformation">
+                      <img
+                        src={item.pictures[0]}
+                        style={{
+                          objectFit: "cover",
+                        }}
+                      />
+                      <div>
+                        <label className="">{item.name}</label>
+                        <label className="">{item.platform}</label>
+                        <label 
                           style={{ marginRight: 10, cursor: "pointer" }}
+                          className="remove"
                           onClick={() =>
                             handleRemoveFromCart({
                               productId: item._id || item.id,
                               price: item.price,
                               userId: user._id || user.id,
                             })
-                          }
-                        >
-                          X
-                        </button>
-                        <img
-                          src={item.pictures[0]}
-                          style={{
-                            width: 100,
-                            height: 100,
-                            objectFit: "cover",
+                          }>Remove</label>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="itemQuantity">
+                        <button
+                          onClick={() => {
+                            handleDecrease({
+                              productId: item._id || item.id,
+                              price: item.price,
+                              userId: user._id || user.id,
+                            });
                           }}
-                        />
-                      </td>
-                      <td>${item.price}</td>
-                      <td>
-                        <span>
-                          <button
-                            onClick={() => {
-                              handleDecrease({
-                                productId: item._id || item.id,
-                                price: item.price,
-                                userId: user._id || user.id,
-                              });
-                            }}
-                          >
-                            -
-                          </button>
-                          <span>{user.cart[item._id || item.id]}</span>
-                          <button
-                            onClick={() => {
-                              handleIncrease({
-                                productId: item._id || item.id,
-                                price: item.price,
-                                userId: user._id || user.id,
-                              });
-                            }}
-                          >
-                            +
-                          </button>
-                        </span>
-                      </td>
-                      <td>
+                        >
+                          -
+                        </button>
+                        <span>{user.cart[item._id || item.id]}</span>
+                        <button
+                          onClick={() => {
+                            handleIncrease({
+                              productId: item._id || item.id,
+                              price: item.price,
+                              userId: user._id || user.id,
+                            });
+                          }}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="itemPrice">
+                        ${item.price}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="itemTotal">
                         $
                         {Number(
                           item.price * user.cart[item._id || item.id]
                         ).toFixed(2)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <div>
-                <h3>
-                  Total: ${user.cart.total ? user.cart.total.toFixed(2) : 0}
-                </h3>
-              </div>
-            </>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <hr />
           </div>
         </div>
       ) : (

@@ -17,6 +17,7 @@ export default function NewProduct() {
   const [platform, setPlatform] = useState("");
   const [pictures, setPictures] = useState([]);
   const [imgToRemove, setImgToRemove] = useState(null);
+
   const navigate = useNavigate();
 
   function handleRemoveImg(imgObj) {
