@@ -5,6 +5,7 @@ import {
   LOGIN,
   LOGIN_GOOGLE,
   LOGOUT,
+  UPDATE_USER,
 } from "../../actionsTypes";
 
 export const getUsers = () => {
@@ -14,6 +15,20 @@ export const getUsers = () => {
       .then((response) => {
         const users = response.data;
         dispatch({ type: GET_USERS, payload: users });
+      })
+      .catch((error) => {
+        console.log(`Error obteniendo users: ${error}`);
+      });
+  };
+};
+
+export const updateUser = (id, data) => {
+  return function (dispatch) {
+    axios
+      .put(`/users/${id}`, data)
+      .then((response) => {
+        const user = response.data;
+        dispatch({ type: UPDATE_USER, payload: user.userModified[0] });
       })
       .catch((error) => {
         console.log(`Error obteniendo users: ${error}`);

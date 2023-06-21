@@ -25,6 +25,7 @@ import {
   LOGOUT,
   REMOVE_FROM_CART,
   SIGNUP,
+  UPDATE_USER,
 } from "./actionsTypes";
 
 const initialState = {
@@ -61,6 +62,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         products: payload,
+      };
+
+    case UPDATE_USER:
+      return {
+        ...state,
+        user: payload,
       };
     case LOADINGFORM:
       return {
