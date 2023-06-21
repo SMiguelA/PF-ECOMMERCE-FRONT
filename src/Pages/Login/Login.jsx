@@ -1,50 +1,44 @@
-import React, { useState } from "react";
+import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import styles from "./Login.module.css"
-import { useEffect } from "react";
-import { DivContainerForm, DivForm, StyledLink } from "../../ComponentsStyles";
-import { login,LoadingActionForm } from "../../Redux/Actions";
 import { LoadingForm, LoginGoogle } from "../../Components";
+import { DivContainerForm, DivForm, StyledLink } from "../../ComponentsStyles";
+import { LoadingActionForm, login } from "../../Redux/Actions";
+import styles from "./Login.module.css";
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {user, loadingLoagin_Register} = useSelector((state) => state)
+  const { user, loadingLoagin_Register } = useSelector((state) => state);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
   useEffect(() => {
-       if(user){
-        setTimeout(() => {
-          dispatch(LoadingActionForm(false))
-         navigate("/")
-        }, 500);
-        
-       }
-  },[user])
-
+    if (user) {
+      setTimeout(() => {
+        dispatch(LoadingActionForm(false));
+        navigate("/");
+      }, 500);
+    }
+  }, [user]);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(LoadingActionForm(true))
+    const token = Cookies.get("token");
+    console.log(token);
+    dispatch(LoadingActionForm(true));
     dispatch(login({ email, password }));
   };
 
-
-
   return (
-    
-    
     <DivContainerForm>
-      {
-      loadingLoagin_Register &&
-      <div className={styles.loading}>
-      <LoadingForm />
-      </div>
-      }
-      
+      {loadingLoagin_Register && (
+        <div className={styles.loading}>
+          <LoadingForm />
+        </div>
+      )}
+
       <DivForm>
         <p className={styles.title}>Inicia sesión</p>
         <form className={styles.formhtml} onSubmit={handleLogin}>
@@ -79,14 +73,14 @@ function Login() {
         <div className={styles.social_message}>
           <p className={styles.message}>Login with social account</p>
         </div>
-        <LoginGoogle/>
+        <LoginGoogle />
 
-<p className={styles.signup}>Don't have an account?
-<StyledLink to="/signup">
-  <b >Sign up</b>
-</StyledLink>
-		
-	</p>
+        <p className={styles.signup}>
+          Don't have an account?
+          <StyledLink to="/signup">
+            <b>Sign up</b>
+          </StyledLink>
+        </p>
       </DivForm>
     </DivContainerForm>
   );

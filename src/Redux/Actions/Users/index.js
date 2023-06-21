@@ -34,6 +34,7 @@ export const login = (payload) => {
       .post("/users/login", { email, password })
       .then((response) => {
         const users = response.data;
+        console.log("users", users);
         localStorage.setItem("user", JSON.stringify(users));
         dispatch({ type: LOGIN, payload: users });
       })

@@ -2,17 +2,25 @@ import axios from "../../../axios";
 
 import { GET_ORDERS } from "../../actionsTypes.js";
 
-export const getOrders = () => {
+export const getOrders = (token, userAdmin) => {
   return function (dispatch) {
-    axios
-      .get("/orders")
-      .then((response) => {
-        const orders = response.data;
-        dispatch({ type: GET_ORDERS, payload: orders });
-        return orders;
-      })
-      .catch((error) => {
-        console.log(`Error obteniendo products: ${error}`);
-      });
+    if (userAdmin) {
+      axios
+        .get("/orders", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          const orders = response.data;
+          dispatch({ type: GET_ORDERS, payload: orders });
+          return orders;
+        })
+        .catch((error) => {
+          console.log(`Error obteniendo products: ${error}`);
+        });
+    } else {
+      console.log("no es admin");
+    }
   };
 };
