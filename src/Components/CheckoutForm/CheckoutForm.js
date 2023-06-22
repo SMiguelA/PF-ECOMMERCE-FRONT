@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 import { createOrder } from "../../Redux/Actions";
 
-function CheckoutForm() {
+import './CheckoutForm.css';
+
+function CheckoutForm({data}) {
   const stripe = useStripe();
   const elements = useElements();
   const user = useSelector((state) => state.user);
@@ -39,16 +41,27 @@ function CheckoutForm() {
       },
     });
 
+    console.log(paymentIntent, "paymentIntent");
+
     setPaying(false);
 
     if (paymentIntent) {
       try {
+        const paymentStatus = paymentIntent.status;
+
         await dispatch(
-          createOrder({ userId: user._id, cart: user.cart, address, country })
+          createOrder({
+            userId: user._id,
+            cart: user.cart,
+            address,
+            country,
+            paymentStatus,
+          })
         );
 
+        console.log(paymentIntent.status);
         setAlertMessage(`Payment ${paymentIntent.status}`);
-        window.alert("Payment succesfull");
+        window.alert(`Payment ${paymentIntent.status}`);
         setTimeout(() => {
           navigate("/orders");
         }, 3000);
@@ -62,64 +75,84 @@ function CheckoutForm() {
     }
   }
 
+  const pasarelaPagos = {
+    style:{
+      base: {
+        marginTop: '1em',
+        marginBottom: '1em',
+        display: 'flex',
+        color: 'white',
+        flexDirection: 'column',
+        '::placeholder': {
+          color: '#aab7c4',
+        },
+        border: '1px solid #ddd',
+        borderRadius: '4px',
+        padding: '10px',
+        fontFamily: 'Arial, sans-serif',
+        fontSize: '16px',
+      },
+    }
+  }
+
   return (
-    <div className="cart-payment-container">
-      <form onSubmit={handlePay}>
-        <div>
-          {alertMessage && <div>{alertMessage}</div>}
-          <div>
-            <label>First Name</label>
-            <input
-              id="firstName"
-              type="text"
-              placeholder="First Name"
-              value={user.name}
-              disabled
-            />
-          </div>
-          <div>
-            <label>Email</label>
-            <input
-              id="email"
-              type="text"
-              placeholder="Email"
-              value={user.email}
-              disabled
-            />
-          </div>
+    <form onSubmit={handlePay} className="contenedorFormulario">
+      {alertMessage && <div>{alertMessage}</div>}
+      <div className="labelsInputs">
+        <div className="nameContainer">
+          <label>First Name</label>
+          <input
+            id="firstName"
+            type="text"
+            placeholder="First Name"
+            value={user.name}
+            disabled
+          />
         </div>
-        <div>
-          <div>
-            <label>Address</label>
-            <input
-              id="address"
-              type="text"
-              placeholder="Address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Country</label>
-            <input
-              id="country"
-              type="text"
-              placeholder="Country"
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              required
-            />
-          </div>
+        <div className="nameContainer">
+          <label>Email</label>
+          <input
+            id="email"
+            type="text"
+            placeholder="Email"
+            value={user.email}
+            disabled
+          />
         </div>
-        <label>Card</label>
-        <label>Month</label>
-        <CardElement id="card-element" />
-        <button type="submit" disabled={user.cart.count <= 0 || paying}>
-          {paying ? "Processing..." : "Pay"}
-        </button>
-      </form>
-    </div>
+        <div className="nameContainer">
+          <label>Address</label>
+          <input
+            id="address"
+            type="text"
+            placeholder="Address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            required
+          />
+        </div>
+        <div className="nameContainer">
+          <label>Country</label>
+          <input
+            id="country"
+            type="text"
+            placeholder="Country"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            required
+          />
+        </div>
+      </div>
+      <div className="pasarelaContainer">
+        <CardElement id="card-element" options={pasarelaPagos} />
+      </div>
+      <div className="totalCost">
+        <h2>Total Cost:</h2>
+        <h3>${data}</h3>
+      </div>
+      <button type="submit" disabled={user.cart.count <= 0 || paying}>
+        {paying ? "Processing..." : "Pay"}
+      </button>
+    </form>
   );
 }
 

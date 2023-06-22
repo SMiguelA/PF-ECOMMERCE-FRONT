@@ -1,8 +1,8 @@
 .container{
-    height: 95%;
+    height: 75%;
     align-items: center;
     justify-content: center;
-    border-radius: 1em;
+    border-radius: 0.5em;
     background-color: rgba(0, 0, 0, 0.486);
     padding: 1em;
     padding-bottom: 0;
@@ -37,11 +37,13 @@
 }
 
 .mySwiper{
-    height: 20%;
+    height: 27%;
     width: 100%;
     box-sizing: border-box;
     padding: 25px;
-    margin-top: 2em;
+    padding-left: 0.5em;
+    padding-bottom: 0.5em;
+    margin-top: 0.5em;
 }
 
 .mySwiper .swiper-slide{

@@ -10,14 +10,14 @@
     font-family: 'Geologica', sans-serif;
     color: aliceblue;
     background-color: #202020;
-    border-radius: 1em;
-    margin-top: 5em;
+    border-radius: 0.5em;
+    margin-top: 7em;
     margin-bottom: 5em;
     text-align: left;
     padding: 2em;
     padding-left: 3em;
     padding-right: 3em;
-    width: 70%;
+    width: 70em;
     box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
@@ -41,33 +41,45 @@
     padding: 0.8em;
     padding-left: 1.5em;
     transition: 2;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.hrPrimero{
+    margin-top: -6em;
+}
+.hrSegundo{
+    margin-top: -1em;
 }
 .contLeft button:hover{
     cursor: pointer;
     transition: 2;
     box-shadow: rgb(0, 0, 0) 3px 3px 6px 0px inset, rgba(0, 0, 0, 0.2) -3px -3px 6px 1px inset;
 }
-.contLeft button span{
-    display: block;
-    font-size: large;
+.contLeft button .labelStyle{
+    margin-top: -0.5em;
+    font-size: larger;
 }
 
 .contRight{
     width: 50%;
-    height: 40em;
+    height: 45em;
 }
 
 .info{
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     justify-content: space-between;
     /* padding-left: 5em;
     padding-right: 5em; */
     width: 80%;
     margin-bottom: 2em;
 
+}
+.info hr{
+    width: 0;
+    height: 5em;
 }
 .info p{
     color: #7a7a7a;
@@ -78,4 +90,40 @@
     font-size: 1.2em;
     margin-bottom: 2em;
     width: 90%;
+}
+
+.seccionesDetail{
+    margin-top: -5em;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.seccionesDetail div{
+    width: 32%;
+    height: 3em;
+    border-radius: 0.5em;
+    border: 1px solid rgb(77, 77, 77);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.seccionesDetail div:hover{
+    background-color: #252525;
+    border-color: grey;
+}
+.seccionesDetail div label{
+    font-size: larger;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.acercaDE{
+    background-color: #525252;
+}
+.reviewsStyle{
+    background-color: #525252;
+}
+.ratingStyle{
+    background-color: #525252;
 }

@@ -54,43 +54,114 @@
   justify-content: start;
 }
 .secondChildLink {
-  /* border: 2px solid white; */
+  /* border: 2px solid rgb(17, 230, 102); */
   width: 100%;
   height: 50%;
   display: flex;
   flex-direction: column;
   align-items: start;
+  justify-content: center;
 }
 
-.secondChildLink a{
-  width: 90%;
+/* .secondChildLink a{
+  width: 100%;
   align-items: start;
   justify-content: left;
   display: flex;
   flex-direction: row;
-}
-.secondChildLink li{
+  border: 2px solid orange;
+} */
+/* .secondChildLink li{
   margin: 25px 0 0 0;
-  border-radius: 10px;
   cursor: pointer;
   font-size: 17px;
+  border-top: 1px solid white;
   font-family: Arial, Helvetica, sans-serif;
-  gap: 20px;
-  width: 80%;
+  gap: 20px; 
+  width: 100%;
   height: 4vh;
   display: flex;
   align-items: center;
-}
-.secondChildLink li:hover {
-  background-color: rgb(119, 123, 123);
-  border-radius: 10px;
-}
-.secondChildLink ul{
-  padding: 0;
-  width: 100%;
-  padding-left: 3em;
-}
+} */
+
 
 .iconsNav{
   width: 3em;
+}
+
+.containerPerfiluser {
+  display: flex;
+  /* border:2px solid orange; */
+  width: 100%;
+  justify-content: center;
+  
+}
+
+.containerUser {
+  display: flex;
+  margin:10px 0 0 0;
+  /* border:2px solid white; */
+  justify-content:center;
+  align-items: center;
+flex-direction: column;
+  height: 10rem;
+  width: 100%;
+}
+.menuUser {
+  display: flex;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  background-color: #202020;
+justify-content: center;
+align-items: center;
+  height: 5vh;
+  width: 5vh;
+} 
+
+.menuUser p {
+  font-size: 25px;
+   font-weight: 400;
+}
+
+.OpenMenuUser {
+  margin:15px 0 0 0;
+  border:1px solid rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.OpenMenuUser li {
+  margin: 0px 0 0 0;
+  cursor: pointer;
+  font-size: 17px;
+  /* border-top: 1px solid white; */
+  font-family: Arial, Helvetica, sans-serif;
+  /* gap: 20px; */
+  width: 100%;
+  height: 4vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.OpenMenuUser li:hover {
+  background-color: rgb(119, 123, 123);
+}
+.OpenMenuUser ul{
+  padding: 0;
+  width: 100%;
+  /* padding-left: 3em; */
+}
+
+.OpenMenuUser li  {
+  box-shadow: 2px 2px 4px rgba(217, 215, 215, 0.3);
+
 }

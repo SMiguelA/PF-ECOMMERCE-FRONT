@@ -1,0 +1,72 @@
+.contenedorFormulario{
+    margin-top: 1.5em;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    /* align-items: start; */
+}
+.labelsInputs{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+}
+.nameContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    height: 5em;
+    margin-bottom: 1em;
+}
+.nameContainer label{
+    font-size: 1.3em;
+    margin-bottom: 0.4em;
+}
+.nameContainer input{
+    outline: none;
+    width: 93%;
+    font-size: 1em;
+    height: 3em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 0.5em;
+    background-color: #1A1A1A;
+    color: aliceblue;
+    border: 1px solid rgb(87, 87, 87);
+    border-style: solid;
+}
+
+
+.pasarelaContainer{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+
+.totalCost{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.totalCost h2{
+    margin:0;
+}
+.totalCost h3{
+    text-decoration: underline;
+    font-size: x-large;
+}
+
+
+.contenedorFormulario button{
+    width: 50%;
+    background-color: green;
+    color: aliceblue;
+    height: 2.5em;
+    font-size: larger;
+    text-align: center;
+    justify-content: center;
+    border: 1px solid aliceblue;
+}
