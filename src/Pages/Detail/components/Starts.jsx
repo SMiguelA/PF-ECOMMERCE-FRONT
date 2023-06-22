@@ -21,8 +21,11 @@ const Starts = ({rating}) => {
     })
 
     return(
-        <div className={style.iconContainer}>
-            {ratingStart}
+        <div className={style.containerStarts}>
+            <h1>{rating}</h1>
+            <div className={style.iconContainer}>
+                {ratingStart}
+            </div>
         </div>
     );
 };

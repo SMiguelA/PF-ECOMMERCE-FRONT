@@ -8,7 +8,6 @@ export const SearchBar = () => {
   const [filteredData, setFilteredData] = useState([]);
 
   const productsData = useSelector((state) => state.allProducts);
-  console.log(productsData);
 
   const handlerInput = (event) => {
     setInputValue(event.target.value);

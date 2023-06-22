@@ -36,7 +36,7 @@ function RoutesMain() {
         <Routes>
           <Route path="/" element={<Home />}>
             <Route path="store" element={<Store />}>
-              <Route path="detail/:id" element={<Detail />} />
+              <Route path="detail/:id/*" element={<Detail />} />
             </Route>
             <Route />
           </Route>

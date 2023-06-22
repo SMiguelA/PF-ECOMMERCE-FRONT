@@ -1,3 +1,6 @@
+.containerStarts h1{
+    margin-bottom: 0.5em;
+}
 .icon{
     color: rgb(184, 184, 32);
     font-size: 2em;
