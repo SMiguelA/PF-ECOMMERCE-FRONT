@@ -47,6 +47,7 @@ export const filterProducts = (filters) => {
       });
     } catch (error) {
       window.alert(error.response.data.Error);
+      console.log("Error filter Products")
     }
   };
 };
@@ -137,20 +138,6 @@ export const filterProductsByPrice = (payload) => {
   };
 };
 
-export const signup = (payload) => {
-  return function (dispatch) {
-    const { name, email, password } = payload;
-    axios
-      .post("/users/signup", { name, email, password })
-      .then((response) => {
-        const user = response.data;
-        dispatch({ type: SIGNUP, payload: user });
-      })
-      .catch((error) => {
-        console.log(`Error registrando usuario: ${error}`);
-      });
-  };
-};
 
 export const addToCart = (payload) => {
   return function (dispatch) {

@@ -4,10 +4,13 @@ import {
   ACTIVE_PRODUCTS_PLATFORM,
   ACTIVE_PRODUCTS_PRICE,
   ADD_TO_CART,
+  CLEAR_ERRORS,
   CREATE_ORDER,
   CREATE_PRODUCT,
   DECREASE_CART,
   DELETE_PRODUCT_BY_ID,
+  ERROR_LOGIN,
+  ERROR_REGISTER,
   FILTER_PRODUCTS,
   FILTER_PRODUCTS_BY_CATEGORY,
   FILTER_PRODUCTS_BY_GENDER,
@@ -24,7 +27,7 @@ import {
   LOGIN_GOOGLE,
   LOGOUT,
   REMOVE_FROM_CART,
-  SIGNUP,
+  SIGNUP
 } from "./actionsTypes";
 
 const initialState = {
@@ -40,9 +43,12 @@ const initialState = {
   user: null,
   productId: [],
   cart: [],
-  orders: [],
-
-  loadingLoagin_Register: false,
+  loadingLoagin_Register:false,
+  orders:[],
+  errorsBack:{
+    errorLogin:[],
+    errorRegister:[],
+  },
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -55,8 +61,33 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case LOGIN_GOOGLE:
       return {
         ...state,
-        user: payload,
-      };
+        user:payload
+      }
+    case CLEAR_ERRORS: {
+      return {
+        ...state,
+        errorsBack:{
+          ...state.errorsBack,
+          errorLogin:[]
+        }
+      }
+    }
+    case ERROR_REGISTER:
+      return{
+        ...state,
+        errorsBack:{
+          ...state.errorsBack,
+          errorRegister:payload
+        }
+      }
+    case ERROR_LOGIN:
+      return {
+        ...state,
+        errorsBack:{
+          ...state.errorsBack,
+          errorLogin:payload
+        }
+      }
     case FILTER_PRODUCTS:
       return {
         ...state,

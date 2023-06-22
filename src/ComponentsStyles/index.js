@@ -9,7 +9,7 @@ background-color: rgba(17, 24, 39, 1);
 border-radius: 0.75rem;
 color: rgba(243, 244, 246, 1);
 width: 28%;
-height:58%;
+height:65%;
 flex-direction: column;
 align-items:center;
 justify-content:center;

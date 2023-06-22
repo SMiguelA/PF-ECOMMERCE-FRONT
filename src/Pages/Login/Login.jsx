@@ -1,34 +1,74 @@
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { LoadingForm, LoginGoogle } from "../../Components";
-import { DivContainerForm, DivForm, StyledLink } from "../../ComponentsStyles";
-import { LoadingActionForm, login } from "../../Redux/Actions";
 import styles from "./Login.module.css";
+import { DivContainerForm, DivForm, StyledLink } from "../../ComponentsStyles";
+import { login, LoadingActionForm, clearErrors } from "../../Redux/Actions";
+import { LoadingForm, LoginGoogle } from "../../Components";
+import { validateLoginForm } from "./validate";
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, loadingLoagin_Register } = useSelector((state) => state);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { user, loadingLoagin_Register, errorsBack } = useSelector(
+    (state) => state
+  );
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (user) {
       setTimeout(() => {
+        setValues({
+          email: "",
+          password: "",
+        });
         dispatch(LoadingActionForm(false));
         navigate("/");
       }, 500);
     }
-  }, [user]);
+    if (errorsBack) {
+      const { errorLogin } = errorsBack;
+      console.log(errorLogin);
+      if(Object.keys(errorLogin).length > 0) {
+        setTimeout(() => {
+        dispatch(LoadingActionForm(false));
+        const validationErrors = validateLoginForm(values.email, values.password, errorLogin);
+        setErrors(validationErrors);
+      }, 500);
+      }
+    }
+    
+  }, [user, errorsBack]);
 
-  const handleLogin = (e) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const token = Cookies.get("token");
-    console.log(token);
+    dispatch(clearErrors())
+    const { email, password } = values;
+    console.log(email);
+    const validationErrors = validateLoginForm(email, password);
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length !== 0) {
+      // Realizar la lógica de inicio de sesión aquí
+      return null;
+    }
+
     dispatch(LoadingActionForm(true));
     dispatch(login({ email, password }));
+    setErrors({});
   };
 
   return (
@@ -41,27 +81,30 @@ function Login() {
 
       <DivForm>
         <p className={styles.title}>Inicia sesión</p>
-        <form className={styles.formhtml} onSubmit={handleLogin}>
+        <form className={styles.formhtml} onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
             <label htmlFor="email">Email </label>
             <input
-              type="email"
-              placeholder="Enter email"
-              value={email}
+              type="text"
+              placeholder="Email..."
+              value={values.email}
               name="email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleInputChange}
             />
+            {errors.email && <p className={styles.errors}>{errors.email}</p>}
           </div>
           <div className={styles.inputGroup}>
             <label>Password</label>
             <input
               type="password"
               placeholder="Enter Password"
-              value={password}
-              required
-              onChange={(e) => setPassword(e.target.value)}
+              value={values.password}
+              name="password"
+              onChange={handleInputChange}
             />
+            {errors.password && (
+              <p className={styles.errors}>{errors.password}</p>
+            )}
           </div>
           <div className={styles.containerForgotPassword}>
             <a>Forgot Password ?</a>
