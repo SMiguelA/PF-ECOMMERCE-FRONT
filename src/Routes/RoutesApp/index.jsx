@@ -9,6 +9,7 @@ import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
 import NewProduct from "../../Pages/NewProduct/NewProduct";
 import Orders from "../../Pages/Orders/Orders";
+import Profile from "../../Pages/Profile/Profile";
 import Signup from "../../Pages/Signup/Signup";
 import Store from "../../Pages/Store/Store";
 import RutaAdmin from "../RutasProtegidas/RutaAdmin";
@@ -46,6 +47,7 @@ function RoutesMain() {
           <Route element={<RutaUser />}>
             <Route path="/cart" element={<Cart />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/profile" element={<Profile />} />
             {/* <Route path="/logout" element={<Home />} /> */}
           </Route>
 
