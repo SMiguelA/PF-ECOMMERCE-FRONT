@@ -1,30 +1,37 @@
-import { GoogleLogin } from '@react-oauth/google'
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { googleLogin ,LoadingActionForm} from '../../Redux/Actions'
-
+import { GoogleLogin } from "@react-oauth/google";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { googleLogin, LoadingActionForm } from "../../Redux/Actions";
 
 export default function LoginGoogle() {
-   const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [windowActive, setWindowActive] = useState(false);
 
-    function handleError(){
-        console.log("failed Login")
+  useEffect(() => {
+    if (windowActive) {
+      dispatch(LoadingActionForm(true));
     }
+  }, [windowActive]);
+  function handleError() {
+    console.log("failed Login");
+  }
 
-    function handleSuccess( CredentialResponse){
-      // console.log(CredentialResponse);
-      dispatch(LoadingActionForm(true))
-        dispatch(googleLogin(CredentialResponse.credential))
-        
-    }
+  function handleSuccess(CredentialResponse) {
+    // console.log(CredentialResponse);
+    dispatch(LoadingActionForm(true));
+    dispatch(googleLogin(CredentialResponse.credential));
+  }
+
+  function handleWindow() {
+    console.log("CLICK GOOGLE");
+    setWindowActive(true);
+  }
 
   return (
-    <>
-    <GoogleLogin 
-    
-    onError={handleError}
-    onSuccess={handleSuccess}
-    />
-    </>
-  )
+    <div >
+      <span onClick={handleWindow}>
+      <GoogleLogin onError={handleError} onSuccess={handleSuccess} />
+      </span>
+    </div>
+  );
 }

@@ -3,11 +3,12 @@ import {
   CLEAR_ERRORS,
   CREATE_ORDER,
   ERROR_LOGIN,
+  ERROR_REGISTER,
   GET_USERS,
   LOGIN,
   LOGIN_GOOGLE,
   LOGOUT,
-  SIGNUP
+  SIGNUP,
 } from "../../actionsTypes";
 
 export const getUsers = () => {
@@ -41,6 +42,23 @@ export const signup = (payload) => {
       })
       .catch((error) => {
         console.log(`Error registrando usuario: ${error}`);
+        
+          if (error.response && error.response.status === 400) {
+            const errorMessage = error.response.data;
+            console.log(errorMessage);
+            if (errorMessage.Error === "Email") {
+              console.log("!!!!!!ERROR EMAIL");
+              dispatch({
+                type: ERROR_REGISTER,
+                payload: { message: errorMessage.Error, status: 400 },
+              });
+            } else if (errorMessage.Error === "Name") {
+              dispatch({
+                type: ERROR_REGISTER,
+                payload: { message: errorMessage.Error, status: 400 },
+              });
+            }
+          }
       });
   };
 };
@@ -59,14 +77,23 @@ export const login = (payload) => {
       .catch((error) => {
         console.log(`Error en el login: ${error}`);
         if (error.response && error.response.status === 404) {
-          const errorMessage = error.response.data; 
-          dispatch({ type: ERROR_LOGIN, payload:{ message: errorMessage, status: 404 }});
-        } else if(error.response && error.response.status === 403) {
-          const errorMessage = error.response.data; 
-          dispatch({ type: ERROR_LOGIN, payload: { message: errorMessage, status: 403 } });
-        }else {
           const errorMessage = error.response.data;
-          dispatch({ type: ERROR_LOGIN, payload: { message: errorMessage, status:error.response.status}})
+          dispatch({
+            type: ERROR_LOGIN,
+            payload: { message: errorMessage, status: 404 },
+          });
+        } else if (error.response && error.response.status === 403) {
+          const errorMessage = error.response.data;
+          dispatch({
+            type: ERROR_LOGIN,
+            payload: { message: errorMessage, status: 403 },
+          });
+        } else {
+          const errorMessage = error.response.data;
+          dispatch({
+            type: ERROR_LOGIN,
+            payload: { message: errorMessage, status: error.response.status },
+          });
         }
       });
   };
@@ -74,10 +101,9 @@ export const login = (payload) => {
 
 export const clearErrors = () => {
   return {
-    type:CLEAR_ERRORS,
-    
-  }
-}
+    type: CLEAR_ERRORS,
+  };
+};
 
 export const googleLogin = (token) => {
   return function (dispatch) {

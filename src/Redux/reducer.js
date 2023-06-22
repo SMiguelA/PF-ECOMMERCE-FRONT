@@ -10,6 +10,7 @@ import {
   DECREASE_CART,
   DELETE_PRODUCT_BY_ID,
   ERROR_LOGIN,
+  ERROR_REGISTER,
   FILTER_PRODUCTS,
   FILTER_PRODUCTS_BY_CATEGORY,
   FILTER_PRODUCTS_BY_GENDER,
@@ -26,7 +27,7 @@ import {
   LOGIN_GOOGLE,
   LOGOUT,
   REMOVE_FROM_CART,
-  SIGNUP,
+  SIGNUP
 } from "./actionsTypes";
 
 const initialState = {
@@ -46,6 +47,7 @@ const initialState = {
   orders:[],
   errorsBack:{
     errorLogin:[],
+    errorRegister:[],
   },
 };
 
@@ -70,6 +72,14 @@ const rootReducer = (state = initialState, { type, payload }) => {
         }
       }
     }
+    case ERROR_REGISTER:
+      return{
+        ...state,
+        errorsBack:{
+          ...state.errorsBack,
+          errorRegister:payload
+        }
+      }
     case ERROR_LOGIN:
       return {
         ...state,

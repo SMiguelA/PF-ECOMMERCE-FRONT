@@ -41,8 +41,8 @@ function Login() {
         setErrors(validationErrors);
       }, 500);
       }
-     
     }
+    
   }, [user, errorsBack]);
 
   const handleInputChange = (e) => {
@@ -86,7 +86,7 @@ function Login() {
             <label htmlFor="email">Email </label>
             <input
               type="text"
-              placeholder="Enter email"
+              placeholder="Email..."
               value={values.email}
               name="email"
               onChange={handleInputChange}
