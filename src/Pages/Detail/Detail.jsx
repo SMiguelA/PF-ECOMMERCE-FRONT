@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { addToCart, deletProductId, getProductById } from "../../Redux/Actions";
 import axios from "../../axios";
 import style from "./Detail.module.css";
 import Galery from "./components/Galery";
+import { Reviews } from "./components/Reviews/Reviews";
 import Starts from "./components/Starts";
+import { About } from "./components/about/About";
+import { FormRating } from "./components/formRating/FormRating";
+
 
 export default function Detail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [product, setProduct] = useState(null);
+  const { '*': ruta } = useParams();
+  const [bandera, setBandera] = useState(ruta);
 
   useEffect(() => {
     axios.get(`/products/${id}`).then(({ data }) => {
@@ -28,6 +35,10 @@ export default function Detail() {
     return () => dispatch(deletProductId());
   }, [id]);
 
+  useEffect(() => {
+    setBandera(ruta)
+  },[ruta])
+
   const handleAddToCart = (e) => {
     e.preventDefault();
     if (user && user._id) {
@@ -42,6 +53,10 @@ export default function Detail() {
     }
   };
 
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
   return (
     <>
       {productId && productId.name ? (
@@ -49,7 +64,7 @@ export default function Detail() {
           <div className={style.contLeft}>
             <h1>{productId.name}</h1>
             <button onClick={handleAddToCart}>
-              Add to <span> My Cart </span>
+              <label>Add to </label><label className={style.labelStyle}> My Cart </label>
             </button>
             <div className={style.info}>
               <div>
@@ -63,19 +78,41 @@ export default function Detail() {
               </div>
               <hr />
               <div>
-                <h2>Genre</h2>
-                <p>{productId.gender}</p>
+                <h2>Platform</h2>
+                <p>{productId.platform}</p>
               </div>
             </div>
             <Starts rating={productId.rating || 3.5} />
-            <div className={style.about}>
-              <h1 style={{ color: "#fff" }}>About</h1>
-              <p>{productId.description}</p>
-            </div>
           </div>
           <div className={style.contRight}>
             <Galery imgs={productId.pictures} />
           </div>
+          <hr className={style.hrPrimero}/>
+
+
+
+          <div className={style.seccionesDetail}>
+            <div onClick={() => handleNavigation(`about`)} className={bandera == 'about' || bandera == '' ? style.acercaDE : ''}>
+              <label>About</label>
+            </div>
+            <div onClick={() => handleNavigation(`reviews`)} className={bandera == 'reviews' ? style.reviewsStyle : ''}>
+              <label>Ratings and reviews</label>
+            </div>
+            <div onClick={() => handleNavigation(`rating`)} className={bandera == 'rating' ? style.ratingStyle : ''}>
+              <label>Rate this game</label>
+            </div>
+          </div>
+
+          <hr className={style.hrSegundo}/>
+
+          <Routes>
+            <Route path="/" element={<About description={productId.description}/>}/>
+            <Route path="/*" element={<About description={productId.description}/>}/>
+            <Route path="/about" element={<About description={productId.description}/>} />
+            <Route path="/reviews" element={<Reviews data={productId.valorations}/>} />
+            <Route path="/rating" element={<FormRating />} />
+          </Routes>
+
         </div>
       ) : (
         <h1 style={{ color: "white" }}>Loading...</h1>
