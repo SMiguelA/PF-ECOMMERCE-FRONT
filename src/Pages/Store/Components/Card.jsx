@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { A11y, Navigation, Pagination } from "swiper";
 import "swiper/css";
@@ -5,11 +6,37 @@ import "swiper/css/bundle";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import defaultImg from "../../../img/default.jpg";
+import { addToCart } from "../../../Redux/Actions";
 import style from "./Card.module.css";
 
 const Card = ({ data }) => {
+  
+  // Data.
   const { _id } = data;
   const formattedPrice = data.price.toLocaleString();
+
+  // States.
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  // Add to Cart Function.
+  const handleAddToCart = (event) => {
+    // Reset Event.
+    event.preventDefault();
+
+    // If User exist.
+    if (user && user._id) {
+      dispatch(
+        addToCart({
+          userId: user._id,
+          productId: _id,
+          price: data.price,
+        })
+      );
+    }
+  };
+
   return (
     <Link to={`detail/${_id}`} style={{ textDecoration: "none" }}>
       <div className={style.container} key={data.id}>
@@ -20,8 +47,6 @@ const Card = ({ data }) => {
             spaceBetween={50}
             slidesPerView={1}
             pagination={{ clickable: true }}
-            // onSlideChange={() => console.log('slide change')}
-            // onSwiper={(swiper) => console.log(swiper)}
           >
             {data.pictures.map((picture) => (
               <SwiperSlide key={picture}>
@@ -42,8 +67,18 @@ const Card = ({ data }) => {
           </Swiper>
         </div>
         <div className={style.info}>
-          <h2>{data.name}</h2>
-          <h3 className={style.price}>${formattedPrice}</h3>
+          <div>
+            <h2>{data.name}</h2>
+            <h3 className={style.price}>${formattedPrice}</h3>
+          </div>
+          <div>
+            <button
+              onClick={(event) => handleAddToCart(event)}
+              className={style.addToCart}
+            >
+              Add
+            </button>
+          </div>
         </div>
         <div className={style.infoSecundaria}>
           <article>
