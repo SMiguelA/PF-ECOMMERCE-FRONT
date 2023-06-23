@@ -1,3 +1,4 @@
+import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { A11y, Navigation, Pagination } from "swiper";
@@ -10,15 +11,27 @@ import { addToCart } from "../../../Redux/Actions";
 import style from "./Card.module.css";
 
 const Card = ({ data }) => {
-  
   // Data.
   const { _id } = data;
   const formattedPrice = data.price.toLocaleString();
 
+  const dispatch = useDispatch();
+
   // States.
   const user = useSelector((state) => state.user);
 
-  const dispatch = useDispatch();
+  // Add to Cart Notification.
+  const notify = () =>
+    toast("Game added to cart!", {
+      icon: "🎮",
+      style: {
+        borderRadius: "10px",
+        background: "#fff",
+        color: "#333",
+      },
+      duration: 3000,
+      position: "bottom-right",
+    });
 
   // Add to Cart Function.
   const handleAddToCart = (event) => {
@@ -27,6 +40,9 @@ const Card = ({ data }) => {
 
     // If User exist.
     if (user && user._id) {
+      // Notify.
+      notify();
+
       dispatch(
         addToCart({
           userId: user._id,
