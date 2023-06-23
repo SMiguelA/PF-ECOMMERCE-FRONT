@@ -44,11 +44,11 @@ const initialState = {
   user: null,
   productId: [],
   cart: [],
-  loadingLoagin_Register:false,
-  orders:[],
-  errorsBack:{
-    errorLogin:[],
-    errorRegister:[],
+  loadingLoagin_Register: false,
+  orders: [],
+  errorsBack: {
+    errorLogin: [],
+    errorRegister: [],
   },
 };
 
@@ -62,33 +62,33 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case LOGIN_GOOGLE:
       return {
         ...state,
-        user:payload
-      }
+        user: payload,
+      };
     case CLEAR_ERRORS: {
       return {
         ...state,
-        errorsBack:{
+        errorsBack: {
           ...state.errorsBack,
-          errorLogin:[]
-        }
-      }
+          errorLogin: [],
+        },
+      };
     }
     case ERROR_REGISTER:
-      return{
+      return {
         ...state,
-        errorsBack:{
+        errorsBack: {
           ...state.errorsBack,
-          errorRegister:payload
-        }
-      }
+          errorRegister: payload,
+        },
+      };
     case ERROR_LOGIN:
       return {
         ...state,
-        errorsBack:{
+        errorsBack: {
           ...state.errorsBack,
-          errorLogin:payload
-        }
-      }
+          errorLogin: payload,
+        },
+      };
     case FILTER_PRODUCTS:
       return {
         ...state,
