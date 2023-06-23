@@ -16,7 +16,18 @@ ul.pagination li {
   /* margin-left: 1em; */
 }
 
-ul.pagination li a {
+/* ul.pagination li a {
+  font-family: 'Roboto Slab', serif;
+  color: aliceblue;
+  background-color: #151515;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  border: 1px solid #5C5C5C;
+  border-radius: 1em;
+  transition: transform 0.5s ease-out,
+} */
+.default_link{
   font-family: 'Roboto Slab', serif;
   color: aliceblue;
   background-color: #151515;
@@ -47,4 +58,16 @@ ul.pagination li a:hover {
   cursor: pointer;
   color: black;
   transition: transform 0.5s ease-out,
+}
+
+.current_link{
+  background-color: rgb(247, 247, 247);
+  color: black;
+  border-radius: 1em;
+  border: 1px solid #5C5C5C;
+  transition: transform 0.5s ease-out,
+}
+
+.current_link:hover{
+  background-color: rgb(110, 110, 110);
 }

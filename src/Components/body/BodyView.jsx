@@ -34,6 +34,7 @@ export const BodyView = () => {
                 productsPerPage={productsPerPage}
                 allProducts={productsFiltered.length}
                 paginated={paginated}
+                currentPage={currentPage}
               />
         </div>
         <ActiveFilters />
