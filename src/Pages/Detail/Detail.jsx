@@ -112,7 +112,7 @@ export default function Detail() {
             <Route path="/" element={<About description={productId.description}/>}/>
             <Route path="/*" element={<About description={productId.description}/>}/>
             <Route path="/about" element={<About description={productId.description}/>} />
-            <Route path="/reviews" element={<Reviews data={productId.valorations}/>} />
+            <Route path="/reviews" element={<Reviews data={productId.valorations} id={productId._id}/>} />
             {
               user && <Route path="/rating" element={
               <>

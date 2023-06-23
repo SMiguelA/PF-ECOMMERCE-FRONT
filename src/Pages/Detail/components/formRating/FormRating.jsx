@@ -1,23 +1,27 @@
 import React, { useState } from 'react';
 import { BsInfoCircle } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { createReviewAction } from '../../../../Redux/Actions';
 import style from './FormRating.module.css';
 import { StarsRating } from './starReview/StarsRating';
 
 export const FormRating = ({user, product}) => {
   const [fadeOut, setFadeOut] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const date = new Date()
+  const {_id, name} = product;
   
 
   const [dataForm, setDataForm] = useState({
-    rating: 0,
+    rating: null,
     description: '',
     id_cliente: user._id || user.id,
-    date
+    date,
+    id_product: _id
   })
-  console.log(dataForm);
 
   const handleNavigation = (path, event) => {
     event.preventDefault();
@@ -26,7 +30,6 @@ export const FormRating = ({user, product}) => {
       navigate(path);
     }, 250);
   };
-  const {_id, name} = product;
 
   const handlerDescription = (event) => {
     event.preventDefault();
@@ -38,7 +41,16 @@ export const FormRating = ({user, product}) => {
 
   const handlerSubmit = (event) => {
     event.preventDefault();
-
+    if(!dataForm.rating || !dataForm.description){
+      alert('Complete form data to procede');
+    }else{
+      dispatch(createReviewAction(dataForm))
+      alert('Review created succesfully');
+      setFadeOut(true);
+      setTimeout(() => {
+        navigate(`/store/detail/${_id}/reviews`);
+      }, 250);
+    }
   }
 
   return (
