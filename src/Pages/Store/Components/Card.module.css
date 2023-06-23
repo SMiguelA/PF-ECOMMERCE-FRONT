@@ -54,6 +54,9 @@
 }
 
 .info{
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
     margin-top: -1em;
     padding-left: 1em;
     padding-right: 1em;
@@ -83,4 +86,13 @@
     display: inline;
     border-radius: 1em;
     padding: 5px;
+}
+
+
+/* Add to Cart Button */
+.addToCart {
+
+    color:white;
+    background-color: green;
+
 }
