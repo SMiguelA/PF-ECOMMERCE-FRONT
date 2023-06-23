@@ -138,7 +138,7 @@ function Signup() {
         <div className={styles.social_message}>
           <p className={styles.message}>Register with social account</p>
         </div>
-        <LoginGoogle />
+          <LoginGoogle />
         <p className={styles.signup}>
           You have an account? <StyledLink to="/login">Login</StyledLink>
         </p>

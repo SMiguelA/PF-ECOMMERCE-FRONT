@@ -11,7 +11,6 @@ import "./index.css";
 import useLocalStorageUser from "./Hooks/useLocalStorageUser";
 
 const GoogleclientID = process.env.REACT_APP_GOOGLE_CLIENT_ID
-console.log(GoogleclientID)
 function LocalStorageProvider({ children }) {
   useLocalStorageUser();
 
@@ -21,7 +20,7 @@ function LocalStorageProvider({ children }) {
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <GoogleOAuthProvider
-    clientId="569996934218-ahms9ko6fnqdmtj5h6pov49fsksjqb9b.apps.googleusercontent.com"
+    clientId={GoogleclientID}
     >
     <BrowserRouter>
       <LocalStorageProvider>

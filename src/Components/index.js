@@ -11,6 +11,9 @@ export { default as LoadingForm } from './LoadingForm/LoadingForm';
 export { default as LoginGoogle } from './LoginGoogle/LoginGoogle';
 export { default as Navbar } from './Navbar/Navbar';
 export { default as Paginated } from './Paginated/Paginated';
+export { default as TableAdmin } from './Table/TableAdmin';
+export { default as TableOrders } from './Table/TableOrders';
+export { default as TableUsers } from './Table/TableUsers';
 export * from './body/BodyView';
 export * from './searchBar/SearchBar';
 

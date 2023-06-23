@@ -1,6 +1,5 @@
 import React from 'react'
 import "./styles.css"
-import { DivContainer } from '../../ComponentsStyles'
 const LoadingForm = () => {
   return (
     
