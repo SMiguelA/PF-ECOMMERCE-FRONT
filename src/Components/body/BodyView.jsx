@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Paginated } from "../../Components";
 import Filters from "../../Components/Filters/Filters";
@@ -45,6 +46,7 @@ export const BodyView = () => {
       </div>
 
       <Filters />
+      <Toaster />
     </div>
   );
 };
