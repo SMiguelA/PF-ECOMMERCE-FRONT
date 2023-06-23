@@ -7,6 +7,7 @@ import {
   ACTIVE_PRODUCTS_PRICE,
   ADD_TO_CART,
   CREATE_PRODUCT,
+  CREATE_REVIEW,
   DECREASE_CART,
   DELETE_PRODUCT_BY_ID,
   FILTER_PRODUCTS,
@@ -17,8 +18,7 @@ import {
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
   INCREASE_CART,
-  REMOVE_FROM_CART,
-  SIGNUP
+  REMOVE_FROM_CART
 } from "../../actionsTypes.js";
 
 export const getProducts = () => {
@@ -48,6 +48,26 @@ export const filterProducts = (filters) => {
     } catch (error) {
       window.alert(error.response.data.Error);
       console.log("Error filter Products")
+    }
+  };
+};
+
+export const createReviewAction = ({rating, description, id_cliente, date, id_product}) => {
+  return async function (dispatch) {
+    try {
+      const json = await axios.put(`/products/${id_product}`,{
+        valorations:{
+          id_cliente,
+          comment:description,
+          rating,
+          date
+        }
+      });
+      return dispatch({
+        type: CREATE_REVIEW
+      });
+    } catch (error) {
+      window.alert(error.response.data.Error);
     }
   };
 };
