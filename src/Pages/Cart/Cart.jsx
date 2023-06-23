@@ -116,6 +116,8 @@ function Cart() {
                     <td>
                       <div className="itemQuantity">
                         <button
+
+                          disabled={user.cart[item._id || item.id] <= 0}
                           onClick={() => {
                             handleDecrease({
                               productId: item._id || item.id,
