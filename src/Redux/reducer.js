@@ -29,7 +29,6 @@ import {
   REMOVE_FROM_CART,
   SIGNUP,
   UPDATE_USER,
-  SIGNUP
 } from "./actionsTypes";
 
 const initialState = {

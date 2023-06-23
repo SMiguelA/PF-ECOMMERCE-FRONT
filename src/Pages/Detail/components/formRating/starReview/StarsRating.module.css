@@ -1,0 +1,13 @@
+.container{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+.container input{
+    display: none;
+}
+.container label{
+    font-size: 2em;
+    transition: all 0.2s ease;
+    margin-right: 0.5em;
+    transition: all 0.2s ease;
+}

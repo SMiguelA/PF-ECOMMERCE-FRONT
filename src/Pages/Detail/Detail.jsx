@@ -98,9 +98,12 @@ export default function Detail() {
             <div onClick={() => handleNavigation(`reviews`)} className={bandera == 'reviews' ? style.reviewsStyle : ''}>
               <label>Ratings and reviews</label>
             </div>
-            <div onClick={() => handleNavigation(`rating`)} className={bandera == 'rating' ? style.ratingStyle : ''}>
-              <label>Rate this game</label>
-            </div>
+            {
+              user 
+              && <div onClick={() => handleNavigation(`rating`)} className={bandera == 'rating' ? style.ratingStyle : ''}>
+                  <label>Rate this game</label>
+                 </div>
+            }
           </div>
 
           <hr className={style.hrSegundo}/>
@@ -110,7 +113,14 @@ export default function Detail() {
             <Route path="/*" element={<About description={productId.description}/>}/>
             <Route path="/about" element={<About description={productId.description}/>} />
             <Route path="/reviews" element={<Reviews data={productId.valorations}/>} />
-            <Route path="/rating" element={<FormRating />} />
+            {
+              user && <Route path="/rating" element={
+              <>
+                <FormRating user={user} product={productId}/>
+                <Reviews data={productId.valorations}/>
+              </>
+              } />
+            }
           </Routes>
 
         </div>
