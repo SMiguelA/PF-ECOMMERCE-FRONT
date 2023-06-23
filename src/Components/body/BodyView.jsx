@@ -5,7 +5,6 @@ import Filters from "../../Components/Filters/Filters";
 import { ActiveFilters } from "../../Pages/Store/Components/ActiveFilters";
 import Cards from "../../Pages/Store/Components/Cards";
 import styles from "./styles.module.css";
-// import { useSelector } from "react-redux";
 
 export const BodyView = () => {
   const productsFiltered = useSelector((state) => state.products);
