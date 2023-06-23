@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { activeFilterCategory, filterProducts } from '../../../../Redux/Actions';
 import style from './Categories.module.css';
 import { categoriesData, categoriesText } from './categoriesData';
 
@@ -18,17 +17,7 @@ export const     Categories = () => {
         name:""
     });
 
-    useEffect(() => {
-        dispatch(filterProducts(filterData))
-        dispatch(activeFilterCategory(filterData.filterCategory))
-    },[filterData])
-
     const handlerClick = (event) => {
-        const category = event.target.id;
-        setFilterData({
-            ...filterData,
-            filterCategory: category
-        });
         setTimeout(() => {
             navigate('/store');
         },150)

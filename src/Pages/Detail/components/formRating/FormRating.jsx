@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from "react-hot-toast";
 import { BsInfoCircle } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -39,13 +40,26 @@ export const FormRating = ({user, product}) => {
     })
   }
 
+  const notify = () =>
+    toast("Review created succesfully!", {
+      icon: "☑",
+      style: {
+        borderRadius: "10px",
+        background: "#fff",
+        color: "#333",
+      },
+      duration: 3000,
+      position: "bottom-right",
+    });
+
   const handlerSubmit = (event) => {
     event.preventDefault();
     if(!dataForm.rating || !dataForm.description){
       alert('Complete form data to procede');
     }else{
       dispatch(createReviewAction(dataForm))
-      alert('Review created succesfully');
+      
+      notify()
       setFadeOut(true);
       setTimeout(() => {
         navigate(`/store/detail/${_id}/reviews`);
