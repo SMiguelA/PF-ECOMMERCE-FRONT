@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { SiBattledotnet, SiEpicgames, SiOrigin, SiPlaystation, SiSteam, SiUbisoft, SiXbox } from 'react-icons/si';
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "./SearchBar.module.css";
@@ -20,6 +21,7 @@ export const SearchBar = () => {
       })
     );
   }, [inputValue]);
+  console.log(filteredData);
 
   return (
     <div className={styled.container}>
@@ -34,11 +36,22 @@ export const SearchBar = () => {
         {filteredData?.length && inputValue ? (
           filteredData.map((product) => {
             return (
-              <div className={styled.divDataProduct}>
-                <Link to={`/store/detail/${product.id}`}>
-                  <label>{product.name}</label>
+                <Link to={`/store/detail/${product.id}`} className={styled.divDataProduct} key={product.id}>
+                  <div className={styled.containerGame}>
+                    <img src={product.pictures[0]} alt="picture" />
+                    <div className={styled.info}>
+                      <label>{product.name}</label>
+                      <p>${product.price}</p>
+                        {product.platform.toLowerCase() == 'steam' && <SiSteam />}
+                        {product.platform.toLowerCase() == 'battle.net' && <SiBattledotnet />}
+                        {product.platform.toLowerCase() == 'epic games' && <SiEpicgames />}
+                        {product.platform.toLowerCase() == 'xbox live' && <SiXbox />}
+                        {product.platform.toLowerCase() == 'playstation' && <SiPlaystation />}
+                        {product.platform.toLowerCase() == 'origin' && <SiOrigin />}
+                        {product.platform.toLowerCase() == 'ubisoft' && <SiUbisoft />}
+                    </div>
+                  </div>
                 </Link>
-              </div>
             );
           })
         ) : (
