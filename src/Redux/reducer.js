@@ -7,6 +7,7 @@ import {
   CLEAR_ERRORS,
   CREATE_ORDER,
   CREATE_PRODUCT,
+  CREATE_REVIEW,
   DECREASE_CART,
   DELETE_PRODUCT_BY_ID,
   ERROR_LOGIN,
@@ -28,7 +29,7 @@ import {
   LOGOUT,
   REMOVE_FROM_CART,
   SIGNUP,
-  UPDATE_USER,
+  UPDATE_USER
 } from "./actionsTypes";
 
 const initialState = {
@@ -59,6 +60,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         users: payload,
       };
+    case CREATE_REVIEW:
+      return{
+        ...state
+      }
     case LOGIN_GOOGLE:
       return {
         ...state,

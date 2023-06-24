@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap');
+
 .container{
     padding-left: 16em;
     width: 100%;
@@ -8,8 +10,9 @@
 
 .containerData{
     display: none;
-    background-color: aliceblue;
-    width: 42.81%;
+    /* background-color: aliceblue; */
+    width: 40.6%;
+    height: 7em;
     border-radius: 5px;
     font-size: 1em;
 }
@@ -18,12 +21,44 @@
 }
 
 
+.divDataProduct{
+    cursor: pointer;
+    text-decoration: none;
+}
+.containerGame{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    background-color: aliceblue;
+    padding: 1em;
+    border-bottom: 1px solid #202020;
+    gap: 3em;
+}
+.containerGame:hover{
+    background-color: #e4e4e4;
+}
+.containerGame label{
+    cursor: pointer;
+    color: black;
+}
+.containerGame img{
+    height: 100%;
+    width: 24%;
+    border-radius: 0.4em;
+}
+
 
 .divDataProduct:focus ~ .containerData{
     display: none;
 }
 
 .input{
+    font-family: 'Poppins', sans-serif;
     width: 40%;
     background-color: #202020;
     /* border: 2px solid rgb(173, 173, 173); */
@@ -37,4 +72,16 @@
 }
 .input:focus ~ .containerData{
     display: block;
+}
+
+.info p{
+    color: rgb(161, 161, 161);
+    background-color: #202020;
+    border-radius: 1em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    width: fit-content;
+}
+.info svg{
+    color: #202020;
 }

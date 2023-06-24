@@ -1,8 +1,5 @@
 import axios from "axios";
 
-const instance = axios.create({
-   baseURL: "https://pf-ecommerce-back-production.up.railway.app/",
-  //baseURL: "http://localhost:3001/",
-});
+const instance = axios.create({ baseURL: process.env.REACT_APP_BASE_URL });
 
 export default instance;
