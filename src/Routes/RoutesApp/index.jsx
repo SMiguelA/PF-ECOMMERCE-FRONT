@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Navbar } from "../../Components";
@@ -56,6 +57,7 @@ function RoutesMain() {
             <Route path="/orders-admin" element={<TableOrders />} />
           </Route>
         </Routes>
+        <Toaster />
       </Main>
     </div>
   );

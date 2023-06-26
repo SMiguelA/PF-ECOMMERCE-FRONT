@@ -59,10 +59,13 @@ export const OrderDetails = styled.div`
 export const DetailLabel = styled.h4`
     display: flex;
     align-items: center;
+    margin:0;
+    padding:0;
     margin-right: 1rem;
 `;
 
 export const DetailLabelValue = styled.h4`
     color: #71CE98;
+    margin:0;
     margin-left: 0.5rem;
 `;

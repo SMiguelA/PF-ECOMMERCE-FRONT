@@ -9,6 +9,7 @@ import { Reviews } from "./components/Reviews/Reviews";
 import Starts from "./components/Starts";
 import { About } from "./components/about/About";
 import { FormRating } from "./components/formRating/FormRating";
+import { toast } from "react-hot-toast";
 
 
 export default function Detail() {
@@ -39,9 +40,24 @@ export default function Detail() {
     setBandera(ruta)
   },[ruta])
 
+    // Add to Cart Notification.
+    const notify = () =>
+    toast("Game added to cart!", {
+      icon: "🎮",
+      style: {
+        borderRadius: "10px",
+        background: "#fff",
+        color: "#333",
+      },
+      duration: 3000,
+      position: "bottom-right",
+    });
+
   const handleAddToCart = (e) => {
     e.preventDefault();
     if (user && user._id) {
+
+      notify()
       // Check if user and user._id exist
       dispatch(
         addToCart({
