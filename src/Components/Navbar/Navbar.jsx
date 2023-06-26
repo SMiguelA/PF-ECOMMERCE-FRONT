@@ -76,8 +76,11 @@ export default function Navbar() {
                   size={25}
                   style={{ marginBottom: "5px" }}
                   className={styles.iconsNav}
-                />{" "}
+                  />{" "}
                 Cart
+                {
+                user && user.cart.count !==0 &&
+                 <div className={styles.containerCount}>{user.cart.count}</div>}
               </li>
             </StyledLink>
             <StyledLink to="">

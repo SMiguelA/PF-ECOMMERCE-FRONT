@@ -1,10 +1,13 @@
 .container{
     padding-top: 2em;
+    width: 100%;
+
 }
 .reviewContent{
     border-bottom: 1px solid grey;
     border-top: 1px solid grey;
     padding-bottom: 2.5em;
+    width: 100%;
 }
 .nameInfo{
     display: flex;

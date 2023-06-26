@@ -24,7 +24,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 60rem;
+  height: 100%;
   width: 100%;
 }
 
@@ -32,15 +32,6 @@
   /* border:2px solid white; */
   order: 1;
   width: 80%;
-  height: 60%;
+  height: 35rem;
   margin: 15px 0 15px 0;
-}
-
-.containerCardsCategory {
-  border: 2px solid white;
-  border-radius: 10px;
-  order: 2;
-  width: 80%;
-  height: 60%;
-  margin: 0 0 15px 0;
 }

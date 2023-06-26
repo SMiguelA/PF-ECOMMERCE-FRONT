@@ -165,3 +165,9 @@ align-items: center;
   box-shadow: 2px 2px 4px rgba(217, 215, 215, 0.3);
 
 }
+
+.containerCount{
+  border: 5px;
+  border-color: white;
+  border-radius: 50%;
+}

@@ -9,6 +9,7 @@ import { Reviews } from "./components/Reviews/Reviews";
 import Starts from "./components/Starts";
 import { About } from "./components/about/About";
 import { FormRating } from "./components/formRating/FormRating";
+import { toast } from "react-hot-toast";
 
 function Detail({addFavorite, removeFavorite, myFavorites}) {
   const { id } = useParams();
@@ -39,9 +40,24 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
     setBandera(ruta)
   },[ruta])
 
+    // Add to Cart Notification.
+    const notify = () =>
+    toast("Game added to cart!", {
+      icon: "🎮",
+      style: {
+        borderRadius: "10px",
+        background: "#fff",
+        color: "#333",
+      },
+      duration: 3000,
+      position: "bottom-right",
+    });
+
   const handleAddToCart = (e) => {
     e.preventDefault();
     if (user && user._id) {
+
+      notify()
       // Check if user and user._id exist
       dispatch(
         addToCart({
@@ -133,9 +149,12 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
             <div onClick={() => handleNavigation(`reviews`)} className={bandera == 'reviews' ? style.reviewsStyle : ''}>
               <label>Ratings and reviews</label>
             </div>
-            <div onClick={() => handleNavigation(`rating`)} className={bandera == 'rating' ? style.ratingStyle : ''}>
-              <label>Rate this game</label>
-            </div>
+            {
+              user 
+              && <div onClick={() => handleNavigation(`rating`)} className={bandera == 'rating' ? style.ratingStyle : ''}>
+                  <label>Rate this game</label>
+                 </div>
+            }
           </div>
 
           <hr className={style.hrSegundo}/>
@@ -144,8 +163,15 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
             <Route path="/" element={<About description={productId.description}/>}/>
             <Route path="/*" element={<About description={productId.description}/>}/>
             <Route path="/about" element={<About description={productId.description}/>} />
-            <Route path="/reviews" element={<Reviews data={productId.valorations}/>} />
-            <Route path="/rating" element={<FormRating />} />
+            <Route path="/reviews" element={<Reviews data={productId.valorations} id={productId._id}/>} />
+            {
+              user && <Route path="/rating" element={
+              <>
+                <FormRating user={user} product={productId}/>
+                <Reviews data={productId.valorations}/>
+              </>
+              } />
+            }
           </Routes>
 
         </div>

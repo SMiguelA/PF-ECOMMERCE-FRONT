@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Toaster } from "react-hot-toast";
+import { useDispatch } from 'react-redux';
+import { getProductById } from '../../../../Redux/Actions';
 import Starts from '../Starts';
 import style from './Reviews.module.css';
 
-export const Reviews = ({data}) => {
-  data?.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+export const Reviews = ({data, id}) => {
+  const sortedData = data?.sort((a, b) => new Date(a.date) - new Date(b.date));
+  const distpatch = useDispatch();
+
+  useEffect(() => {
+    id && distpatch(getProductById(id))
+  },[])
+
+  console.log(data);
+
   return (
     <div className={style.container}>
       {
-        data.length 
-        ? data.map((review) => {
+        sortedData.length 
+        ? sortedData.map((review) => {
           const fehcaReview = new Date(review.date);
           let dia = fehcaReview.getDate();
           let mes = fehcaReview.getMonth() + 1;
@@ -34,6 +46,7 @@ export const Reviews = ({data}) => {
         })
         :<>This product dont have reviews to show</>
       }
+      <Toaster />
     </div>
   )
 }
