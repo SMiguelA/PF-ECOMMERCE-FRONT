@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserProducts } from '../../Redux/Actions';
+import style from './DashboardAdminUserProduct..module.css';
 import { ProductsTable } from './components/ProductsTable';
 import { UsersTable } from './components/UsersTable';
 
@@ -20,11 +21,13 @@ export const DashboardAdminUserProduct = () => {
     }
     
     return (
-        <div style={{padding:'5em'}}>
-            <select onChange={handleChange}>
-                <option value="users" selected>Users</option>
-                <option value="products">Products</option>
-            </select>
+        <div className={style.container}>
+            <div className={style.contSelect}>
+                <select onChange={handleChange}>
+                    <option value="users" selected>Users</option>
+                    <option value="products">Products</option>
+                </select>
+            </div>
             {
                 state 
                 ? type === 'users'

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { addToCart, deletProductId, getProductById } from "../../Redux/Actions";
@@ -9,7 +10,6 @@ import { Reviews } from "./components/Reviews/Reviews";
 import Starts from "./components/Starts";
 import { About } from "./components/about/About";
 import { FormRating } from "./components/formRating/FormRating";
-import { toast } from "react-hot-toast";
 
 
 export default function Detail() {
@@ -75,7 +75,9 @@ export default function Detail() {
 
   return (
     <>
-      {productId && productId.name ? (
+      {
+      
+      user && user.isActive ? productId && productId.name ? (
         <div className={style.container}>
           <div className={style.contLeft}>
             <h1>{productId.name}</h1>
@@ -142,7 +144,11 @@ export default function Detail() {
         </div>
       ) : (
         <h1 style={{ color: "white" }}>Loading...</h1>
-      )}
+      )
+    
+      : navigate('/banned')
+    
+    }
     </>
   );
 }

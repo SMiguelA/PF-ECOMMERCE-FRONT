@@ -5,6 +5,7 @@ import { Navbar } from "../../Components";
 import TableOrders from "../../Components/Table/TableOrders";
 import { Aside, Main } from "../../ComponentsStyles";
 import AdminOrders from "../../Pages/AdminOrders/AdminOrders";
+import { BannedView } from "../../Pages/Banned/BannedView";
 import Cart from "../../Pages/Cart/Cart";
 import { DashboardAdminUserProduct } from "../../Pages/DashboardAdminUserProduct/DashboardAdminUserProduct";
 import Detail from "../../Pages/Detail/Detail";
@@ -51,6 +52,7 @@ function RoutesMain() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/banned" element={<BannedView />} />
             {/* <Route path="/logout" element={<Home />} /> */}
           </Route>
 

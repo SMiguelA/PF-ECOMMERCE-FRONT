@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import axios from '../../../axios';
 import averageGrades from '../../../utils/averageGrades';
-import style from './UserTable.module.css';
 
 export const ProductsTable = ({data, galleta, setGalleta}) => {
 
@@ -52,8 +51,8 @@ export const ProductsTable = ({data, galleta, setGalleta}) => {
             name: 'Action', cell:(row) => (
             bandera && bandera._id === row._id 
             ? row.isActive 
-            ? <button id={row._id} name={row.isActive.toString()} className={style.button} onClick={handlerChangeState}>Disable</button>
-            : <button id={row._id} name={row.isActive.toString()} className={style.buttonUndo} onClick={handlerChangeState}>Enable</button>
+            ? <button id={row._id} name={row.isActive.toString()} onClick={handlerChangeState}>Disable</button>
+            : <button id={row._id} name={row.isActive.toString()} onClick={handlerChangeState}>Enable</button>
             :<></>
             )
         }
@@ -76,6 +75,7 @@ export const ProductsTable = ({data, galleta, setGalleta}) => {
         columns={columns}
         data={info}
         highlightOnHover={true}
+        theme='dark'
         pointerOnHover={true}
         pagination={true}
         onRowClicked={handlerClick}

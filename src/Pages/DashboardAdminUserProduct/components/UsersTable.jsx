@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import axios from '../../../axios';
-import style from './UserTable.module.css';
+import './userTable.css';
 
 export const UsersTable = ({data, galleta, setGalleta}) => {
 
@@ -37,8 +37,8 @@ export const UsersTable = ({data, galleta, setGalleta}) => {
             name: 'Action', cell:(row) => (
             bandera && bandera.email === row.email 
             ? row.isActive 
-            ? <button id={row._id} name={row.isActive.toString()} className={style.button} onClick={handlerChangeState}>Ban</button>
-            : <button id={row._id} name={row.isActive.toString()} className={style.buttonUndo} onClick={handlerChangeState}>Unban</button>
+            ? <button id={row._id} name={row.isActive.toString()} onClick={handlerChangeState}>Ban</button>
+            : <button id={row._id} name={row.isActive.toString()} onClick={handlerChangeState}>Unban</button>
             :<></>
             )
         }
@@ -62,6 +62,7 @@ export const UsersTable = ({data, galleta, setGalleta}) => {
         data={info}
         highlightOnHover={true}
         pointerOnHover={true}
+        theme='dark'
         pagination={true}
         onRowClicked={handlerClick}
         paginationPerPage={10}
