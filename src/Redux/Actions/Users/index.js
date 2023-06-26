@@ -10,6 +10,8 @@ import {
   LOGOUT,
   UPDATE_USER,
   SIGNUP,
+  REMOVE_FAVORITE,
+  ADD_FAVORITE
 } from "../../actionsTypes";
 
 export const getUsers = () => {
@@ -153,6 +155,16 @@ export const createOrder = (payload) => {
         console.log(`Error ${error}`);
       });
   };
+};
+
+export const addFavorite = (product) => {
+  return { type: ADD_FAVORITE, payload: product };
+};
+
+export const removeFavorite = (id) => {
+  console.log("Entra a remove")
+  console.log(id)
+  return { type: REMOVE_FAVORITE, payload: id };
 };
 
 // export const restartCart = () => {

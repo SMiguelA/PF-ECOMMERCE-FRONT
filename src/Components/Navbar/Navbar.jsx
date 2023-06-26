@@ -60,7 +60,7 @@ export default function Navbar() {
                 Store
               </li>
             </StyledLink>
-            <StyledLink to="">
+            <StyledLink to="/favorites">
               <li>
                 <AiFillAppstore
                   size={25}

@@ -62,6 +62,16 @@
     font-size: larger;
 }
 
+.favoritesStyle {
+    /* margin-top: -0.5em; */
+    font-size: larger;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center; 
+}
+
+
 .contRight{
     width: 50%;
     height: 45em;

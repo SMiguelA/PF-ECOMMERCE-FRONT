@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
-import { addToCart, deletProductId, getProductById } from "../../Redux/Actions";
+import { addToCart, deletProductId, getProductById, addFavorite, removeFavorite } from "../../Redux/Actions";
 import axios from "../../axios";
 import style from "./Detail.module.css";
 import Galery from "./components/Galery";
@@ -10,8 +10,7 @@ import Starts from "./components/Starts";
 import { About } from "./components/about/About";
 import { FormRating } from "./components/formRating/FormRating";
 
-
-export default function Detail() {
+function Detail({addFavorite, removeFavorite, myFavorites}) {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,6 +18,7 @@ export default function Detail() {
   const [product, setProduct] = useState(null);
   const { '*': ruta } = useParams();
   const [bandera, setBandera] = useState(ruta);
+  const [ isFav, setIsFav ] = useState(false);
 
   useEffect(() => {
     axios.get(`/products/${id}`).then(({ data }) => {
@@ -57,15 +57,50 @@ export default function Detail() {
     navigate(path);
   };
 
+  const handdleFavorite = () => {
+    if(isFav){
+       setIsFav(false);
+       removeFavorite(productId._id);
+    }else{
+       setIsFav(true);
+       addFavorite(productId);
+    }
+  }
+
+  useEffect(
+    () => {
+      myFavorites?.forEach((fav) => {
+          if(fav._id === id){
+            setIsFav(true);
+          }
+      });
+    },
+    [myFavorites]
+  );
+
   return (
     <>
       {productId && productId.name ? (
         <div className={style.container}>
           <div className={style.contLeft}>
             <h1>{productId.name}</h1>
-            <button onClick={handleAddToCart}>
-              <label>Add to </label><label className={style.labelStyle}> My Cart </label>
-            </button>
+            <div className={style.info}>
+              <button onClick={handleAddToCart}>
+                <label>Add to </label><label className={style.labelStyle}> My Cart </label>
+              </button>
+              {
+                isFav? (
+                  <button onClick={handdleFavorite}>
+                    <label className={style.favoritesStyle}> ❤️ </label>
+                  </button>
+                ):(
+                  <button onClick={handdleFavorite}>
+                    <label className={style.favoritesStyle}> 🤍 </label>
+                  </button>
+                )
+              }
+              <div></div>
+            </div>
             <div className={style.info}>
               <div>
                 <h2>Stock</h2>
@@ -120,3 +155,18 @@ export default function Detail() {
     </>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+     addFavorite: (productId) => {dispatch(addFavorite(productId))},
+     removeFavorite: (id) => {dispatch(removeFavorite(id))}
+  }
+};
+
+const mapStateToProps = (state) => {
+  return {
+     myFavorites: state.myFavorites,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);

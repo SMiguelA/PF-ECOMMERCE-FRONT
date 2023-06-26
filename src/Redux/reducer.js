@@ -29,9 +29,12 @@ import {
   REMOVE_FROM_CART,
   SIGNUP,
   UPDATE_USER,
+  ADD_FAVORITE, 
+  REMOVE_FAVORITE,
 } from "./actionsTypes";
 
 const initialState = {
+  myFavorites:[],
   products: [],
   filters: {
     name: "",
@@ -152,6 +155,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
         allProducts: payload,
       };
     case GET_PRODUCT_BY_ID:
+      console.log("Entra a product id")
+      console.log(state)
       return {
         ...state,
         productId: payload,
@@ -322,6 +327,20 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         products: filteredProductsByType,
+      };
+    
+    case ADD_FAVORITE:
+      return { 
+        ...state, 
+        myFavorites: [ ...state.myFavorites, payload]
+      };
+
+    case REMOVE_FAVORITE:
+      return { 
+        ...state, 
+        myFavorites: state.myFavorites.filter(
+            (product) => product._id !== payload
+        ) 
       };
 
     default:
