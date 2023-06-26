@@ -4,6 +4,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { Navbar } from "../../Components";
 import TableOrders from "../../Components/Table/TableOrders";
 import { Aside, Main } from "../../ComponentsStyles";
+import AdminOrders from "../../Pages/AdminOrders/AdminOrders";
 import Cart from "../../Pages/Cart/Cart";
 import Detail from "../../Pages/Detail/Detail";
 import Home from "../../Pages/Home/Home";
@@ -54,7 +55,7 @@ function RoutesMain() {
 
           <Route element={<RutaAdmin />}>
             <Route path="/new-product" element={<NewProduct />} />
-            <Route path="/orders-admin" element={<TableOrders />} />
+            <Route path="/orders-admin" element={<AdminOrders />} />
           </Route>
         </Routes>
         <Toaster />
