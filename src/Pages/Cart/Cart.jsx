@@ -2,6 +2,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import CheckoutForm from "../../Components/CheckoutForm/CheckoutForm";
 import {
   decreaseCart,
@@ -20,6 +21,7 @@ function Cart() {
   const user = useSelector((state) => state.user);
   const products = useSelector((state) => state.products);
   const userCartObj = user.cart;
+  const navigate = useNavigate();
 
   const [cart, setCart] = useState(null);
   useEffect(() => {
@@ -64,7 +66,10 @@ function Cart() {
 
   return (
     <div style={{ minHeight: "100%" }} className="contenedorCart">
-      {cart?.length ? (
+      {
+      
+      user.isActive ?
+      cart?.length ? (
         <div className="infoContainer">
           <div className="stripeContainer">
             <h1>Order Summary</h1>
@@ -166,7 +171,11 @@ function Cart() {
         <div>
           <div>Shopping cart is empty. Add products to your cart</div>
         </div>
-      )}
+      )
+    
+      : navigate('/banned')
+    
+    }
     </div>
   );
 }

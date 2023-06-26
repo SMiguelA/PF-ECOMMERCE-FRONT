@@ -133,7 +133,7 @@ export default function Navbar() {
                             size={25}
                             style={{ marginBottom: "5px" }}
                           />{" "}
-                          Admin
+                          Dashboard
                         </li>
                       </StyledLink>
                       <StyledLink to="/new-product">
