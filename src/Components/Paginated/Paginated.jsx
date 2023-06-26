@@ -1,8 +1,8 @@
 import style from "./Paginated.module.css";
 
-const Paginated = ({ productsPerPage, allProducts, paginated }) => {
+const Paginated = ({ productsPerPage, allProducts, paginated, currentPage }) => {
   const pageNumbers = [];
-
+ 
   for (let i = 0; i <= Math.ceil(allProducts / productsPerPage) - 1; i++) {
     pageNumbers.push(i + 1);
   }
@@ -10,11 +10,16 @@ const Paginated = ({ productsPerPage, allProducts, paginated }) => {
   return (
       <ul className={style.pagination}>
         {pageNumbers && 
-          pageNumbers.map((number) => (
+          pageNumbers.map((number) => (            
             <li key={number}>
-              <a href="#" onClick={() => paginated(number)}>
-                {number}
-              </a>
+              
+              {number == currentPage ?
+              <a href="#" onClick={() => paginated(number)} className={style.current_link}>
+              {number}
+            </a> : <a href="#" onClick={() => paginated(number)} className={style.default_link}>
+              {number}
+            </a>}
+              
             </li>
           ))}
       </ul>

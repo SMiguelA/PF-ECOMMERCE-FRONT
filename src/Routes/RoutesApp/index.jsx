@@ -1,8 +1,10 @@
+import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Navbar } from "../../Components";
 import TableOrders from "../../Components/Table/TableOrders";
 import { Aside, Main } from "../../ComponentsStyles";
+import AdminOrders from "../../Pages/AdminOrders/AdminOrders";
 import Cart from "../../Pages/Cart/Cart";
 import { DashboardAdminUserProduct } from "../../Pages/DashboardAdminUserProduct/DashboardAdminUserProduct";
 import Detail from "../../Pages/Detail/Detail";
@@ -56,8 +58,10 @@ function RoutesMain() {
             <Route path="/new-product" element={<NewProduct />} />
             <Route path="/orders-admin" element={<TableOrders />} />
             <Route path="/admin" element={<DashboardAdminUserProduct />} />
+            <Route path="/orders-admin" element={<AdminOrders />} />
           </Route>
         </Routes>
+        <Toaster />
       </Main>
     </div>
   );
