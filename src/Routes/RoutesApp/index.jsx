@@ -7,6 +7,7 @@ import Cart from "../../Pages/Cart/Cart";
 import Detail from "../../Pages/Detail/Detail";
 import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
+import Messenger from "../../Pages/Messenger/Messenger";
 import NewProduct from "../../Pages/NewProduct/NewProduct";
 import Orders from "../../Pages/Orders/Orders";
 import Profile from "../../Pages/Profile/Profile";
@@ -48,6 +49,8 @@ function RoutesMain() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/messenger" element={<Messenger />} />
+
             {/* <Route path="/logout" element={<Home />} /> */}
           </Route>
 
