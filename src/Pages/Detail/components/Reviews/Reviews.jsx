@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
+import { Toaster } from "react-hot-toast";
 import { useDispatch } from 'react-redux';
 import { getProductById } from '../../../../Redux/Actions';
 import Starts from '../Starts';
 import style from './Reviews.module.css';
+
 
 export const Reviews = ({data, id}) => {
   const sortedData = data?.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -44,6 +46,7 @@ export const Reviews = ({data, id}) => {
         })
         :<>This product dont have reviews to show</>
       }
+      <Toaster />
     </div>
   )
 }

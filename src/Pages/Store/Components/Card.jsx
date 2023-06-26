@@ -6,8 +6,8 @@ import "swiper/css";
 import "swiper/css/bundle";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
-import defaultImg from "../../../img/default.jpg";
 import { addToCart } from "../../../Redux/Actions";
+import defaultImg from "../../../img/default.jpg";
 import style from "./Card.module.css";
 
 const Card = ({ data }) => {
@@ -87,14 +87,19 @@ const Card = ({ data }) => {
             <h2>{data.name}</h2>
             <h3 className={style.price}>${formattedPrice}</h3>
           </div>
-          <div>
-            <button
-              onClick={(event) => handleAddToCart(event)}
-              className={style.addToCart}
-            >
-              Add
-            </button>
-          </div>
+          {
+            user && user.isActive 
+            ? <div>
+                <button
+                  onClick={(event) => handleAddToCart(event)}
+                  className={style.addToCart}
+                >
+                  Add
+                </button>
+              </div>
+            : <></>
+          }
+          
         </div>
         <div className={style.infoSecundaria}>
           <article>

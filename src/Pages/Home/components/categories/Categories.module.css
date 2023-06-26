@@ -30,9 +30,6 @@
     transform: scale(0.98);
     border: 2px solid rgba(128, 128, 128, 0.281);
 }
-.capa:hover{
-    text-decoration: underline;
-}
 .capa{
     font-family: 'Poppins', sans-serif;
     font-size: xx-large;
