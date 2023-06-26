@@ -4,6 +4,7 @@ import { Navbar } from "../../Components";
 import TableOrders from "../../Components/Table/TableOrders";
 import { Aside, Main } from "../../ComponentsStyles";
 import Cart from "../../Pages/Cart/Cart";
+import { DashboardAdminUserProduct } from "../../Pages/DashboardAdminUserProduct/DashboardAdminUserProduct";
 import Detail from "../../Pages/Detail/Detail";
 import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
@@ -54,6 +55,7 @@ function RoutesMain() {
           <Route element={<RutaAdmin />}>
             <Route path="/new-product" element={<NewProduct />} />
             <Route path="/orders-admin" element={<TableOrders />} />
+            <Route path="/admin" element={<DashboardAdminUserProduct />} />
           </Route>
         </Routes>
       </Main>
