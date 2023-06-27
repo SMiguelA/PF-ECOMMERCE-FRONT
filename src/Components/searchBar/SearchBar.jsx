@@ -21,7 +21,7 @@ export const SearchBar = () => {
       })
     );
   }, [inputValue]);
-  console.log(filteredData);
+  // console.log(filteredData);
 
   return (
     <div className={styled.container}>

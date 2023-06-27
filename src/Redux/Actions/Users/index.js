@@ -9,6 +9,8 @@ import {
   LOGIN_GOOGLE,
   LOGOUT,
   SIGNUP,
+  REMOVE_FAVORITE,
+  ADD_FAVORITE,
   UPDATE_USER,
 } from "../../actionsTypes";
 
@@ -32,7 +34,7 @@ export const updateUser = (id, data) => {
       .put(`/users/${id}`, data)
       .then((response) => {
         const user = response.data;
-        dispatch({ type: UPDATE_USER, payload: user.userModified[0] });
+        dispatch({ type: UPDATE_USER, payload: user.userModified });
       })
       .catch((error) => {
         console.log(`Error obteniendo users: ${error}`);
@@ -90,7 +92,6 @@ export const login = (payload) => {
       .post("/users/login", { email, password })
       .then((response) => {
         const users = response.data;
-        console.log("users", users);
         localStorage.setItem("user", JSON.stringify(users));
         dispatch({ type: LOGIN, payload: users });
       })
@@ -156,6 +157,36 @@ export const createOrder = (payload) => {
       })
       .catch((error) => {
         console.log(`Error ${error}`);
+      });
+  };
+};
+
+export const addFavorite = (user, product) => {
+  return function (dispatch) {
+    axios
+      .post(`/users/update-favorites`, { userId: user._id, favorites: product, type:"ADD" })
+      .then((response) => {
+        const user = response.data;
+        dispatch({ type: ADD_FAVORITE, payload: product });
+      })
+      .catch((error) => {
+        console.log(`Error: ${error}`);
+      });
+  };
+};
+
+export const removeFavorite = (user, product) => {
+  console.log("Entra a remove")
+  // console.log(id)
+  return function (dispatch) {
+    axios
+      .post(`/users/update-favorites`, { userId: user._id, favorites: product, type:"REMOVE" })
+      .then((response) => {
+        const user = response.data;
+        dispatch({ type: REMOVE_FAVORITE, payload: product._id });
+      })
+      .catch((error) => {
+        console.log(`Error: ${error}`);
       });
   };
 };

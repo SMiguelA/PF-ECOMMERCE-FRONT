@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
-import { addToCart, deletProductId, getProductById } from "../../Redux/Actions";
+import { addToCart, deletProductId, getProductById, addFavorite, removeFavorite } from "../../Redux/Actions";
 import axios from "../../axios";
 import style from "./Detail.module.css";
 import Galery from "./components/Galery";
@@ -11,8 +11,7 @@ import Starts from "./components/Starts";
 import { About } from "./components/about/About";
 import { FormRating } from "./components/formRating/FormRating";
 
-
-export default function Detail() {
+function Detail({addFavorite, removeFavorite, myFavorites}) {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,6 +19,10 @@ export default function Detail() {
   const [product, setProduct] = useState(null);
   const { '*': ruta } = useParams();
   const [bandera, setBandera] = useState(ruta);
+  const [ isFav, setIsFav ] = useState(false);
+  const { productId } = useSelector((state) => state);
+
+  console.log(myFavorites)
 
   useEffect(() => {
     axios.get(`/products/${id}`).then(({ data }) => {
@@ -27,7 +30,6 @@ export default function Detail() {
     });
   }, [id]);
 
-  const { productId } = useSelector((state) => state);
   useEffect(() => {
     if (id) {
       dispatch(getProductById(id));
@@ -40,8 +42,19 @@ export default function Detail() {
     setBandera(ruta)
   },[ruta])
 
-    // Add to Cart Notification.
-    const notify = () =>
+  useEffect(
+    () => {
+      myFavorites?.forEach((fav) => {
+          if(fav._id === id){
+            setIsFav(true);
+          }
+      });
+    },
+    [myFavorites]
+  );
+
+  // Add to Cart Notification.
+  const notify = () =>
     toast("Game added to cart!", {
       icon: "🎮",
       style: {
@@ -73,13 +86,25 @@ export default function Detail() {
     navigate(path);
   };
 
+  const handdleFavorite = () => {
+    if (user){
+      if(isFav){
+          setIsFav(false);
+          removeFavorite(user, productId);
+      }else{
+          setIsFav(true);
+          addFavorite(user, productId);
+      }
+    }
+  }
+
   return (
     <>
       {
       
       user && user.isActive ? productId && productId.name ? (
         <div className={style.container}>
-          <div className={style.contLeft}>
+         <div className={style.contLeft}>
             <h1>{productId.name}</h1>
             {
               user && productId.stock > 0 && productId.isActive && user.isActive 
@@ -90,6 +115,17 @@ export default function Detail() {
               :
               <></>
             }
+            {
+                isFav? (
+                  <button onClick={handdleFavorite}>
+                    <label className={style.favoritesStyle}> ❤️ </label>
+                  </button>
+                ):(
+                  <button onClick={handdleFavorite}>
+                    <label className={style.favoritesStyle}> 🤍 </label>
+                  </button>
+                )
+              }
             <div className={style.info}>
               <div>
                 <h2>Stock</h2>
@@ -158,3 +194,18 @@ export default function Detail() {
     </>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+     addFavorite: (user, product) => {dispatch(addFavorite(user, product))},
+     removeFavorite: (user, product) => {dispatch(removeFavorite(user, product))}
+  }
+};
+
+const mapStateToProps = (state) => {
+  return {
+     myFavorites: state.myFavorites,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);
