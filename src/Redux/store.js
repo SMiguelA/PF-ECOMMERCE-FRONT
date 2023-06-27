@@ -7,12 +7,14 @@ import rootReducer from "./reducer";
 const storedUser = localStorage.getItem("user");
 const storedAllProducts = localStorage.getItem("allProducts");
 const storedproducts = localStorage.getItem("products");
+const storedMyFavorites = localStorage.getItem("myFavorites");
 const initialState = {
   // localStorage.setItem("user", JSON.stringify(users));
   // Utiliza los datos almacenados para inicializar el estado de Redux
   user: storedUser ? JSON.parse(storedUser) : null,
   allProducts: storedAllProducts ? JSON.parse(storedAllProducts) : null,
   products: storedproducts ? JSON.parse(storedproducts) : null,
+  myFavorites: storedMyFavorites ? JSON.parse(storedMyFavorites) : null,
 };
 console.log("se inicio initialState");
 

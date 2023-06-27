@@ -1,0 +1,30 @@
+
+.containerStoreContent {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+  
+  .paginated {
+    background-color: #151515;
+    display: flex;
+    flex-direction: row;
+    /* margin-top: 5em;
+    margin-bottom: -2em; */
+    justify-content: center;
+  }
+  
+  .divContainer {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .divProducts {
+    margin-left: 25%;
+    
+  }
+
+.productsContainer{
+  margin-right: 2em;
+  margin-top: 1em;
+}
