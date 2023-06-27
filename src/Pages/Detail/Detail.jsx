@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { addToCart, deletProductId, getProductById, addFavorite, removeFavorite } from "../../Redux/Actions";
@@ -9,7 +10,6 @@ import { Reviews } from "./components/Reviews/Reviews";
 import Starts from "./components/Starts";
 import { About } from "./components/about/About";
 import { FormRating } from "./components/formRating/FormRating";
-import { toast } from "react-hot-toast";
 
 function Detail({addFavorite, removeFavorite, myFavorites}) {
   const { id } = useParams();
@@ -100,15 +100,22 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
 
   return (
     <>
-      {productId && productId.name ? (
+      {
+      
+      user && user.isActive ? productId && productId.name ? (
         <div className={style.container}>
-          <div className={style.contLeft}>
+         <div className={style.contLeft}>
             <h1>{productId.name}</h1>
-            <div className={style.info}>
+            {
+              user && productId.stock > 0 && productId.isActive && user.isActive 
+              ? 
               <button onClick={handleAddToCart}>
                 <label>Add to </label><label className={style.labelStyle}> My Cart </label>
               </button>
-              {
+              :
+              <></>
+            }
+            {
                 isFav? (
                   <button onClick={handdleFavorite}>
                     <label className={style.favoritesStyle}> ❤️ </label>
@@ -119,8 +126,6 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
                   </button>
                 )
               }
-              <div></div>
-            </div>
             <div className={style.info}>
               <div>
                 <h2>Stock</h2>
@@ -181,7 +186,11 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
         </div>
       ) : (
         <h1 style={{ color: "white" }}>Loading...</h1>
-      )}
+      )
+    
+      : navigate('/banned')
+    
+    }
     </>
   );
 }

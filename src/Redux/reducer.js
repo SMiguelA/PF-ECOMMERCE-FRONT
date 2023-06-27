@@ -22,6 +22,7 @@ import {
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
   GET_USERS,
+  GET_USER_PRODUCTS,
   INCREASE_CART,
   LOADINGFORM,
   LOGIN,
@@ -54,6 +55,7 @@ const initialState = {
     errorLogin: [],
     errorRegister: [],
   },
+  dataDashAdmin:[]
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -66,6 +68,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case CREATE_REVIEW:
       return{
         ...state
+      }
+    case GET_USER_PRODUCTS:
+      return{
+        ...state,
+        dataDashAdmin:payload
       }
     case LOGIN_GOOGLE:
       return {

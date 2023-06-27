@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Paginated } from "../../Components";
 import Filters from "../../Components/Filters/Filters";
@@ -25,18 +24,18 @@ export const BodyView = () => {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [productsFiltered])
+  }, [productsFiltered]);
 
   return (
     <div className={styles.containerStoreContent}>
       <div className={styles.productsContainer}>
         <div className={styles.paginated}>
-              <Paginated
-                productsPerPage={productsPerPage}
-                allProducts={productsFiltered.length}
-                paginated={paginated}
-                currentPage={currentPage}
-              />
+          <Paginated
+            productsPerPage={productsPerPage}
+            allProducts={productsFiltered.length}
+            paginated={paginated}
+            currentPage={currentPage}
+          />
         </div>
         <ActiveFilters />
         <div className={styles.containerCards}>
@@ -47,7 +46,6 @@ export const BodyView = () => {
       </div>
 
       <Filters />
-      <Toaster />
     </div>
   );
 };
