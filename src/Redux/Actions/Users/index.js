@@ -156,14 +156,34 @@ export const createOrder = (payload) => {
   };
 };
 
-export const addFavorite = (product) => {
-  return { type: ADD_FAVORITE, payload: product };
+export const addFavorite = (user, product) => {
+  return function (dispatch) {
+    axios
+      .post(`/users/update-favorites`, { userId: user._id, favorites: product, type:"ADD" })
+      .then((response) => {
+        const user = response.data;
+        dispatch({ type: ADD_FAVORITE, payload: product });
+      })
+      .catch((error) => {
+        console.log(`Error: ${error}`);
+      });
+  };
 };
 
-export const removeFavorite = (id) => {
+export const removeFavorite = (user, product) => {
   console.log("Entra a remove")
-  console.log(id)
-  return { type: REMOVE_FAVORITE, payload: id };
+  // console.log(id)
+  return function (dispatch) {
+    axios
+      .post(`/users/update-favorites`, { userId: user._id, favorites: product, type:"REMOVE" })
+      .then((response) => {
+        const user = response.data;
+        dispatch({ type: REMOVE_FAVORITE, payload: product._id });
+      })
+      .catch((error) => {
+        console.log(`Error: ${error}`);
+      });
+  };
 };
 
 // export const restartCart = () => {

@@ -104,7 +104,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
 
     case UPDATE_USER:
-      console.log(payload);
       return {
         ...state,
         user: payload,
@@ -234,12 +233,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         user: null,
+        myFavorites: []
       };
 
     case LOGIN:
+      console.log(payload)
       return {
         ...state,
         user: payload,
+        myFavorites: payload.myFavorites
       };
 
     case ADD_TO_CART:
@@ -338,7 +340,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case ADD_FAVORITE:
       return { 
         ...state, 
-        myFavorites: [ ...state.myFavorites, payload]
+        myFavorites: [ ...state.myFavorites, payload],
+        user: {
+          ...state.user,
+          myFavorites: [ ...state.myFavorites, payload],
+        },
       };
 
     case REMOVE_FAVORITE:
@@ -346,7 +352,13 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state, 
         myFavorites: state.myFavorites.filter(
             (product) => product._id !== payload
-        ) 
+        ),
+        user: {
+          ...state.user,
+          myFavorites: state.myFavorites.filter(
+            (product) => product._id !== payload
+        ),
+        }, 
       };
 
     default:

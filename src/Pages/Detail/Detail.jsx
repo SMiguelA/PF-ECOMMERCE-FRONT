@@ -90,10 +90,10 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
     if (user){
       if(isFav){
           setIsFav(false);
-          removeFavorite(productId._id);
+          removeFavorite(user, productId);
       }else{
           setIsFav(true);
-          addFavorite(productId);
+          addFavorite(user, productId);
       }
     }
   }
@@ -188,8 +188,8 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-     addFavorite: (productId) => {dispatch(addFavorite(productId))},
-     removeFavorite: (id) => {dispatch(removeFavorite(id))}
+     addFavorite: (user, product) => {dispatch(addFavorite(user, product))},
+     removeFavorite: (user, product) => {dispatch(removeFavorite(user, product))}
   }
 };
 
