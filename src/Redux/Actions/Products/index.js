@@ -18,6 +18,7 @@ import {
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
   INCREASE_CART,
+  MODIFY_STOCK_PRODUCT,
   REMOVE_FROM_CART
 } from "../../actionsTypes.js";
 
@@ -28,6 +29,25 @@ export const getProducts = () => {
       .then((response) => {
         const products = response.data;
         dispatch({ type: GET_PRODUCTS, payload: products });
+      })
+      .catch((error) => {
+        console.log(`Error obteniendo products: ${error}`);
+      });
+  };
+};
+
+export const modifyProductStock = (cart) => {
+  return function (dispatch) {
+    const cartItems = Object.keys(cart);
+    const productIds = cartItems.filter((key) => key !== 'count' && key !== 'total');
+    const stockPromises = productIds.map((productId) => {
+      const quantity = cart[productId];
+      return axios.put(`/products/${productId}`, { stock: quantity });
+    });
+
+    Promise.all(stockPromises)
+      .then(() => {
+        dispatch({ type: MODIFY_STOCK_PRODUCT });
       })
       .catch((error) => {
         console.log(`Error obteniendo products: ${error}`);
@@ -212,10 +232,10 @@ export const deleteProduct = (payload) => {
 
 export const increaseCart = (payload) => {
   return function (dispatch) {
-    const { productId, price, userId } = payload;
+    const { productId, price, userId, stock } = payload;
 
     axios
-      .post(`/products/increase-cart`, { productId, price, userId })
+      .post(`/products/increase-cart`, { productId, price, userId, stock })
       .then((response) => {
         const user = response.data;
         dispatch({ type: INCREASE_CART, payload: user });

@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 
-import { createOrder } from "../../Redux/Actions";
+import { createOrder, modifyProductStock } from "../../Redux/Actions";
 
 import "./CheckoutForm.css";
 
-function CheckoutForm({ data }) {
+
+function CheckoutForm({data, cart}) {
   const stripe = useStripe();
   const elements = useElements();
   const user = useSelector((state) => state.user);
@@ -20,6 +21,7 @@ function CheckoutForm({ data }) {
   const [address, setAddress] = useState("");
   const [paying, setPaying] = useState(false);
   const dispatch = useDispatch();
+  console.log(cart);
 
   // Add to Cart Notification.
   const notify = () =>
@@ -95,6 +97,11 @@ function CheckoutForm({ data }) {
         );
 
         setAlertMessage(`Payment ${paymentIntent.status}`);
+    
+        await dispatch(modifyProductStock(cart))
+
+        window.alert(`Payment ${paymentIntent.status}`);
+
         setTimeout(() => {
           navigate("/orders");
         }, 1000);
@@ -123,8 +130,8 @@ function CheckoutForm({ data }) {
         fontFamily: "Arial, sans-serif",
         fontSize: "16px",
       },
-    },
-  };
+    }
+  }
 
   return (
     <form onSubmit={handlePay} className="contenedorFormulario">
