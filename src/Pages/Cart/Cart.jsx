@@ -23,6 +23,10 @@ function Cart() {
   const userCartObj = user.cart;
   const navigate = useNavigate();
 
+ //estados locales para procesar el botton de decremento
+ const [isButtonDissabled, setIsButtonDissabled] = useState(false);
+ const [isProcessing, setIsProcessing] = useState(false); 
+
   const [cart, setCart] = useState(null);
   useEffect(() => {
     let cartt = Object.keys(userCartObj)
@@ -49,11 +53,21 @@ function Cart() {
   function handleDecrease(product) {
     const { productId } = product;
     const quantity = user.cart[productId];
+    if(!isProcessing){
+      setIsProcessing(true);
+      setIsButtonDissabled(true);
+    }
 
-    if (quantity <= 0) return alert("Can't proceed");
+    if (quantity <= 0) return alert("Press Remove");
     else {
       dispatch(decreaseCart(product));
     }
+
+    setTimeout(()=>{
+      setIsProcessing(false);
+      setIsButtonDissabled(false);
+    }, 1000)
+
   }
 
   function handleIncrease(product) {
@@ -125,7 +139,7 @@ function Cart() {
                       <div className="itemQuantity">
                         <button
 
-                          disabled={user.cart[item._id || item.id] <= 0}
+                          disabled={isButtonDissabled}
                           onClick={() => {
                             handleDecrease({
                               productId: item._id || item.id,

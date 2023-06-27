@@ -71,7 +71,7 @@ export default function Navbar() {
               </li>
             </StyledLink>
             <StyledLink to="/cart">
-              <li>
+            <li>
                 <CgShoppingCart
                   size={25}
                   style={{ marginBottom: "5px" }}
@@ -80,7 +80,7 @@ export default function Navbar() {
                 Cart
                 {
                 user && user.cart.count !==0 &&
-                 <div className={styles.containerCount}>{user.cart.count}</div>}
+                 <div className={styles.containerCount}>{user.cart.count>0? user.cart.count : 0}</div>}
               </li>
             </StyledLink>
             <StyledLink to="">
