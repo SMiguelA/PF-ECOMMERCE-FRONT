@@ -54,7 +54,7 @@ const Card = ({ data }) => {
   };
 
   return (
-    <Link to={`detail/${_id}`} style={{ textDecoration: "none" }}>
+    <Link to={data.isActive ? `detail/${_id}` : ''} style={{ textDecoration: "none" }}>
       <div className={(data.stock > 0 && data.isActive) ? style.container : style.containerTrans} key={data.id}>
         <div className={style.containerImgs}>
           <Swiper
