@@ -55,7 +55,7 @@ const Card = ({ data }) => {
 
   return (
     <Link to={`detail/${_id}`} style={{ textDecoration: "none" }}>
-      <div className={style.container} key={data.id}>
+      <div className={(data.stock > 0 && data.isActive) ? style.container : style.containerTrans} key={data.id}>
         <div className={style.containerImgs}>
           <Swiper
             className={style.tamano}
@@ -88,7 +88,7 @@ const Card = ({ data }) => {
             <h3 className={style.price}>${formattedPrice}</h3>
           </div>
           {
-            user && user.isActive 
+            user && data.stock > 0 && data.isActive && user.isActive 
             ? <div>
                 <button
                   onClick={(event) => handleAddToCart(event)}
@@ -107,7 +107,7 @@ const Card = ({ data }) => {
             <p>{data.category}</p>
           </article>
           <hr />
-          <article className={style.stock}>
+          <article className={data.stock > 0 ? style.stock : style.stockCero}>
             <p>Stock: </p>
             <p>{data.stock}</p>
           </article>

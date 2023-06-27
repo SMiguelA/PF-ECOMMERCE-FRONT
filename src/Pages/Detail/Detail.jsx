@@ -81,9 +81,15 @@ export default function Detail() {
         <div className={style.container}>
           <div className={style.contLeft}>
             <h1>{productId.name}</h1>
-            <button onClick={handleAddToCart}>
-              <label>Add to </label><label className={style.labelStyle}> My Cart </label>
-            </button>
+            {
+              user && productId.stock > 0 && productId.isActive && user.isActive 
+              ? 
+              <button onClick={handleAddToCart}>
+                <label>Add to </label><label className={style.labelStyle}> My Cart </label>
+              </button>
+              :
+              <></>
+            }
             <div className={style.info}>
               <div>
                 <h2>Stock</h2>
