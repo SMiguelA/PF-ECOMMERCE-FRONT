@@ -13,6 +13,7 @@ export default function NewProduct() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [stock, setStock] = useState("");
   const [category, setCategory] = useState("");
   const [platform, setPlatform] = useState("");
   const [pictures, setPictures] = useState([]);
@@ -41,6 +42,7 @@ export default function NewProduct() {
       !price ||
       !category ||
       !platform ||
+      !stock ||
       !pictures.length
     ) {
       return alert("Please fill out all the fields");
@@ -49,7 +51,7 @@ export default function NewProduct() {
     //Aca el dispatch de create product
 
     dispatch(
-      createProduct(name, description, price, category, platform, pictures)
+      createProduct(name, description, price, category, platform, pictures, stock)
     );
   }
 
@@ -139,6 +141,15 @@ export default function NewProduct() {
             <option value="Origin">Origin</option>
             <option value="Ubisoft">Ubisoft</option>
           </select>
+        </div>
+        <div>
+          <label>Stock</label>
+          <input 
+          type="number" 
+          placeholder="#"
+          value={stock}
+          onChange={(e) => setStock(e.target.value)}
+          />
         </div>
       </div>
 

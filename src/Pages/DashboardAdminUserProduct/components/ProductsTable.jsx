@@ -63,7 +63,7 @@ export const ProductsTable = ({data, galleta, setGalleta}) => {
     }
 
     const handlerChangeState = (event) => {
-        axios.put(`/admin/${event.target.id}?type=user&isActive=${event.target.name}`)
+        axios.put(`/admin/${event.target.id}?type=product&isActive=${event.target.name}`)
         .then((data) => {
             setGalleta(!galleta);
         }
