@@ -2,6 +2,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import CheckoutForm from "../../Components/CheckoutForm/CheckoutForm";
 import {
   decreaseCart,
@@ -20,6 +21,11 @@ function Cart() {
   const user = useSelector((state) => state.user);
   const products = useSelector((state) => state.products);
   const userCartObj = user.cart;
+  const navigate = useNavigate();
+
+ //estados locales para procesar el botton de decremento
+ const [isButtonDissabled, setIsButtonDissabled] = useState(false);
+ const [isProcessing, setIsProcessing] = useState(false); 
 
   const [cart, setCart] = useState(null);
   useEffect(() => {
@@ -32,7 +38,7 @@ function Cart() {
         });
 
         if (product) {
-          return product;
+          return {...product, };
         }
       })
       .filter(Boolean);
@@ -47,11 +53,21 @@ function Cart() {
   function handleDecrease(product) {
     const { productId } = product;
     const quantity = user.cart[productId];
+    if(!isProcessing){
+      setIsProcessing(true);
+      setIsButtonDissabled(true);
+    }
 
-    if (quantity <= 0) return alert("Can't proceed");
+    if (quantity <= 0) return alert("Press Remove");
     else {
       dispatch(decreaseCart(product));
     }
+
+    setTimeout(()=>{
+      setIsProcessing(false);
+      setIsButtonDissabled(false);
+    }, 1000)
+
   }
 
   function handleIncrease(product) {
@@ -64,13 +80,19 @@ function Cart() {
 
   return (
     <div style={{ minHeight: "100%" }} className="contenedorCart">
-      {cart?.length ? (
+      {
+      
+      user.isActive ?
+      cart?.length ? (
         <div className="infoContainer">
           <div className="stripeContainer">
             <h1>Order Summary</h1>
             <hr />
             <Elements stripe={stripePromise}>
-              <CheckoutForm data={user.cart.total ? user.cart.total.toFixed(2) : 0}/>
+              <CheckoutForm 
+              data={user.cart.total ? user.cart.total : 0}
+              cart={user.cart}
+              />
             </Elements>
           </div>
           <div className="itemsContent">
@@ -90,7 +112,7 @@ function Cart() {
                 {/* loop through cart products */}
                 {cart.map((item) => (
                   <tr key={item._id || item.id} className="itemContainer">
-                    {/* <td>&nbsp;</td> */}
+                    {console.log(item.stock)}
                     <td className="productInformation">
                       <img
                         src={item.pictures[0]}
@@ -117,7 +139,7 @@ function Cart() {
                       <div className="itemQuantity">
                         <button
 
-                          disabled={user.cart[item._id || item.id] <= 0}
+                          disabled={isButtonDissabled}
                           onClick={() => {
                             handleDecrease({
                               productId: item._id || item.id,
@@ -135,6 +157,7 @@ function Cart() {
                               productId: item._id || item.id,
                               price: item.price,
                               userId: user._id || user.id,
+                              stock: item.stock
                             });
                           }}
                         >
@@ -166,7 +189,11 @@ function Cart() {
         <div>
           <div>Shopping cart is empty. Add products to your cart</div>
         </div>
-      )}
+      )
+    
+      : navigate('/banned')
+    
+    }
     </div>
   );
 }

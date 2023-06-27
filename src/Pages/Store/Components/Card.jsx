@@ -6,8 +6,8 @@ import "swiper/css";
 import "swiper/css/bundle";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
-import defaultImg from "../../../img/default.jpg";
 import { addToCart } from "../../../Redux/Actions";
+import defaultImg from "../../../img/default.jpg";
 import style from "./Card.module.css";
 
 const Card = ({ data }) => {
@@ -54,8 +54,8 @@ const Card = ({ data }) => {
   };
 
   return (
-    <Link to={`detail/${_id}`} style={{ textDecoration: "none" }}>
-      <div className={style.container} key={data.id}>
+    <Link to={data.isActive ? `detail/${_id}` : ''} style={{ textDecoration: "none" }}>
+      <div className={(data.stock > 0 && data.isActive) ? style.container : style.containerTrans} key={data.id}>
         <div className={style.containerImgs}>
           <Swiper
             className={style.tamano}
@@ -87,14 +87,19 @@ const Card = ({ data }) => {
             <h2>{data.name}</h2>
             <h3 className={style.price}>${formattedPrice}</h3>
           </div>
-          <div>
-            <button
-              onClick={(event) => handleAddToCart(event)}
-              className={style.addToCart}
-            >
-              Add
-            </button>
-          </div>
+          {
+            user && data.stock > 0 && data.isActive && user.isActive 
+            ? <div>
+                <button
+                  onClick={(event) => handleAddToCart(event)}
+                  className={style.addToCart}
+                >
+                  Add
+                </button>
+              </div>
+            : <></>
+          }
+          
         </div>
         <div className={style.infoSecundaria}>
           <article>
@@ -102,7 +107,7 @@ const Card = ({ data }) => {
             <p>{data.category}</p>
           </article>
           <hr />
-          <article className={style.stock}>
+          <article className={data.stock > 0 ? style.stock : style.stockCero}>
             <p>Stock: </p>
             <p>{data.stock}</p>
           </article>

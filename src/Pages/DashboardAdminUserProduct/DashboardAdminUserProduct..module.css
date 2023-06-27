@@ -1,0 +1,37 @@
+.container{
+    padding-top: 6em;
+    width: 95%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.contSelect{
+    width: 100%;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    display: flex;
+    align-items: start;
+}
+
+.contSelect select{
+    outline: none;
+    width: 10%;
+    font-size: 1em;
+    height: 2.25em;
+    cursor: pointer;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 0.5em;
+    background-color: #1a1a1a;
+    color: aliceblue;
+    border: 1px solid rgb(87, 87, 87);
+    border-style: solid;
+    background-image: url("../../img/arrow.png");
+    background-repeat: no-repeat;
+    background-position-x: 90%;
+    background-size: 1.5em;
+    background-position-y: center;
+    appearance: none;
+}
