@@ -34,7 +34,7 @@ function Cart() {
         });
 
         if (product) {
-          return product;
+          return {...product, };
         }
       })
       .filter(Boolean);
@@ -75,7 +75,10 @@ function Cart() {
             <h1>Order Summary</h1>
             <hr />
             <Elements stripe={stripePromise}>
-              <CheckoutForm data={user.cart.total ? user.cart.total.toFixed(2) : 0}/>
+              <CheckoutForm 
+              data={user.cart.total ? user.cart.total : 0}
+              cart={user.cart}
+              />
             </Elements>
           </div>
           <div className="itemsContent">
@@ -95,7 +98,7 @@ function Cart() {
                 {/* loop through cart products */}
                 {cart.map((item) => (
                   <tr key={item._id || item.id} className="itemContainer">
-                    {/* <td>&nbsp;</td> */}
+                    {console.log(item.stock)}
                     <td className="productInformation">
                       <img
                         src={item.pictures[0]}
@@ -140,6 +143,7 @@ function Cart() {
                               productId: item._id || item.id,
                               price: item.price,
                               userId: user._id || user.id,
+                              stock: item.stock
                             });
                           }}
                         >

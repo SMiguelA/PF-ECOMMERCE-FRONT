@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 
-import { createOrder } from "../../Redux/Actions";
+import { createOrder, modifyProductStock } from "../../Redux/Actions";
 
 import './CheckoutForm.css';
 
-function CheckoutForm({data}) {
+function CheckoutForm({data, cart}) {
   const stripe = useStripe();
   const elements = useElements();
   const user = useSelector((state) => state.user);
@@ -18,6 +18,7 @@ function CheckoutForm({data}) {
   const [address, setAddress] = useState("");
   const [paying, setPaying] = useState(false);
   const dispatch = useDispatch();
+  console.log(cart);
 
   async function handlePay(e) {
     e.preventDefault();
@@ -61,6 +62,9 @@ function CheckoutForm({data}) {
 
         console.log(paymentIntent.status);
         setAlertMessage(`Payment ${paymentIntent.status}`);
+
+        await dispatch(modifyProductStock(cart))
+
         window.alert(`Payment ${paymentIntent.status}`);
         setTimeout(() => {
           navigate("/orders");
@@ -93,6 +97,10 @@ function CheckoutForm({data}) {
         fontSize: '16px',
       },
     }
+
+
+
+
   }
 
   return (
