@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DivContainerForm, DivForm, StyledLink } from "../../ComponentsStyles";
-import { signup, LoadingActionForm, clearErrors } from "../../Redux/Actions";
-import { LoadingForm, LoginGoogle } from "../../Components";
-import styles from "./Signup.module.css";
 import { useNavigate } from "react-router-dom";
+import { LoadingForm, LoginGoogle } from "../../Components";
+import { DivContainerForm, DivForm, StyledLink } from "../../ComponentsStyles";
+import { LoadingActionForm, signup } from "../../Redux/Actions";
+import axios from "../../axios";
+import styles from "./Signup.module.css";
 import { validateLoginForm } from "./validate";
 
 function Signup() {
@@ -13,23 +14,23 @@ function Signup() {
   const { user, loadingLoagin_Register, errorsBack } = useSelector(
     (state) => state
   );
+
   const [values, setValues] = useState({
     name: "",
     email: "",
     password: "",
+    picture: "",
   });
   const [errors, setErrors] = useState({});
-  console.log(errorsBack);
-
 
   useEffect(() => {
-
     if (user) {
       setTimeout(() => {
         setValues({
-          name:"",
+          name: "",
           email: "",
           password: "",
+          picture: "",
         });
         dispatch(LoadingActionForm(false));
         navigate("/");
@@ -41,8 +42,7 @@ function Signup() {
       const { errorRegister } = errorsBack;
       console.log(errorRegister);
       setTimeout(() => {
-      if (errorRegister) {
-        
+        if (errorRegister) {
           dispatch(LoadingActionForm(false));
           const validationErrors = validateLoginForm(
             values.name,
@@ -54,9 +54,7 @@ function Signup() {
         }
       }, 1000);
     }
-  
-  }, [user,errorsBack]);
- 
+  }, [user, errorsBack]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -68,20 +66,60 @@ function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(clearErrors());
-    const { name, email, password } = values;
-    console.log(email);
-    const validationErrors = validateLoginForm(name, email, password);
+    const { name, email, password, picture } = values;
+
+    const validationErrors = validateLoginForm(name, email, password, picture);
     setErrors(validationErrors);
 
+    console.log(errors, "errors");
     if (Object.keys(validationErrors).length !== 0) {
       return null;
     }
 
     dispatch(LoadingActionForm(true));
-    dispatch(signup({ name, email, password }));
+    dispatch(signup({ name, email, password, picture }));
     setErrors({});
   };
+
+  //imagen
+  const [picture, setPicture] = useState([]);
+  const [imgToRemove, setImgToRemove] = useState(null);
+
+  function showWidget() {
+    const widget = window.cloudinary.createUploadWidget(
+      {
+        cloudName: "diiu7oy9z",
+        uploadPreset: "front-end-preset",
+      },
+      (error, result) => {
+        if (!error && result.event === "success") {
+          const imageUrl = result.info.url;
+          const publicId = result.info.public_id;
+          setPicture([{ url: imageUrl, public_id: publicId }]);
+          setValues((prevValues) => ({
+            ...prevValues,
+            picture: imageUrl,
+          }));
+        }
+      }
+    );
+    widget.open();
+  }
+
+  function handleRemoveImg(imgObj) {
+    setValues({
+      ...values,
+      picture: "",
+    });
+    setImgToRemove(imgObj.public_id);
+    axios
+      .delete(`/images/${imgObj.public_id}/`)
+      .then((res) => {
+        setImgToRemove(null);
+        setPicture([]);
+      })
+      .catch((e) => console.log(e));
+  }
 
   return (
     <DivContainerForm>
@@ -129,6 +167,28 @@ function Signup() {
             {errors.password && (
               <p className={styles.errors}>{errors.password}</p>
             )}
+          </div>
+
+          <div className={styles.imgsProducts}>
+            <button type="button" onClick={showWidget}>
+              Upload Image
+            </button>
+            {errors.picture && (
+              <p className={styles.errors}>{errors.picture}</p>
+            )}
+
+            <div className={styles.images_preview_container}>
+              {picture.length ? (
+                <div className={styles.image_preview}>
+                  <img src={picture[0].url} alt="Preview" />
+                  {imgToRemove !== picture[0].public_id && (
+                    <i onClick={() => handleRemoveImg(picture[0])}>X</i>
+                  )}
+                </div>
+              ) : (
+                <label>Upload an image</label>
+              )}
+            </div>
           </div>
 
           <div className={styles.sign}>
