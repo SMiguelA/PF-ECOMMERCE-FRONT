@@ -20,6 +20,9 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
   const { '*': ruta } = useParams();
   const [bandera, setBandera] = useState(ruta);
   const [ isFav, setIsFav ] = useState(false);
+  const { productId } = useSelector((state) => state);
+
+  console.log(myFavorites)
 
   useEffect(() => {
     axios.get(`/products/${id}`).then(({ data }) => {
@@ -27,7 +30,6 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
     });
   }, [id]);
 
-  const { productId } = useSelector((state) => state);
   useEffect(() => {
     if (id) {
       dispatch(getProductById(id));
@@ -40,8 +42,19 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
     setBandera(ruta)
   },[ruta])
 
-    // Add to Cart Notification.
-    const notify = () =>
+  useEffect(
+    () => {
+      myFavorites?.forEach((fav) => {
+          if(fav._id === id){
+            setIsFav(true);
+          }
+      });
+    },
+    [myFavorites]
+  );
+
+  // Add to Cart Notification.
+  const notify = () =>
     toast("Game added to cart!", {
       icon: "🎮",
       style: {
@@ -74,25 +87,16 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
   };
 
   const handdleFavorite = () => {
-    if(isFav){
-       setIsFav(false);
-       removeFavorite(productId._id);
-    }else{
-       setIsFav(true);
-       addFavorite(productId);
+    if (user){
+      if(isFav){
+          setIsFav(false);
+          removeFavorite(productId._id);
+      }else{
+          setIsFav(true);
+          addFavorite(productId);
+      }
     }
   }
-
-  useEffect(
-    () => {
-      myFavorites?.forEach((fav) => {
-          if(fav._id === id){
-            setIsFav(true);
-          }
-      });
-    },
-    [myFavorites]
-  );
 
   return (
     <>

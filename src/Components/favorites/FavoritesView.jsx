@@ -44,7 +44,7 @@ export const FavoritesView = () => {
         </div>
       </div>
 
-      <Filters />
+      {/* <Filters /> */}
     </div>
   );
 };
