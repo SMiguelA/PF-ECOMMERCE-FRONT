@@ -23,35 +23,13 @@ const TableOrders = () => {
     { name: "Email", selector: (row) => row.owner.email, sortable: true },
     { name: "Total Amount", selector: (row) => row.total, sortable: true },
     { name: "Date", selector: (row) => row.date, sortable: true },
-    {
-      name: "Actions",
-      cell: (row) => (
-        <div>
-          <button>{row._id}</button>
-        </div>
-      ),
-    },
-  ];
-
-  const typeStatus = [
-    {
-      id: "banned",
-      name: "banned",
-    },
-    {
-      id: "active",
-      name: "active",
-    },
-    {
-      id: "innactive",
-      name: "innactive",
-    },
   ];
 
   return (
     <>
-      <h1>ESPACIO</h1>
-      <h1>ESPACIO</h1>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
 
       {orders && orders.length ? (
         <Table
@@ -60,8 +38,9 @@ const TableOrders = () => {
           direction={Direction.AUTO}
           highlightOnHover={true}
           pointerOnHover={true}
+          theme="dark"
           pagination={true}
-          paginationPerPage={5}
+          paginationPerPage={10}
         />
       ) : (
         <h1>Loading ...</h1>
