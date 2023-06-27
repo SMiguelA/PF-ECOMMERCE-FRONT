@@ -34,7 +34,7 @@ export const updateUser = (id, data) => {
       .put(`/users/${id}`, data)
       .then((response) => {
         const user = response.data;
-        dispatch({ type: UPDATE_USER, payload: user.userModified[0] });
+        dispatch({ type: UPDATE_USER, payload: user.userModified });
       })
       .catch((error) => {
         console.log(`Error obteniendo users: ${error}`);

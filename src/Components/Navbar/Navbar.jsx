@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { Nav, StyledLink } from "../../ComponentsStyles";
 import styles from "./Navbar.module.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { logoutUser } from "../../Redux/Actions";
 
 export default function Navbar() {
@@ -18,7 +18,6 @@ export default function Navbar() {
   const [userLogin, setUserLogin] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const handleLogout = () => {
     // Llama a la acción de Redux para cerrar sesión
     dispatch(logoutUser());
@@ -35,6 +34,7 @@ export default function Navbar() {
       setUserLogin(true);
     }
   };
+
   return (
     <div className={styles.containerLink}>
       <div className={styles.firstchildLink}>

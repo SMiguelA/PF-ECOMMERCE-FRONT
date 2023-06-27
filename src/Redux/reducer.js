@@ -104,6 +104,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
 
     case UPDATE_USER:
+      console.log(payload);
       return {
         ...state,
         user: payload,
