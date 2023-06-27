@@ -1,0 +1,11 @@
+.kSUhdo{
+    border: 1px solid grey;
+    border-radius: 0.5em !important;
+}
+.iRgfwA:first-child{
+    margin-top: 1em;
+    border: 1px solid grey;
+    border-radius: 0.5em !important;
+    position: sticky;
+    width: max-content !important;
+}

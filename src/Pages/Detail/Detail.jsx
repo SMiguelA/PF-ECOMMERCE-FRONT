@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { addToCart, deletProductId, getProductById } from "../../Redux/Actions";
@@ -39,9 +40,24 @@ export default function Detail() {
     setBandera(ruta)
   },[ruta])
 
+    // Add to Cart Notification.
+    const notify = () =>
+    toast("Game added to cart!", {
+      icon: "🎮",
+      style: {
+        borderRadius: "10px",
+        background: "#fff",
+        color: "#333",
+      },
+      duration: 3000,
+      position: "bottom-right",
+    });
+
   const handleAddToCart = (e) => {
     e.preventDefault();
     if (user && user._id) {
+
+      notify()
       // Check if user and user._id exist
       dispatch(
         addToCart({
@@ -59,7 +75,9 @@ export default function Detail() {
 
   return (
     <>
-      {productId && productId.name ? (
+      {
+      
+      user && user.isActive ? productId && productId.name ? (
         <div className={style.container}>
           <div className={style.contLeft}>
             <h1>{productId.name}</h1>
@@ -126,7 +144,11 @@ export default function Detail() {
         </div>
       ) : (
         <h1 style={{ color: "white" }}>Loading...</h1>
-      )}
+      )
+    
+      : navigate('/banned')
+    
+    }
     </>
   );
 }
