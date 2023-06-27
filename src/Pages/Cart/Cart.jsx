@@ -23,6 +23,10 @@ function Cart() {
   const userCartObj = user.cart;
   const navigate = useNavigate();
 
+ //estados locales para procesar el botton de decremento
+ const [isButtonDissabled, setIsButtonDissabled] = useState(false);
+ const [isProcessing, setIsProcessing] = useState(false); 
+
   const [cart, setCart] = useState(null);
   useEffect(() => {
     let cartt = Object.keys(userCartObj)
@@ -34,7 +38,7 @@ function Cart() {
         });
 
         if (product) {
-          return product;
+          return {...product, };
         }
       })
       .filter(Boolean);
@@ -49,11 +53,21 @@ function Cart() {
   function handleDecrease(product) {
     const { productId } = product;
     const quantity = user.cart[productId];
+    if(!isProcessing){
+      setIsProcessing(true);
+      setIsButtonDissabled(true);
+    }
 
-    if (quantity <= 0) return alert("Can't proceed");
+    if (quantity <= 0) return alert("Press Remove");
     else {
       dispatch(decreaseCart(product));
     }
+
+    setTimeout(()=>{
+      setIsProcessing(false);
+      setIsButtonDissabled(false);
+    }, 1000)
+
   }
 
   function handleIncrease(product) {
@@ -75,7 +89,10 @@ function Cart() {
             <h1>Order Summary</h1>
             <hr />
             <Elements stripe={stripePromise}>
-              <CheckoutForm data={user.cart.total ? user.cart.total.toFixed(2) : 0}/>
+              <CheckoutForm 
+              data={user.cart.total ? user.cart.total : 0}
+              cart={user.cart}
+              />
             </Elements>
           </div>
           <div className="itemsContent">
@@ -95,7 +112,7 @@ function Cart() {
                 {/* loop through cart products */}
                 {cart.map((item) => (
                   <tr key={item._id || item.id} className="itemContainer">
-                    {/* <td>&nbsp;</td> */}
+                    {console.log(item.stock)}
                     <td className="productInformation">
                       <img
                         src={item.pictures[0]}
@@ -122,7 +139,7 @@ function Cart() {
                       <div className="itemQuantity">
                         <button
 
-                          disabled={user.cart[item._id || item.id] <= 0}
+                          disabled={isButtonDissabled}
                           onClick={() => {
                             handleDecrease({
                               productId: item._id || item.id,
@@ -140,6 +157,7 @@ function Cart() {
                               productId: item._id || item.id,
                               price: item.price,
                               userId: user._id || user.id,
+                              stock: item.stock
                             });
                           }}
                         >
