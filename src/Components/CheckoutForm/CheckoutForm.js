@@ -1,14 +1,17 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 
-import { createOrder } from "../../Redux/Actions";
+import { createOrder, modifyProductStock } from "../../Redux/Actions";
 
-import './CheckoutForm.css';
+import "./CheckoutForm.css";
 
-function CheckoutForm({data}) {
+
+function CheckoutForm({data, cart}) {
   const stripe = useStripe();
   const elements = useElements();
   const user = useSelector((state) => state.user);
@@ -18,9 +21,43 @@ function CheckoutForm({data}) {
   const [address, setAddress] = useState("");
   const [paying, setPaying] = useState(false);
   const dispatch = useDispatch();
+  console.log(cart);
+
+  // Add to Cart Notification.
+  const notify = () =>
+    toast(
+      "Purchase successfully, soon you will receive an email with confirmation!",
+      {
+        icon: "🛒",
+        style: {
+          borderRadius: "10px",
+          background: "#fff",
+          color: "#333",
+        },
+        duration: 3000,
+        position: "bottom-right",
+      }
+    );
+
+  const notifyError = () => {
+    toast.error(
+      "There was an error processing the payment, check your card details",
+      {
+        icon: "❌",
+        style: {
+          borderRadius: "10px",
+          background: "#fff",
+          color: "#333",
+        },
+        duration: 3000,
+        position: "bottom-right",
+      }
+    );
+  };
 
   async function handlePay(e) {
     e.preventDefault();
+
     if (!stripe || !elements || user.cart.count <= 0) return;
     setPaying(true);
     const { client_secret } = await fetch(
@@ -41,11 +78,11 @@ function CheckoutForm({data}) {
       },
     });
 
-    console.log(paymentIntent, "paymentIntent");
-
     setPaying(false);
 
     if (paymentIntent) {
+      notify();
+
       try {
         const paymentStatus = paymentIntent.status;
 
@@ -59,38 +96,39 @@ function CheckoutForm({data}) {
           })
         );
 
-        console.log(paymentIntent.status);
         setAlertMessage(`Payment ${paymentIntent.status}`);
+    
+        await dispatch(modifyProductStock(cart))
+
         window.alert(`Payment ${paymentIntent.status}`);
+
         setTimeout(() => {
           navigate("/orders");
-        }, 3000);
+        }, 1000);
       } catch (error) {
         console.error("Error creating order:", error);
       }
     } else {
-      window.alert(
-        "There was an error processing the payment, check your card details"
-      );
+      notifyError();
     }
   }
 
   const pasarelaPagos = {
-    style:{
+    style: {
       base: {
-        marginTop: '1em',
-        marginBottom: '1em',
-        display: 'flex',
-        color: 'white',
-        flexDirection: 'column',
-        '::placeholder': {
-          color: '#aab7c4',
+        marginTop: "1em",
+        marginBottom: "1em",
+        display: "flex",
+        color: "white",
+        flexDirection: "column",
+        "::placeholder": {
+          color: "#aab7c4",
         },
-        border: '1px solid #ddd',
-        borderRadius: '4px',
-        padding: '10px',
-        fontFamily: 'Arial, sans-serif',
-        fontSize: '16px',
+        border: "1px solid #ddd",
+        borderRadius: "4px",
+        padding: "10px",
+        fontFamily: "Arial, sans-serif",
+        fontSize: "16px",
       },
     }
   }

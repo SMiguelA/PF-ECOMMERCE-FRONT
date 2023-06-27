@@ -8,8 +8,8 @@ import {
   LOGIN,
   LOGIN_GOOGLE,
   LOGOUT,
-  UPDATE_USER,
   SIGNUP,
+  UPDATE_USER,
 } from "../../actionsTypes";
 
 export const getUsers = () => {
@@ -48,32 +48,37 @@ export const logoutUser = () => {
 
 export const signup = (payload) => {
   return function (dispatch) {
-    const { name, email, password } = payload;
+    const { name, email, password, picture } = payload;
     axios
-      .post("/users/signup", { name, email, password })
+      .post("/users/signup", { name, email, password, picture })
       .then((response) => {
         const user = response.data;
         dispatch({ type: SIGNUP, payload: user });
       })
       .catch((error) => {
         console.log(`Error registrando usuario: ${error}`);
-        
-          if (error.response && error.response.status === 400) {
-            const errorMessage = error.response.data;
-            console.log(errorMessage);
-            if (errorMessage.Error === "Email") {
-              console.log("!!!!!!ERROR EMAIL");
-              dispatch({
-                type: ERROR_REGISTER,
-                payload: { message: errorMessage.Error, status: 400 },
-              });
-            } else if (errorMessage.Error === "Name") {
-              dispatch({
-                type: ERROR_REGISTER,
-                payload: { message: errorMessage.Error, status: 400 },
-              });
-            }
+
+        if (error.response && error.response.status === 400) {
+          const errorMessage = error.response.data;
+          console.log(errorMessage);
+          if (errorMessage.Error === "Email") {
+            console.log("!!!!!!ERROR EMAIL");
+            dispatch({
+              type: ERROR_REGISTER,
+              payload: { message: errorMessage.Error, status: 400 },
+            });
+          } else if (errorMessage.Error === "Name") {
+            dispatch({
+              type: ERROR_REGISTER,
+              payload: { message: errorMessage.Error, status: 400 },
+            });
+          } else if (errorMessage.Error === "Picture") {
+            dispatch({
+              type: ERROR_REGISTER,
+              payload: { message: errorMessage.Error, status: 400 },
+            });
           }
+        }
       });
   };
 };
