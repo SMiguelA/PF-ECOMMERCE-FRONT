@@ -32,7 +32,8 @@ import {
   OPEN_EDIT,
   REMOVE_FROM_CART,
   SIGNUP,
-  UPDATE_USER
+  UPDATE_USER,
+  EDIT_REVIEW
 } from "./actionsTypes";
 
 const initialState = {
@@ -319,7 +320,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         orders: payload,
       };
-
+    case EDIT_REVIEW:
+      return {
+        ...state
+      }
     case FILTER_PRODUCTS_BY_TYPE:
       const { type, checked } = payload;
 

@@ -3,9 +3,9 @@ import { toast } from "react-hot-toast";
 import { BsInfoCircle } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createReviewAction } from '../../../../../Redux/Actions';
 import style from './FormRating.module.css';
 import { StarsRating } from '../starReview/StarsRating';
+import { editReviewAction } from '../../../../../Redux/Actions';
 
 export const FormEdit = ({user, product}) => {
   const [fadeOut, setFadeOut] = useState(false);
@@ -15,7 +15,7 @@ export const FormEdit = ({user, product}) => {
  
 
   const rating = product.valorations.find((val) => val.id_cliente._id === user._id)
- console.log(rating);
+
   const date = new Date()
   const {_id, name} = product;
   
@@ -59,13 +59,11 @@ export const FormEdit = ({user, product}) => {
   const handlerSubmit = (event) => {
     event.preventDefault();
     if(!dataForm.rating || !dataForm.description){
-      console.log(rating.rating);
-      console.log(dataForm);
+      
       alert('Complete form data to procede');
     }else{
-      console.log("---------------");
-      console.log(dataForm);
-      console.log("...............");
+      
+      dispatch(editReviewAction(dataForm))
       
       notify()
       setFadeOut(true);

@@ -13,6 +13,8 @@ import { FormRating } from "./components/formRating/FormRating";
 import { verifyNotReview } from "../../Redux/Actions";
 import averageGrades from "../../utils/averageGrades";
 import { FormEdit } from "./components/formRating/formEdit/FormEdit";
+
+
 export default function Detail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -22,8 +24,7 @@ export default function Detail() {
   const { '*': ruta } = useParams();
   const [bandera, setBandera] = useState(ruta);
   const {openEdit} = useSelector((state) => state)
-  console.log(openEdit);
-  console.log("hola");
+ 
   useEffect(() => {
     axios.get(`/products/${id}`).then(({ data }) => {
       setProduct(data);
