@@ -1,0 +1,25 @@
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    justify-content: center;
+    /* flex-direction: row; */
+    /* justify-content: space-around; */
+    /* flex-wrap: wrap; */
+    width: 100%;
+    min-width: 60rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 4em;
+    position: -webkit-sticky;
+}
+.paginated{
+    margin-top: 5em;
+    width: 100%;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+.paginated1{
+    margin-bottom: 5em;
+    width: 100%;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}

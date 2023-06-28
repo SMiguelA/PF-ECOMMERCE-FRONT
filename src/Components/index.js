@@ -13,4 +13,6 @@ export { default as Navbar } from './Navbar/Navbar';
 export { default as Paginated } from './Paginated/Paginated';
 export * from './body/BodyView';
 export * from './searchBar/SearchBar';
+export * from './favorites/FavoritesView';
+
 
