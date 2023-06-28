@@ -36,9 +36,11 @@ export const DivContainerForm = styled.div`
 background-color: #151515;
 display: flex;
 justify-content: center;
+padding-top: 1em;
+padding-bottom: 1em;
 align-items: center;
 flex-direction: row;
-height:60rem;
+height:100%;
 width:100%;
 `;
 

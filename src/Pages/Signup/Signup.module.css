@@ -5,6 +5,13 @@
   height: 25rem;
 }
 
+.divContainerForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ajusta el espacio verticalmente */
+  height: 100%;
+}
+
 .inputGroup {
   display: flex;
   margin: 0 0 16px 0;
@@ -41,10 +48,10 @@
 }
 
 .sign {
-  /* border: 2px solid yellow; */
   display: flex;
   justify-content: center;
-  margin: 15px 0 0 0;
+  margin: 15px 0 10px 0; /* Ajusta el margen inferior según tu preferencia */
+  /* border: 2px solid yellow; */
 }
 
 .sign button {
@@ -64,6 +71,9 @@
   display: flex;
   align-items: center;
   padding-top: 1rem;
+  margin-top: 70px;
+  margin-bottom: 0px; /* Ajusta el margen inferior según tu preferencia */
+
 }
 
 .social_message .message {
@@ -79,6 +89,7 @@
   font-size: 0.75rem;
   line-height: 1rem;
   color: rgba(156, 163, 175, 1);
+  margin-top: auto; /* Agrega esta línea para ajustar el margen superior automáticamente */
   margin-bottom: 20px;
 }
 
@@ -95,9 +106,15 @@
 }
 
 .imgsProducts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding-top: 1.2em;
   padding-bottom: 2em;
   width: 100%;
+  /* padding-top: 1.2em;
+  padding-bottom: 2em;
+  width: 100%; */
 }
 .imgsProducts label {
   color: rgba(255, 0, 0, 0.603);

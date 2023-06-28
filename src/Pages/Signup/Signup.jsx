@@ -122,7 +122,9 @@ function Signup() {
   }
 
   return (
-    <DivContainerForm>
+    <DivContainerForm 
+    className={styles.divContainerForm}
+    >
       {loadingLoagin_Register && (
         <div className={styles.loading}>
           <LoadingForm />
