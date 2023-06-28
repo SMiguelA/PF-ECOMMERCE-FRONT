@@ -83,16 +83,6 @@ export default function Navbar() {
                  <div className={styles.containerCount}>{user.cart.count>0? user.cart.count : 0}</div>}
               </li>
             </StyledLink>
-            <StyledLink to="">
-              <li>
-                <FaUserFriends
-                  size={25}
-                  style={{ marginBottom: "5px" }}
-                  className={styles.iconsNav}
-                />{" "}
-                Friends
-              </li>
-            </StyledLink>{" "}
           </ul>
         </Nav>
       </div>

@@ -147,3 +147,7 @@ text-align: center;
     width: 99%;
     height: 100%;
   }
+
+  .GoogleComponent {
+    display: flex;
+  }

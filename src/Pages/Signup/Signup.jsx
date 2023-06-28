@@ -128,7 +128,7 @@ function Signup() {
           <LoadingForm />
         </div>
       )}
-      <DivForm>
+      <div className={styles.DivForm}>
         <h1>Create an account</h1>
         <form className={styles.formhtml} onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
@@ -202,7 +202,7 @@ function Signup() {
         <p className={styles.signup}>
           You have an account? <StyledLink to="/login">Login</StyledLink>
         </p>
-      </DivForm>
+      </div>
     </DivContainerForm>
   );
 }
