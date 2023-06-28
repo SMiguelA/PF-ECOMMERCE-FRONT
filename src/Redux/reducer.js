@@ -17,6 +17,7 @@ import {
   FILTER_PRODUCTS_BY_GENDER,
   FILTER_PRODUCTS_BY_TYPE,
   FILTER_PRODUCT_BY_PRICE,
+  GET_NOT_REVIEW,
   GET_ORDERS,
   GET_PRODUCTS,
   GET_PRODUCT_BY_ID,
@@ -28,6 +29,7 @@ import {
   LOGIN,
   LOGIN_GOOGLE,
   LOGOUT,
+  OPEN_EDIT,
   REMOVE_FROM_CART,
   SIGNUP,
   UPDATE_USER,
@@ -55,7 +57,9 @@ const initialState = {
     errorLogin: [],
     errorRegister: [],
   },
-  dataDashAdmin:[]
+  dataDashAdmin:[],
+  notReview: true,
+  openEdit: null
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -261,6 +265,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
           cart: payload,
         },
       };
+    case GET_NOT_REVIEW:
+      return {
+        ...state,
+        notReview: payload
+      }
+    case OPEN_EDIT:
+      return{
+        ...state,
+        openEdit: payload
+      }
 
     // case RESTART_CART:
     //   return {

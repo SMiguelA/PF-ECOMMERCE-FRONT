@@ -11,7 +11,13 @@ import Starts from "./components/Starts";
 import { About } from "./components/about/About";
 import { FormRating } from "./components/formRating/FormRating";
 
-function Detail({addFavorite, removeFavorite, myFavorites}) {
+import { verifyNotReview } from "../../Redux/Actions";
+import averageGrades from "../../utils/averageGrades";
+import { FormEdit } from "./components/formRating/formEdit/FormEdit";
+
+
+export default function Detail({addFavorite, removeFavorite, myFavorites}) {
+
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,16 +25,35 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
   const [product, setProduct] = useState(null);
   const { '*': ruta } = useParams();
   const [bandera, setBandera] = useState(ruta);
+
+  const {openEdit} = useSelector((state) => state)
+
+
   const [ isFav, setIsFav ] = useState(false);
   const { productId } = useSelector((state) => state);
 
-  console.log(myFavorites)
+ 
+
 
   useEffect(() => {
     axios.get(`/products/${id}`).then(({ data }) => {
       setProduct(data);
     });
   }, [id]);
+
+  const { notReview } = useSelector((state) => state)
+
+
+  let arrayRating = []
+  if (productId && productId.valorations) {
+    productId.valorations.map((val) => {
+      arrayRating.push(val.rating)
+    })
+  }
+  let ratingValue = averageGrades(arrayRating)
+  ratingValue = Number(ratingValue.toString().substring(0, 3))
+
+
 
   useEffect(() => {
     if (id) {
@@ -86,6 +111,24 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
     navigate(path);
   };
 
+
+  const handlerNavigationRate = () => {
+    if (notReview) {
+      navigate("rating");
+    }
+  };
+
+  useEffect(() => {
+    if (productId && productId.valorations && user) {
+      const comprobation = productId.valorations.find((val) => val.id_cliente._id === user._id);
+      if (comprobation !== undefined) {
+        dispatch(verifyNotReview(false));
+      } else {
+        dispatch(verifyNotReview(true));
+      }
+    }
+  }, [productId, user, dispatch]);
+
   const handdleFavorite = () => {
     if (user){
       if(isFav){
@@ -97,6 +140,7 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
       }
     }
   }
+
 
   return (
     <>
@@ -142,7 +186,7 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
                 <p>{productId.platform}</p>
               </div>
             </div>
-            <Starts rating={productId.rating || 3.5} />
+            <Starts rating={ratingValue || 4} />
           </div>
           <div className={style.contRight}>
             <Galery imgs={productId.pictures} />
@@ -152,19 +196,18 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
 
 
           <div className={style.seccionesDetail}>
-            <div onClick={() => handleNavigation(`about`)} className={bandera == 'about' || bandera == '' ? style.acercaDE : ''}>
-              <label>About</label>
-            </div>
-            <div onClick={() => handleNavigation(`reviews`)} className={bandera == 'reviews' ? style.reviewsStyle : ''}>
-              <label>Ratings and reviews</label>
-            </div>
-            {
-              user 
-              && <div onClick={() => handleNavigation(`rating`)} className={bandera == 'rating' ? style.ratingStyle : ''}>
+              <div onClick={() => handleNavigation(`about`)} className={bandera === 'about' || bandera === '' ? style.acerca : style.acercaDE}>
+                <label style={{ cursor: "pointer" }}>About</label>
+              </div>
+              <div onClick={() => handleNavigation(`reviews`)} className={bandera === 'reviews' ? style.reviewsStyle : style.reviews}>
+                <label style={{ cursor: "pointer" }}>Ratings and reviews</label>
+              </div>
+              {user && (
+                <div onClick={() => handlerNavigationRate()} className={bandera === "rating" ? style.notRateGame : notReview ? style.rateGame : style.rateDisabled}>
                   <label>Rate this game</label>
-                 </div>
-            }
-          </div>
+                </div>
+              )}
+            </div>
 
           <hr className={style.hrSegundo}/>
 
@@ -172,7 +215,7 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
             <Route path="/" element={<About description={productId.description}/>}/>
             <Route path="/*" element={<About description={productId.description}/>}/>
             <Route path="/about" element={<About description={productId.description}/>} />
-            <Route path="/reviews" element={<Reviews data={productId.valorations} id={productId._id}/>} />
+            <Route path="/reviews" element={<Reviews data={productId.valorations} id={productId._id} user={user}/>} />
             {
               user && <Route path="/rating" element={
               <>
@@ -181,6 +224,7 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
               </>
               } />
             }
+            <Route path="/edit" element={<FormEdit user={user} product={productId}/>}/>
           </Routes>
 
         </div>

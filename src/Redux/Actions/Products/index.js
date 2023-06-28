@@ -19,7 +19,9 @@ import {
   GET_PRODUCT_BY_NAME,
   INCREASE_CART,
   MODIFY_STOCK_PRODUCT,
-  REMOVE_FROM_CART
+  REMOVE_FROM_CART,
+  GET_NOT_REVIEW,
+  OPEN_EDIT
 } from "../../actionsTypes.js";
 
 export const getProducts = () => {
@@ -314,3 +316,17 @@ export const filterProductsByType = (payload) => {
     payload,
   };
 };
+
+export const verifyNotReview = (payload) =>{
+  return {
+    type: GET_NOT_REVIEW,
+    payload
+  }
+}
+
+export const openEditReview = (payload) =>{
+  return {
+    type: OPEN_EDIT,
+    payload
+  }
+}

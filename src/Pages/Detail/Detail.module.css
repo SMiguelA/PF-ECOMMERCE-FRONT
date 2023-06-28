@@ -109,7 +109,19 @@
     gap: 20px;
     width: 100%;
 }
-.seccionesDetail div{
+
+/* .seccionesDetail div:hover{
+    background-color: #252525;
+    border-color: grey;
+} */
+.seccionesDetail div label{
+    font-size: larger;
+   
+    margin-left: auto;
+    margin-right: auto;
+}
+.rateGame{
+   
     width: 32%;
     height: 3em;
     border-radius: 0.5em;
@@ -118,23 +130,87 @@
     align-items: center;
     cursor: pointer;
 }
-.seccionesDetail div:hover{
+.rateGame:hover{
     background-color: #252525;
     border-color: grey;
 }
-.seccionesDetail div label{
-    font-size: larger;
-    cursor: pointer;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.acercaDE{
+.notRateGame{
     background-color: #525252;
+    width: 32%;
+    height: 3em;
+    border-radius: 0.5em;
+    border: 1px solid rgb(77, 77, 77);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.notRateGame:hover{
+    background-color: #252525;
+    border-color: grey;
+}
+.rateDisabled{
+    background-color: #202020;
+    color: #505050;
+    width: 32%;
+    height: 3em;
+    border-radius: 0.5em;
+    border: 1px solid rgb(78, 78, 78);
+    display: flex;
+    align-items: center;
+    
+}
+.rateDisabled:hover{
+    background-color: #202020;
+    color: #505050;
+    
+}
+.acerca{
+    background-color: #525252;
+    width: 32%;
+    height: 3em;
+    border-radius: 0.5em;
+    border: 1px solid rgb(77, 77, 77);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.reviews{
+    width: 32%;
+    height: 3em;
+    border-radius: 0.5em;
+    border: 1px solid rgb(77, 77, 77);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.acercaDE{
+   
+    width: 32%;
+    height: 3em;
+    border-radius: 0.5em;
+    border: 1px solid rgb(77, 77, 77);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 .reviewsStyle{
     background-color: #525252;
+    width: 32%;
+    height: 3em;
+    border-radius: 0.5em;
+    border: 1px solid rgb(77, 77, 77);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 .ratingStyle{
     background-color: #525252;
+    width: 32%;
+    height: 3em;
+    border-radius: 0.5em;
+    border: 1px solid rgb(77, 77, 77);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    
 }
