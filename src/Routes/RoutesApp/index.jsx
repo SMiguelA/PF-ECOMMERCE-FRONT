@@ -18,6 +18,7 @@ import Signup from "../../Pages/Signup/Signup";
 import Store from "../../Pages/Store/Store";
 import RutaAdmin from "../RutasProtegidas/RutaAdmin";
 import RutaUser from "../RutasProtegidas/RutaUser";
+import Favorites from "../../Pages/Favorites/Favorites";
 
 function RoutesMain() {
   const user = useSelector((state) => state.user);
@@ -43,7 +44,9 @@ function RoutesMain() {
             <Route path="store" element={<Store />}>
               <Route path="detail/:id/*" element={<Detail />} />
             </Route>
-            <Route />
+            <Route path="favorites" element={<Favorites/>}>
+              <Route path="detail/:id/*" element={<Detail />} />
+            </Route>
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
