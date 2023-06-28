@@ -4,8 +4,20 @@
   width: 70%;
   height: 25rem;
 }
+.DivForm {
+  display: flex;
+background-color: rgba(17, 24, 39, 1);
+border-radius: 0.75rem;
+color: rgba(243, 244, 246, 1);
+width: 30%;
+height:75%;
+flex-direction: column;
+align-items:center;
+justify-content:center;
+}
 
 .inputGroup {
+  /* border: 2px solid red; */
   display: flex;
   margin: 0 0 16px 0;
   font-size: 0.875rem;
@@ -61,6 +73,8 @@
 }
 
 .social_message {
+  /* border: 2px solid yellow; */
+  margin:6vh 0 0 0;
   display: flex;
   align-items: center;
   padding-top: 1rem;
