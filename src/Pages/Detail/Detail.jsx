@@ -10,8 +10,9 @@ import { Reviews } from "./components/Reviews/Reviews";
 import Starts from "./components/Starts";
 import { About } from "./components/about/About";
 import { FormRating } from "./components/formRating/FormRating";
-
-
+import { verifyNotReview } from "../../Redux/Actions";
+import averageGrades from "../../utils/averageGrades";
+import { FormEdit } from "./components/formRating/formEdit/FormEdit";
 export default function Detail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -20,14 +21,25 @@ export default function Detail() {
   const [product, setProduct] = useState(null);
   const { '*': ruta } = useParams();
   const [bandera, setBandera] = useState(ruta);
-
+  const {openEdit} = useSelector((state) => state)
+  console.log(openEdit);
+  console.log("hola");
   useEffect(() => {
     axios.get(`/products/${id}`).then(({ data }) => {
       setProduct(data);
     });
   }, [id]);
-
+  const { notReview } = useSelector((state) => state)
   const { productId } = useSelector((state) => state);
+
+  let arrayRating = []
+  if (productId && productId.valorations) {
+    productId.valorations.map((val) => {
+      arrayRating.push(val.rating)
+    })
+  }
+  let ratingValue = averageGrades(arrayRating)
+  ratingValue = Number(ratingValue.toString().substring(0, 3))
   useEffect(() => {
     if (id) {
       dispatch(getProductById(id));
@@ -73,6 +85,22 @@ export default function Detail() {
     navigate(path);
   };
 
+  const handlerNavigationRate = () => {
+    if (notReview) {
+      navigate("rating");
+    }
+  };
+
+  useEffect(() => {
+    if (productId && productId.valorations && user) {
+      const comprobation = productId.valorations.find((val) => val.id_cliente._id === user._id);
+      if (comprobation !== undefined) {
+        dispatch(verifyNotReview(false));
+      } else {
+        dispatch(verifyNotReview(true));
+      }
+    }
+  }, [productId, user, dispatch]);
   return (
     <>
       {
@@ -106,7 +134,7 @@ export default function Detail() {
                 <p>{productId.platform}</p>
               </div>
             </div>
-            <Starts rating={productId.rating || 3.5} />
+            <Starts rating={ratingValue || 4} />
           </div>
           <div className={style.contRight}>
             <Galery imgs={productId.pictures} />
@@ -116,19 +144,18 @@ export default function Detail() {
 
 
           <div className={style.seccionesDetail}>
-            <div onClick={() => handleNavigation(`about`)} className={bandera == 'about' || bandera == '' ? style.acercaDE : ''}>
-              <label>About</label>
-            </div>
-            <div onClick={() => handleNavigation(`reviews`)} className={bandera == 'reviews' ? style.reviewsStyle : ''}>
-              <label>Ratings and reviews</label>
-            </div>
-            {
-              user 
-              && <div onClick={() => handleNavigation(`rating`)} className={bandera == 'rating' ? style.ratingStyle : ''}>
+              <div onClick={() => handleNavigation(`about`)} className={bandera === 'about' || bandera === '' ? style.acerca : style.acercaDE}>
+                <label style={{ cursor: "pointer" }}>About</label>
+              </div>
+              <div onClick={() => handleNavigation(`reviews`)} className={bandera === 'reviews' ? style.reviewsStyle : style.reviews}>
+                <label style={{ cursor: "pointer" }}>Ratings and reviews</label>
+              </div>
+              {user && (
+                <div onClick={() => handlerNavigationRate()} className={bandera === "rating" ? style.notRateGame : notReview ? style.rateGame : style.rateDisabled}>
                   <label>Rate this game</label>
-                 </div>
-            }
-          </div>
+                </div>
+              )}
+            </div>
 
           <hr className={style.hrSegundo}/>
 
@@ -136,7 +163,7 @@ export default function Detail() {
             <Route path="/" element={<About description={productId.description}/>}/>
             <Route path="/*" element={<About description={productId.description}/>}/>
             <Route path="/about" element={<About description={productId.description}/>} />
-            <Route path="/reviews" element={<Reviews data={productId.valorations} id={productId._id}/>} />
+            <Route path="/reviews" element={<Reviews data={productId.valorations} id={productId._id} user={user}/>} />
             {
               user && <Route path="/rating" element={
               <>
@@ -145,6 +172,7 @@ export default function Detail() {
               </>
               } />
             }
+            <Route path="/edit" element={<FormEdit user={user} product={productId}/>}/>
           </Routes>
 
         </div>
