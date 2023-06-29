@@ -1,3 +1,28 @@
 .container{
-    padding-top: 3em;
+    margin-top: 15vh;
+    background-color: #202020;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+    width: 90vh;
+    padding: 1em 2em;
+    box-shadow: rgb(0, 0, 0) 0px 10px 30px -10px;
+    border-radius: 1em;
+}
+.container img{
+    opacity: 0.7;
+    width: 60vh;
+    height: 60vh;
+}
+
+.informationBan{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    text-align: start;
+}
+.informationBan h1{
+    font-size: 3em;
+    color: rgba(255, 0, 0, 0.616);
 }

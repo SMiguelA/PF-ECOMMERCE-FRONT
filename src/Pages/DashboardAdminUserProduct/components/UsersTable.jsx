@@ -37,8 +37,8 @@ export const UsersTable = ({data, galleta, setGalleta}) => {
             name: 'Action', cell:(row) => (
             bandera && bandera.email === row.email 
             ? row.isActive 
-            ? <button id={row._id} name={row.isActive.toString()} onClick={handlerChangeState}>Ban</button>
-            : <button id={row._id} name={row.isActive.toString()} onClick={handlerChangeState}>Unban</button>
+            ? <button id={row._id} name={row.isActive.toString()} className='banButton' onClick={handlerChangeState}>Ban</button>
+            : <button id={row._id} name={row.isActive.toString()} className='unbanButton' onClick={handlerChangeState}>Unban</button>
             :<></>
             )
         }

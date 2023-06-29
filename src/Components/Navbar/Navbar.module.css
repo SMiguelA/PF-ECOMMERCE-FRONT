@@ -60,7 +60,8 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  justify-content: center;
+  position: relative;
+  padding-top: 10em;
 }
 
 /* .secondChildLink a{
@@ -87,11 +88,11 @@
 
 .iconsNav{
   width: 3em;
+  color: aliceblue;
 }
 
 .containerPerfiluser {
   display: flex;
-  /* border:2px solid orange; */
   width: 100%;
   justify-content: center;
   
@@ -103,7 +104,10 @@
   /* border:2px solid white; */
   justify-content:center;
   align-items: center;
-flex-direction: column;
+  flex-direction: column;
+  position: absolute;
+  left: 9em;
+  top: 8em;
   height: 10rem;
   width: 100%;
 }
@@ -113,61 +117,84 @@ flex-direction: column;
   border-radius: 50%;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   background-color: #202020;
-justify-content: center;
-align-items: center;
-  height: 5vh;
-  width: 5vh;
+  justify-content: center;
+  align-items: center;
+  height: 7vh;
+  width: 7vh;
 } 
 
 .menuUser p {
   font-size: 25px;
-   font-weight: 400;
+  font-weight: 400;
 }
 
 .OpenMenuUser {
   margin:15px 0 0 0;
-  border:1px solid rgb(255, 255, 255);
-  border-radius: 10px;
+  border:1px solid grey;
+  border-radius: 0.3em;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  
-  width: 70%;
+  width: 12em;
   display: flex;
+  z-index: 99999999999999999999999999;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color: #1a1a1a;
 }
 
 .OpenMenuUser li {
   margin: 0px 0 0 0;
   cursor: pointer;
   font-size: 17px;
-  /* border-top: 1px solid white; */
   font-family: Arial, Helvetica, sans-serif;
-  /* gap: 20px; */
   width: 100%;
   height: 4vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding-top: 0.2em;
+  border-radius: 0.5em;
+  padding-bottom: 0.2em;
 }
 
 
 .OpenMenuUser li:hover {
-  background-color: rgb(119, 123, 123);
+  background-color: #292929;
 }
 .OpenMenuUser ul{
   padding: 0;
   width: 100%;
-  /* padding-left: 3em; */
-}
-
-.OpenMenuUser li  {
-  box-shadow: 2px 2px 4px rgba(217, 215, 215, 0.3);
-
+  height: 100%;
+  margin: 0;
 }
 
 .containerCount{
   border: 5px;
   border-color: white;
   border-radius: 50%;
+}
+
+.iconImage{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.loguin{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 10px;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+}
+.loguin label{
+  cursor: pointer;
+}
+.loguin:hover{
+  border-radius: 0.5em;
+  background-color: #292929;
 }
