@@ -16,7 +16,7 @@ import averageGrades from "../../utils/averageGrades";
 import { FormEdit } from "./components/formRating/formEdit/FormEdit";
 
 
-export default function Detail({addFavorite, removeFavorite, myFavorites}) {
+function Detail({addFavorite, removeFavorite, myFavorites}) {
 
   const { id } = useParams();
   const navigate = useNavigate();

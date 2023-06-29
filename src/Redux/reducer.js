@@ -33,6 +33,7 @@ import {
   REMOVE_FROM_CART,
   SIGNUP,
   UPDATE_USER,
+  EDIT_REVIEW,
   ADD_FAVORITE, 
   REMOVE_FAVORITE,
 } from "./actionsTypes";
@@ -327,7 +328,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         orders: payload,
       };
-
+    case EDIT_REVIEW:
+      return {
+        ...state
+      }
     case FILTER_PRODUCTS_BY_TYPE:
       const { type, checked } = payload;
 
