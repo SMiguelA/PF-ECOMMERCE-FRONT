@@ -107,7 +107,6 @@ function Login() {
             )}
           </div>
           <div className={styles.containerForgotPassword}>
-            <a>Forgot Password ?</a>
           </div>
           <div className={styles.sign}>
             <button type="submit">Login</button>
@@ -116,7 +115,9 @@ function Login() {
         <div className={styles.social_message}>
           <p className={styles.message}>Login with social account</p>
         </div>
+        <div className={styles.GoogleComponent}>
         <LoginGoogle />
+        </div>
 
         <p className={styles.signup}>
           Don't have an account?
