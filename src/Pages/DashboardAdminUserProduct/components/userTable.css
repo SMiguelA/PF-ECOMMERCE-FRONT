@@ -22,3 +22,29 @@
     position: sticky;
     width: max-content !important;
 }
+
+.banButton{
+    width: 10em;
+    display: flex;
+    justify-content: center;
+    margin-left: -2.5em;
+    background-color: #3d2323;
+    color: aliceblue;
+    border-color: aliceblue;
+}
+.banButton:hover{
+    background-color: #693e3e;
+}
+
+.unbanButton{
+    width: 10em;
+    display: flex;
+    justify-content: center;
+    margin-left: -2.5em;
+    background-color: #263d23;
+    color: aliceblue;
+    border-color: aliceblue;
+}
+.unbanButton:hover{
+    background-color: #45693e;
+}

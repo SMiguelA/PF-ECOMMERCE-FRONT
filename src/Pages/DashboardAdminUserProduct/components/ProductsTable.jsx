@@ -51,7 +51,7 @@ export const ProductsTable = ({data, galleta, setGalleta}) => {
             name: 'Action', cell:(row) => (
             bandera && bandera._id === row._id 
             ? row.isActive 
-            ? <button id={row._id} name={row.isActive.toString()} onClick={handlerChangeState}>Disable</button>
+            ? <button id={row._id} name={row.isActive.toString()} className='banButton' onClick={handlerChangeState}>Disable</button>
             : <button id={row._id} name={row.isActive.toString()} onClick={handlerChangeState}>Enable</button>
             :<></>
             )
