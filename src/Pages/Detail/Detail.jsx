@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
-import { addToCart, deletProductId, getProductById, addFavorite, removeFavorite } from "../../Redux/Actions";
+import {
+  addFavorite,
+  addToCart,
+  deletProductId,
+  getProductById,
+  removeFavorite,
+} from "../../Redux/Actions";
 import axios from "../../axios";
 import style from "./Detail.module.css";
 import Galery from "./components/Galery";
@@ -15,25 +21,19 @@ import { verifyNotReview } from "../../Redux/Actions";
 import averageGrades from "../../utils/averageGrades";
 import { FormEdit } from "./components/formRating/formEdit/FormEdit";
 
-
-function Detail({addFavorite, removeFavorite, myFavorites}) {
-
+function Detail({ addFavorite, removeFavorite, myFavorites }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [product, setProduct] = useState(null);
-  const { '*': ruta } = useParams();
+  const { "*": ruta } = useParams();
   const [bandera, setBandera] = useState(ruta);
 
-  const {openEdit} = useSelector((state) => state)
+  const { openEdit } = useSelector((state) => state);
 
-
-  const [ isFav, setIsFav ] = useState(false);
+  const [isFav, setIsFav] = useState(false);
   const { productId } = useSelector((state) => state);
-
- 
-
 
   useEffect(() => {
     axios.get(`/products/${id}`).then(({ data }) => {
@@ -41,19 +41,16 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
     });
   }, [id]);
 
-  const { notReview } = useSelector((state) => state)
+  const { notReview } = useSelector((state) => state);
 
-
-  let arrayRating = []
+  let arrayRating = [];
   if (productId && productId.valorations) {
     productId.valorations.map((val) => {
-      arrayRating.push(val.rating)
-    })
+      arrayRating.push(val.rating);
+    });
   }
-  let ratingValue = averageGrades(arrayRating)
-  ratingValue = Number(ratingValue.toString().substring(0, 3))
-
-
+  let ratingValue = averageGrades(arrayRating);
+  ratingValue = Number(ratingValue.toString().substring(0, 3));
 
   useEffect(() => {
     if (id) {
@@ -64,19 +61,16 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
   }, [id]);
 
   useEffect(() => {
-    setBandera(ruta)
-  },[ruta])
+    setBandera(ruta);
+  }, [ruta]);
 
-  useEffect(
-    () => {
-      myFavorites?.forEach((fav) => {
-          if(fav._id === id){
-            setIsFav(true);
-          }
-      });
-    },
-    [myFavorites]
-  );
+  useEffect(() => {
+    myFavorites?.forEach((fav) => {
+      if (fav._id === id) {
+        setIsFav(true);
+      }
+    });
+  }, [myFavorites]);
 
   // Add to Cart Notification.
   const notify = () =>
@@ -94,8 +88,7 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
   const handleAddToCart = (e) => {
     e.preventDefault();
     if (user && user._id) {
-
-      notify()
+      notify();
       // Check if user and user._id exist
       dispatch(
         addToCart({
@@ -111,7 +104,6 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
     navigate(path);
   };
 
-
   const handlerNavigationRate = () => {
     if (notReview) {
       navigate("rating");
@@ -120,7 +112,12 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
 
   useEffect(() => {
     if (productId && productId.valorations && user) {
-      const comprobation = productId.valorations.find((val) => val.id_cliente._id === user._id);
+      const comprobation = productId?.valorations?.find(
+        (val) => val.id_cliente?._id === user?._id
+      );
+
+      //agregar el operador ? para que pueda tener el valor
+
       if (comprobation !== undefined) {
         dispatch(verifyNotReview(false));
       } else {
@@ -130,126 +127,169 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
   }, [productId, user, dispatch]);
 
   const handdleFavorite = () => {
-    if (user){
-      if(isFav){
-          setIsFav(false);
-          removeFavorite(user, productId);
-      }else{
-          setIsFav(true);
-          addFavorite(user, productId);
+    if (user) {
+      if (isFav) {
+        setIsFav(false);
+        removeFavorite(user, productId);
+      } else {
+        setIsFav(true);
+        addFavorite(user, productId);
       }
     }
-  }
-
+  };
 
   return (
     <>
-      {
-      
-      user && user.isActive ? productId && productId.name ? (
-        <div className={style.container}>
-         <div className={style.contLeft}>
-            <h1>{productId.name}</h1>
-            {
-              user && productId.stock > 0 && productId.isActive && user.isActive 
-              ? 
-              <button onClick={handleAddToCart}>
-                <label>Add to </label><label className={style.labelStyle}> My Cart </label>
-              </button>
-              :
-              <></>
-            }
-            {
-                isFav? (
-                  <button onClick={handdleFavorite}>
-                    <label className={style.favoritesStyle}> ❤️ </label>
-                  </button>
-                ):(
-                  <button onClick={handdleFavorite}>
-                    <label className={style.favoritesStyle}> 🤍 </label>
-                  </button>
-                )
-              }
-            <div className={style.info}>
-              <div>
-                <h2>Stock</h2>
-                <p>{productId.stock || 0}</p>
+      {user && user.isActive ? (
+        productId && productId.name ? (
+          <div className={style.container}>
+            <div className={style.contLeft}>
+              <h1>{productId.name}</h1>
+              {user &&
+              productId.stock > 0 &&
+              productId.isActive &&
+              user.isActive ? (
+                <button onClick={handleAddToCart}>
+                  <label>Add to </label>
+                  <label className={style.labelStyle}> My Cart </label>
+                </button>
+              ) : (
+                <></>
+              )}
+              {isFav ? (
+                <button onClick={handdleFavorite}>
+                  <label className={style.favoritesStyle}> ❤️ </label>
+                </button>
+              ) : (
+                <button onClick={handdleFavorite}>
+                  <label className={style.favoritesStyle}> 🤍 </label>
+                </button>
+              )}
+              <div className={style.info}>
+                <div>
+                  <h2>Stock</h2>
+                  <p>{productId.stock || 0}</p>
+                </div>
+                <hr />
+                <div>
+                  <h2>Category</h2>
+                  <p>{productId.category}</p>
+                </div>
+                <hr />
+                <div>
+                  <h2>Platform</h2>
+                  <p>{productId.platform}</p>
+                </div>
               </div>
-              <hr />
-              <div>
-                <h2>Category</h2>
-                <p>{productId.category}</p>
-              </div>
-              <hr />
-              <div>
-                <h2>Platform</h2>
-                <p>{productId.platform}</p>
-              </div>
+              <Starts rating={ratingValue || 4} />
             </div>
-            <Starts rating={ratingValue || 4} />
-          </div>
-          <div className={style.contRight}>
-            <Galery imgs={productId.pictures} />
-          </div>
-          <hr className={style.hrPrimero}/>
+            <div className={style.contRight}>
+              <Galery imgs={productId.pictures} />
+            </div>
+            <hr className={style.hrPrimero} />
 
-
-
-          <div className={style.seccionesDetail}>
-              <div onClick={() => handleNavigation(`about`)} className={bandera === 'about' || bandera === '' ? style.acerca : style.acercaDE}>
+            <div className={style.seccionesDetail}>
+              <div
+                onClick={() => handleNavigation(`about`)}
+                className={
+                  bandera === "about" || bandera === ""
+                    ? style.acerca
+                    : style.acercaDE
+                }
+              >
                 <label style={{ cursor: "pointer" }}>About</label>
               </div>
-              <div onClick={() => handleNavigation(`reviews`)} className={bandera === 'reviews' ? style.reviewsStyle : style.reviews}>
+              <div
+                onClick={() => handleNavigation(`reviews`)}
+                className={
+                  bandera === "reviews" ? style.reviewsStyle : style.reviews
+                }
+              >
                 <label style={{ cursor: "pointer" }}>Ratings and reviews</label>
               </div>
               {user && (
-                <div onClick={() => handlerNavigationRate()} className={bandera === "rating" ? style.notRateGame : notReview ? style.rateGame : style.rateDisabled}>
+                <div
+                  onClick={() => handlerNavigationRate()}
+                  className={
+                    bandera === "rating"
+                      ? style.notRateGame
+                      : notReview
+                      ? style.rateGame
+                      : style.rateDisabled
+                  }
+                >
                   <label>Rate this game</label>
                 </div>
               )}
             </div>
 
-          <hr className={style.hrSegundo}/>
+            <hr className={style.hrSegundo} />
 
-          <Routes>
-            <Route path="/" element={<About description={productId.description}/>}/>
-            <Route path="/*" element={<About description={productId.description}/>}/>
-            <Route path="/about" element={<About description={productId.description}/>} />
-            <Route path="/reviews" element={<Reviews data={productId.valorations} id={productId._id} user={user}/>} />
-            {
-              user && <Route path="/rating" element={
-              <>
-                <FormRating user={user} product={productId}/>
-                <Reviews data={productId.valorations}/>
-              </>
-              } />
-            }
-            <Route path="/edit" element={<FormEdit user={user} product={productId}/>}/>
-          </Routes>
-
-        </div>
+            <Routes>
+              <Route
+                path="/"
+                element={<About description={productId.description} />}
+              />
+              <Route
+                path="/*"
+                element={<About description={productId.description} />}
+              />
+              <Route
+                path="/about"
+                element={<About description={productId.description} />}
+              />
+              <Route
+                path="/reviews"
+                element={
+                  <Reviews
+                    data={productId.valorations}
+                    id={productId._id}
+                    user={user}
+                  />
+                }
+              />
+              {user && (
+                <Route
+                  path="/rating"
+                  element={
+                    <>
+                      <FormRating user={user} product={productId} />
+                      <Reviews data={productId.valorations} />
+                    </>
+                  }
+                />
+              )}
+              <Route
+                path="/edit"
+                element={<FormEdit user={user} product={productId} />}
+              />
+            </Routes>
+          </div>
+        ) : (
+          <h1 style={{ color: "white" }}>Loading...</h1>
+        )
       ) : (
-        <h1 style={{ color: "white" }}>Loading...</h1>
-      )
-    
-      : navigate('/banned')
-    
-    }
+        navigate("/banned")
+      )}
     </>
   );
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-     addFavorite: (user, product) => {dispatch(addFavorite(user, product))},
-     removeFavorite: (user, product) => {dispatch(removeFavorite(user, product))}
-  }
+    addFavorite: (user, product) => {
+      dispatch(addFavorite(user, product));
+    },
+    removeFavorite: (user, product) => {
+      dispatch(removeFavorite(user, product));
+    },
+  };
 };
 
 const mapStateToProps = (state) => {
   return {
-     myFavorites: state.myFavorites,
-  }
-}
+    myFavorites: state.myFavorites,
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);
