@@ -16,14 +16,15 @@ export default function Orders() {
     });
   }, []);
 
+  console.log(orders);
   return (
     <OrdersContainer>
       <h1> Purchase History:</h1>
 
-      {orders ? (
+      {orders.length ? (
         orders.map((order) => <OrderCard order={order} key={order._id} />)
       ) : (
-        <h1>NO HAY ORDENES</h1>
+        <h1>You have not made any purchase</h1>
       )}
     </OrdersContainer>
   );
