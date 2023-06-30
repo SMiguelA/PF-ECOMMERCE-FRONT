@@ -4,11 +4,11 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { Navbar } from "../../Components";
 import TableOrders from "../../Components/Table/TableOrders";
 import { Aside, Main } from "../../ComponentsStyles";
-import AdminOrders from "../../Pages/AdminOrders/AdminOrders";
 import { BannedView } from "../../Pages/Banned/BannedView";
 import Cart from "../../Pages/Cart/Cart";
 import { DashboardAdminUserProduct } from "../../Pages/DashboardAdminUserProduct/DashboardAdminUserProduct";
 import Detail from "../../Pages/Detail/Detail";
+import Favorites from "../../Pages/Favorites/Favorites";
 import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
 import NewProduct from "../../Pages/NewProduct/NewProduct";
@@ -18,7 +18,6 @@ import Signup from "../../Pages/Signup/Signup";
 import Store from "../../Pages/Store/Store";
 import RutaAdmin from "../RutasProtegidas/RutaAdmin";
 import RutaUser from "../RutasProtegidas/RutaUser";
-import Favorites from "../../Pages/Favorites/Favorites";
 
 function RoutesMain() {
   const user = useSelector((state) => state.user);
@@ -44,7 +43,7 @@ function RoutesMain() {
             <Route path="store" element={<Store />}>
               <Route path="detail/:id/*" element={<Detail />} />
             </Route>
-            <Route path="favorites" element={<Favorites/>}>
+            <Route path="favorites" element={<Favorites />}>
               <Route path="detail/:id/*" element={<Detail />} />
             </Route>
           </Route>
@@ -63,7 +62,6 @@ function RoutesMain() {
             <Route path="/new-product" element={<NewProduct />} />
             <Route path="/orders-admin" element={<TableOrders />} />
             <Route path="/admin" element={<DashboardAdminUserProduct />} />
-            <Route path="/orders-admin" element={<AdminOrders />} />
           </Route>
         </Routes>
         <Toaster />
