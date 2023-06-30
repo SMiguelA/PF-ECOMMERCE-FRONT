@@ -28,10 +28,9 @@ export default function LoginGoogle() {
   }
 
   return (
-    <div >
-      <span onClick={handleWindow}>
+    <div style={{display:"flex"}}>
       <GoogleLogin onError={handleError} onSuccess={handleSuccess} />
-      </span>
     </div>
+
   );
 }

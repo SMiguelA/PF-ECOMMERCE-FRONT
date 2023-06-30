@@ -1,10 +1,9 @@
 import { AiFillAppstore, AiFillFire } from "react-icons/ai";
 import { CgList, CgProfile, CgShoppingCart } from "react-icons/cg";
 import { FaUserFriends } from "react-icons/fa";
-import { GrUserAdmin } from "react-icons/gr";
 import { HiHome } from "react-icons/hi";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
-import { MdCreateNewFolder } from "react-icons/md";
+import { MdCreateNewFolder, MdOutlineAdminPanelSettings } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Nav, StyledLink } from "../../ComponentsStyles";
@@ -18,7 +17,6 @@ export default function Navbar() {
   const [userLogin, setUserLogin] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const handleLogout = () => {
     // Llama a la acción de Redux para cerrar sesión
     dispatch(logoutUser());
@@ -35,6 +33,7 @@ export default function Navbar() {
       setUserLogin(true);
     }
   };
+
   return (
     <div className={styles.containerLink}>
       <div className={styles.firstchildLink}>
@@ -60,7 +59,7 @@ export default function Navbar() {
                 Store
               </li>
             </StyledLink>
-            <StyledLink to="">
+            <StyledLink to="/favorites">
               <li>
                 <AiFillAppstore
                   size={25}
@@ -83,16 +82,6 @@ export default function Navbar() {
                  <div className={styles.containerCount}>{user.cart.count>0? user.cart.count : 0}</div>}
               </li>
             </StyledLink>
-            <StyledLink to="">
-              <li>
-                <FaUserFriends
-                  size={25}
-                  style={{ marginBottom: "5px" }}
-                  className={styles.iconsNav}
-                />{" "}
-                Friends
-              </li>
-            </StyledLink>{" "}
           </ul>
         </Nav>
       </div>
@@ -100,9 +89,9 @@ export default function Navbar() {
       {!user && (
         <div className={styles.secondChildLink}>
           <ul style={{ listStyle: "none" }}>
-            <StyledLink to="/login">
-              <li>
-                <LuLogIn size={25} style={{ marginBottom: "5px" }} /> Login
+            <StyledLink to="/login" className={styles.loguin}>
+              <li className={styles.loguin}>
+                <LuLogIn size={25} /> <label>Login</label>
               </li>
             </StyledLink>
           </ul>
@@ -113,10 +102,10 @@ export default function Navbar() {
         <div className={styles.secondChildLink}>
           <div className={styles.containerPerfiluser}>
             <div onClick={handleMenuUser} className={styles.menuUser}>
-              {user.image !== undefined ? (
-                <img src={user.image} alt="PerfilLogo" />
+              {user.profilePicture !== undefined ? (
+                <img src={user.profilePicture} alt="PerfilLogo" className={styles.iconImage}/>
               ) : (
-                <p>{user.name[0]}</p>
+                <p>{user.name[0].toUpperCase()}</p>
               )}
             </div>
           </div>
@@ -129,9 +118,10 @@ export default function Navbar() {
                     <>
                       <StyledLink to="/admin">
                         <li>
-                          <GrUserAdmin
+                          <MdOutlineAdminPanelSettings
                             size={25}
-                            style={{ marginBottom: "5px" }}
+                            style={{ marginBottom: "5px", color: "white" }}
+                            className={styles.iconsNav}
                           />{" "}
                           Dashboard
                         </li>

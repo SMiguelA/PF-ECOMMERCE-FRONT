@@ -8,6 +8,25 @@
     border-top: 1px solid grey;
     padding-bottom: 2.5em;
     width: 100%;
+    
+}
+.reviewContent button{
+    display: flex;
+    position: relative;
+    align-content: center;
+    justify-content: center;
+    margin-left: 50px;
+    height: 30px;
+    width: 70px;
+    background-color: #187515;
+    border-radius: 0.5em;
+    color: aliceblue;
+    font-family: 'Geologica', sans-serif;
+}
+.reviewContent button:hover{
+    cursor: pointer;
+    transition: 2;
+    box-shadow: rgb(0, 0, 0) 3px 3px 6px 0px inset, rgba(0, 0, 0, 0.2) -3px -3px 6px 1px inset;
 }
 .nameInfo{
     display: flex;

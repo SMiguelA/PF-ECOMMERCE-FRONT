@@ -19,7 +19,10 @@ import {
   GET_PRODUCT_BY_NAME,
   INCREASE_CART,
   MODIFY_STOCK_PRODUCT,
-  REMOVE_FROM_CART
+  REMOVE_FROM_CART,
+  GET_NOT_REVIEW,
+  OPEN_EDIT,
+  EDIT_REVIEW
 } from "../../actionsTypes.js";
 
 export const getProducts = () => {
@@ -312,5 +315,40 @@ export const filterProductsByType = (payload) => {
   return {
     type: FILTER_PRODUCTS_BY_TYPE,
     payload,
+  };
+};
+
+export const verifyNotReview = (payload) =>{
+  return {
+    type: GET_NOT_REVIEW,
+    payload
+  }
+}
+
+export const openEditReview = (payload) =>{
+  return {
+    type: OPEN_EDIT,
+    payload
+  }
+}
+
+export const editReviewAction = ({rating, description, id_cliente, date, id_product}) => {
+  return async function (dispatch) {
+    try {
+      
+      const json = await axios.put(`/products/${id_product}`,{
+        edit: {
+          id_cliente,
+          comment:description,
+          rating,
+          date
+        }
+      });
+      return dispatch({
+        type: EDIT_REVIEW
+      });
+    } catch (error) {
+      window.alert(error.response.data.Error);
+    }
   };
 };

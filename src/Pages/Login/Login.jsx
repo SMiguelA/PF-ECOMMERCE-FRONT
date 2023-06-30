@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import styles from "./Login.module.css";
-import { DivContainerForm, DivForm, StyledLink } from "../../ComponentsStyles";
-import { login, LoadingActionForm, clearErrors } from "../../Redux/Actions";
 import { LoadingForm, LoginGoogle } from "../../Components";
+import { DivContainerForm, DivForm, StyledLink } from "../../ComponentsStyles";
+import { LoadingActionForm, clearErrors, login } from "../../Redux/Actions";
+import styles from "./Login.module.css";
 import { validateLoginForm } from "./validate";
 
 function Login() {
@@ -34,7 +34,7 @@ function Login() {
     if (errorsBack) {
       const { errorLogin } = errorsBack;
       console.log(errorLogin);
-      if(Object.keys(errorLogin).length > 0) {
+      if(errorLogin && Object.keys(errorLogin).length > 0) {
         setTimeout(() => {
         dispatch(LoadingActionForm(false));
         const validationErrors = validateLoginForm(values.email, values.password, errorLogin);
@@ -107,7 +107,6 @@ function Login() {
             )}
           </div>
           <div className={styles.containerForgotPassword}>
-            <a>Forgot Password ?</a>
           </div>
           <div className={styles.sign}>
             <button type="submit">Login</button>
@@ -116,7 +115,9 @@ function Login() {
         <div className={styles.social_message}>
           <p className={styles.message}>Login with social account</p>
         </div>
+        <div className={styles.GoogleComponent}>
         <LoginGoogle />
+        </div>
 
         <p className={styles.signup}>
           Don't have an account?

@@ -102,6 +102,12 @@
   align-items: center;
   margin-left: -1.5em;
 }
+.itemQuantity2{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding-left: 2.7em;
+}
 .itemQuantity button{
   color: aliceblue;
   background: none;
@@ -112,6 +118,17 @@
   justify-content: center;
   align-items: center;
 }
+.itemQuantity2 button{
+  color: aliceblue;
+  background: none;
+  font-size: larger;
+  border: 1px solid white;
+  width: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .itemPrice, 
 .itemTotal{

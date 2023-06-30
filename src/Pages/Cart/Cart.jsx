@@ -136,20 +136,27 @@ function Cart() {
                       </div>
                     </td>
                     <td>
-                      <div className="itemQuantity">
-                        <button
-
-                          disabled={isButtonDissabled}
-                          onClick={() => {
-                            handleDecrease({
-                              productId: item._id || item.id,
-                              price: item.price,
-                              userId: user._id || user.id,
-                            });
-                          }}
-                        >
-                          -
-                        </button>
+                      <div className={user.cart[item._id || item.id] >= 2 ? "itemQuantity" : 'itemQuantity2'}>
+                        
+                        {
+                          user.cart[item._id || item.id] >= 2
+                          ?
+                          <div>
+                            <button
+                              disabled={isButtonDissabled}
+                              onClick={() => {
+                                handleDecrease({
+                                  productId: item._id || item.id,
+                                  price: item.price,
+                                  userId: user._id || user.id,
+                                });
+                              }}
+                            >
+                            -
+                          </button>
+                          </div>
+                          :<></>
+                        }
                         <span>{user.cart[item._id || item.id]}</span>
                         <button
                           onClick={() => {

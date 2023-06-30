@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import style from './StarsRating.module.css';
 
-export const StarsRating = ({dataForm, setDataForm}) => {
+export const StarsRating = ({dataForm, setDataForm, rat}) => {
   const [rating, setRating] = useState(null);
   const [hoveredRating, setHoveredRating] = useState(null);
-
+  useEffect(()=>{
+    setHoveredRating(rat)
+  },[])
+    
   const handleMouseEnter = (value) => {
     setHoveredRating(value);
   };
@@ -17,7 +20,7 @@ export const StarsRating = ({dataForm, setDataForm}) => {
   useEffect(() => {
     setDataForm({
         ...dataForm,
-        rating: rating || 0
+        rating: rating || rat
     })
   },[rating])
 

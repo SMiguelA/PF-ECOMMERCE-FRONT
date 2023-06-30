@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
 
 import { updateUser } from "../../Redux/Actions";
 import "./Profile.css";
@@ -15,6 +16,18 @@ export default function Profile() {
   const [password2, setPassword2] = useState("");
   const [samePassword, setSamePassword] = useState(false);
 
+  const notify = () =>
+    toast("Profile updated!", {
+      icon: "🎮",
+      style: {
+        borderRadius: "10px",
+        background: "#fff",
+        color: "#333",
+      },
+      duration: 3000,
+      position: "bottom-right",
+    });
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!name || !email) {
@@ -24,7 +37,9 @@ export default function Profile() {
       name,
       email,
     };
+    
     dispatch(updateUser(user._id, data));
+    notify()
   }
 
   function handleSubmitPassword(e) {
@@ -37,6 +52,7 @@ export default function Profile() {
         password: password2,
       };
       dispatch(updateUser(user._id, data));
+      notify()
     }
   }
 

@@ -22,7 +22,7 @@ export default function Header() {
     <div className={style.container}>
       <div className={style.leftItem}>
         <StyledLink to="/" className={style.noLinea}>
-          <h1>E-Commerce</h1>
+          <h1>Pixel Port</h1>
         </StyledLink>
       </div>
       <div className={style.rightItem}> 

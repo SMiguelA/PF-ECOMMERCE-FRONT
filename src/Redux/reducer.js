@@ -17,6 +17,7 @@ import {
   FILTER_PRODUCTS_BY_GENDER,
   FILTER_PRODUCTS_BY_TYPE,
   FILTER_PRODUCT_BY_PRICE,
+  GET_NOT_REVIEW,
   GET_ORDERS,
   GET_PRODUCTS,
   GET_PRODUCT_BY_ID,
@@ -28,12 +29,17 @@ import {
   LOGIN,
   LOGIN_GOOGLE,
   LOGOUT,
+  OPEN_EDIT,
   REMOVE_FROM_CART,
   SIGNUP,
-  UPDATE_USER
+  UPDATE_USER,
+  EDIT_REVIEW,
+  ADD_FAVORITE, 
+  REMOVE_FAVORITE,
 } from "./actionsTypes";
 
 const initialState = {
+  myFavorites:[],
   products: [],
   filters: {
     name: "",
@@ -52,7 +58,9 @@ const initialState = {
     errorLogin: [],
     errorRegister: [],
   },
-  dataDashAdmin:[]
+  dataDashAdmin:[],
+  notReview: true,
+  openEdit: null
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -164,6 +172,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
         allProducts: payload,
       };
     case GET_PRODUCT_BY_ID:
+      console.log("Entra a product id")
+      console.log(state)
       return {
         ...state,
         productId: payload,
@@ -235,12 +245,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         user: null,
+        myFavorites: []
       };
 
     case LOGIN:
+      console.log(payload)
       return {
         ...state,
         user: payload,
+        myFavorites: payload.myFavorites
       };
 
     case ADD_TO_CART:
@@ -253,6 +266,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
           cart: payload,
         },
       };
+    case GET_NOT_REVIEW:
+      return {
+        ...state,
+        notReview: payload
+      }
+    case OPEN_EDIT:
+      return{
+        ...state,
+        openEdit: payload
+      }
 
     // case RESTART_CART:
     //   return {
@@ -305,7 +328,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         orders: payload,
       };
-
+    case EDIT_REVIEW:
+      return {
+        ...state
+      }
     case FILTER_PRODUCTS_BY_TYPE:
       const { type, checked } = payload;
 
@@ -334,6 +360,30 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         products: filteredProductsByType,
+      };
+    
+    case ADD_FAVORITE:
+      return { 
+        ...state, 
+        myFavorites: [ ...state.myFavorites, payload],
+        user: {
+          ...state.user,
+          myFavorites: [ ...state.myFavorites, payload],
+        },
+      };
+
+    case REMOVE_FAVORITE:
+      return { 
+        ...state, 
+        myFavorites: state.myFavorites.filter(
+            (product) => product._id !== payload
+        ),
+        user: {
+          ...state.user,
+          myFavorites: state.myFavorites.filter(
+            (product) => product._id !== payload
+        ),
+        }, 
       };
 
     default:
