@@ -21,7 +21,7 @@ function CheckoutForm({ data, cart }) {
   const [paying, setPaying] = useState(false);
   const dispatch = useDispatch();
   console.log(cart);
-
+  data = data.toFixed(2)
   // Add to Cart Notification.
   const notify = () =>
     toast(
