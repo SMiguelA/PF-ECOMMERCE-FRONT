@@ -1,6 +1,5 @@
 import { AiFillAppstore, AiFillFire } from "react-icons/ai";
 import { CgList, CgProfile, CgShoppingCart } from "react-icons/cg";
-import { FaUserFriends } from "react-icons/fa";
 import { HiHome } from "react-icons/hi";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
 import { MdCreateNewFolder, MdOutlineAdminPanelSettings } from "react-icons/md";
@@ -70,16 +69,18 @@ export default function Navbar() {
               </li>
             </StyledLink>
             <StyledLink to="/cart">
-            <li>
+              <li>
                 <CgShoppingCart
                   size={25}
                   style={{ marginBottom: "5px" }}
                   className={styles.iconsNav}
-                  />{" "}
+                />{" "}
                 Cart
-                {
-                user && user.cart.count !==0 &&
-                 <div className={styles.containerCount}>{user.cart.count>0? user.cart.count : 0}</div>}
+                {user && user.cart.count !== 0 && (
+                  <div className={styles.containerCount}>
+                    {user.cart.count > 0 ? user.cart.count : 0}
+                  </div>
+                )}
               </li>
             </StyledLink>
           </ul>
@@ -103,7 +104,11 @@ export default function Navbar() {
           <div className={styles.containerPerfiluser}>
             <div onClick={handleMenuUser} className={styles.menuUser}>
               {user.profilePicture !== undefined ? (
-                <img src={user.profilePicture} alt="PerfilLogo" className={styles.iconImage}/>
+                <img
+                  src={user.profilePicture}
+                  alt="PerfilLogo"
+                  className={styles.iconImage}
+                />
               ) : (
                 <p>{user.name[0].toUpperCase()}</p>
               )}
@@ -148,16 +153,18 @@ export default function Navbar() {
                       </StyledLink>{" "}
                     </>
                   )}
-                  <StyledLink to="/orders">
-                    <li>
-                      <CgList
-                        size={25}
-                        style={{ marginBottom: "5px" }}
-                        className={styles.iconsNav}
-                      />{" "}
-                      Orders User
-                    </li>
-                  </StyledLink>{" "}
+                  {!user.isAdmin && (
+                    <StyledLink to="/orders">
+                      <li>
+                        <CgList
+                          size={25}
+                          style={{ marginBottom: "5px" }}
+                          className={styles.iconsNav}
+                        />{" "}
+                        Orders User
+                      </li>
+                    </StyledLink>
+                  )}
                   <StyledLink to="/profile">
                     <li>
                       <CgProfile
