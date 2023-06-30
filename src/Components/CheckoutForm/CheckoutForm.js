@@ -10,8 +10,7 @@ import { createOrder, modifyProductStock } from "../../Redux/Actions";
 
 import "./CheckoutForm.css";
 
-
-function CheckoutForm({data, cart}) {
+function CheckoutForm({ data, cart }) {
   const stripe = useStripe();
   const elements = useElements();
   const user = useSelector((state) => state.user);
@@ -22,7 +21,7 @@ function CheckoutForm({data, cart}) {
   const [paying, setPaying] = useState(false);
   const dispatch = useDispatch();
   console.log(cart);
-
+  data = data.toFixed(2)
   // Add to Cart Notification.
   const notify = () =>
     toast(
@@ -81,8 +80,6 @@ function CheckoutForm({data, cart}) {
     setPaying(false);
 
     if (paymentIntent) {
-      notify();
-
       try {
         const paymentStatus = paymentIntent.status;
 
@@ -97,10 +94,10 @@ function CheckoutForm({data, cart}) {
         );
 
         setAlertMessage(`Payment ${paymentIntent.status}`);
-    
-        await dispatch(modifyProductStock(cart))
 
-        window.alert(`Payment ${paymentIntent.status}`);
+        await dispatch(modifyProductStock(cart));
+
+        notify();
 
         setTimeout(() => {
           navigate("/orders");
@@ -130,8 +127,8 @@ function CheckoutForm({data, cart}) {
         fontFamily: "Arial, sans-serif",
         fontSize: "16px",
       },
-    }
-  }
+    },
+  };
 
   return (
     <form onSubmit={handlePay} className="contenedorFormulario">

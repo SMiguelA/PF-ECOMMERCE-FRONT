@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 
 import { updateUser } from "../../Redux/Actions";
 import "./Profile.css";
@@ -37,9 +37,9 @@ export default function Profile() {
       name,
       email,
     };
-    
+
     dispatch(updateUser(user._id, data));
-    notify()
+    notify();
   }
 
   function handleSubmitPassword(e) {
@@ -52,7 +52,7 @@ export default function Profile() {
         password: password2,
       };
       dispatch(updateUser(user._id, data));
-      notify()
+      notify();
     }
   }
 
@@ -60,9 +60,7 @@ export default function Profile() {
     <>
       <form className="containerForm" onSubmit={handleSubmit}>
         <h1>Profile Settings</h1>
-        <h5 className="h3-warning">
-          Warning! Any changes you make will close your session
-        </h5>
+
         <hr />
         <div className="image-perfil-container">
           <div>

@@ -15,8 +15,9 @@ export default function OrderCard({ order }) {
       <StatusCircle status={order.status} />
 
       <OrderDetailsContainer>
-        <DetailLabelValue style={{ color: "white" , fontSize: "1.2rem" }}>
-        {order._id}</DetailLabelValue>
+        <DetailLabelValue style={{ color: "white", fontSize: "1.2rem" }}>
+          Order ID: {order._id}
+        </DetailLabelValue>
         <hr />
         <OrderDetails>
           <DetailLabel>
