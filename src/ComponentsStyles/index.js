@@ -33,13 +33,18 @@ export const DivContainer = styled.div`
   padding-top: 5em;
 `;
 export const DivContainerForm = styled.div`
-background-color: #151515;
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: row;
-height:60rem;
-width:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  border: 1px solid red;
+  height: 100%;
+  width: 75%;
+  margin-top: 3%;
+  border-radius: 0.7em;
+  background-image: url('../img/default.jpg');
+  background-size: cover;
+  /* background-color: rgba(0, 0, 0, 0.5); */
 `;
 
 export const ImgSlide = styled.img`
