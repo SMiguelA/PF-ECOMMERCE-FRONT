@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rowdies:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+.DivContainerForm{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* border: 1px solid red; */
+  height: 80vh;
+  width: 75%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  border-radius: 0.7em;
+  background-image: linear-gradient(rgba(10, 10, 10, 0.4), rgba(10, 10, 10, 0.6)), url('../../img/background.png');
+  background-size: cover;
+  box-shadow: rgba(0, 0, 0, 0.726) 0px 20px 30px -10px;
+}
+.DivContainerForm p{
+  font-family: 'Rowdies', cursive;
+  font-size: xx-large;
+}
+.DivForm{
+  display: flex;
+  background-color: #333333;
+  border-radius: 0.75rem;
+  color: rgba(243, 244, 246, 1);
+  width: 25%;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  flex-direction: column;
+  align-items:center;
+  justify-content:center;
+  padding: 2em 0.5em;
+}
+.DivForm form{
+  width: 100%;
+}
+.DivForm input{
+  outline: none;
+  border: none;
+  border: 1px solid grey;
+  padding-left: 2em;
+  height: 2em;
+  background-color: #151515;
+  border-radius: 0.5em;
+  font-size: medium;
+  color: aliceblue;
+  width: 100%;
+}
+.DivForm input:-webkit-autofill{
+  background-color: #151515;
+}
+.inputGroup{
+  display: flex;
+  position: relative;
+  padding-bottom: 1em;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+  align-items: center;
+}
+.inputGroup svg{
+  font-size: 1.5em;
+  position: fixed;
+  color: grey;
+  margin-left: 0.3%;
+}
+
+.actions{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 1em;
+  padding-top: 1.5em;
+}
+.actions button{
+  width: 40%;
+  outline: none;
+  border: 0;
+  border-radius: 0.4em;
+  border: 1px solid grey;
+  height: 3em;
+  color: aliceblue;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.cancel{
+  background-color: #212121;
+}
+.cancel:hover{
+  background-color: #282828;
+}
+
+.submitButton{
+  background-color: #38aab9b6;
+}
+.submitButton:hover{
+  background-color: #42c0d1b6;
+}
+
+.separador{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.separador hr{
+  height: 0;
+  width: 40%;
+}
+
+
+.signup{
+  font-size: 1em !important;
+}
+.signup a{
+  margin-left: 0.5em;
+  color: #42c0d1b6;
+}
+
+.errors{
+  font-size: 1em !important;
+  margin-top: -0.5em;
+  color: rgb(255, 0, 0);
+  font-family: 'Montserrat', sans-serif !important;
+}
