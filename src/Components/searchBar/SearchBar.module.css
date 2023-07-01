@@ -60,14 +60,18 @@
 .input{
     font-family: 'Poppins', sans-serif;
     width: 40%;
-    background-color: #202020;
-    /* border: 2px solid rgb(173, 173, 173); */
+    background-color: #151515;
+    background-image: url('../../img/lupa.png');
+    background-repeat: no-repeat;
+    background-position: 97%;
+    background-size: 20px;
     outline: none;
     padding: 10px 20px;
     z-index: 9999999;
     border-radius: 5px;
     font-size: 16px;
-    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+    border: none;
+    border: 1px solid grey;
     color: #fff;
 }
 .input:focus ~ .containerData{

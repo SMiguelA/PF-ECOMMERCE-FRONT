@@ -9,10 +9,9 @@ const TableOrders = () => {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.orders);
   const userAdmin = useSelector((state) => state.user.isAdmin);
-  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
-    dispatch(getOrders(token, userAdmin));
+    dispatch(getOrders(userAdmin));
   }, []);
 
   const columns = [

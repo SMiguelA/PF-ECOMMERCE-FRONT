@@ -1,11 +1,12 @@
 // import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
+import { RiLockPasswordLine, RiMailLine } from 'react-icons/ri';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LoadingForm, LoginGoogle } from "../../Components";
-import { DivContainerForm, DivForm, StyledLink } from "../../ComponentsStyles";
+import { StyledLink } from "../../ComponentsStyles";
 import { LoadingActionForm, clearErrors, login } from "../../Redux/Actions";
-import styles from "./Login.module.css";
+import "./login.css";
 import { validateLoginForm } from "./validate";
 
 function Login() {
@@ -72,18 +73,18 @@ function Login() {
   };
 
   return (
-    <DivContainerForm>
+    <div className='DivContainerForm'>
       {loadingLoagin_Register && (
-        <div className={styles.loading}>
+        <div className='loading'>
           <LoadingForm />
         </div>
       )}
 
-      <DivForm>
-        <p className={styles.title}>Inicia sesión</p>
-        <form className={styles.formhtml} onSubmit={handleSubmit}>
-          <div className={styles.inputGroup}>
-            <label htmlFor="email">Email </label>
+      <p className='title'>Pixel Port</p>
+      <div className='DivForm'>
+        <form className='formhtml' onSubmit={handleSubmit}>
+          <div className='inputGroup'>
+            <RiMailLine className='inputIcon' />
             <input
               type="text"
               placeholder="Email..."
@@ -91,42 +92,45 @@ function Login() {
               name="email"
               onChange={handleInputChange}
             />
-            {errors.email && <p className={styles.errors}>{errors.email}</p>}
           </div>
-          <div className={styles.inputGroup}>
-            <label>Password</label>
+          {errors.email && <p className='errors'>{errors.email}</p>}
+          <div className='inputGroup'>
+            <RiLockPasswordLine className='inputIcon' />
             <input
-              type="password"
+              type="Password"
               placeholder="Enter Password"
               value={values.password}
               name="password"
               onChange={handleInputChange}
             />
-            {errors.password && (
-              <p className={styles.errors}>{errors.password}</p>
-            )}
           </div>
-          <div className={styles.containerForgotPassword}>
+          {errors.password && (
+            <p className='errors'>{errors.password}</p>
+          )}
+          <div className='containerForgotPassword'>
           </div>
-          <div className={styles.sign}>
-            <button type="submit">Login</button>
+          <div className='actions'>
+            <button className="cancel" onClick={() => navigate('/')}><b>Cancel</b></button>
+            <button className='submitButton' type="submit"><b>Login</b></button>
           </div>
         </form>
-        <div className={styles.social_message}>
-          <p className={styles.message}>Login with social account</p>
+        <div className="separador">
+              <hr />
+              <label>O</label>
+              <hr />
         </div>
-        <div className={styles.GoogleComponent}>
-        <LoginGoogle />
+        <div className='socialLog'>
+          <LoginGoogle />
         </div>
 
-        <p className={styles.signup}>
-          Don't have an account?
-          <StyledLink to="/signup">
-            <b>Sign up</b>
-          </StyledLink>
-        </p>
-      </DivForm>
-    </DivContainerForm>
+      </div>
+      <p className='signup'>
+        Don't have an account?
+        <StyledLink to="/signup">
+          <b>Sign up</b>
+        </StyledLink>
+      </p>
+    </div>
   );
 }
 

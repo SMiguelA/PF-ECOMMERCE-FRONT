@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import {
@@ -126,14 +127,41 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
     }
   }, [productId, user, dispatch]);
 
+
+  const notifyFav = () =>
+    toast("Game added to favorites!", {
+      icon: "💓",
+      style: {
+        borderRadius: "10px",
+        background: "#fff",
+        color: "#333",
+      },
+      duration: 3000,
+      position: "bottom-right",
+    });
+
+    const notifyNotFavorite = () =>
+    toast("Game removed from favorites!", {
+      icon: "💔",
+      style: {
+        borderRadius: "10px",
+        background: "#fff",
+        color: "#333",
+      },
+      duration: 3000,
+      position: "bottom-right",
+    });
+
   const handdleFavorite = () => {
     if (user) {
       if (isFav) {
         setIsFav(false);
         removeFavorite(user, productId);
+        notifyNotFavorite();
       } else {
         setIsFav(true);
         addFavorite(user, productId);
+        notifyFav();
       }
     }
   };
@@ -149,21 +177,19 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
               productId.stock > 0 &&
               productId.isActive &&
               user.isActive ? (
-                <button onClick={handleAddToCart}>
-                  <label>Add to </label>
-                  <label className={style.labelStyle}> My Cart </label>
-                </button>
+                <div className={style.contOptions}>
+                  <button onClick={handleAddToCart}>
+                    <label>Add to </label>
+                    <label className={style.labelStyle}> My Cart </label>
+                  </button>
+                  {isFav ? (
+                      <AiFillHeart onClick={handdleFavorite} className={style.favoritesStyle} />
+                  ) : (
+                      <AiOutlineHeart onClick={handdleFavorite} className={style.favoritesStyle} />
+                  )}
+                </div>
               ) : (
                 <></>
-              )}
-              {isFav ? (
-                <button onClick={handdleFavorite}>
-                  <label className={style.favoritesStyle}> ❤️ </label>
-                </button>
-              ) : (
-                <button onClick={handdleFavorite}>
-                  <label className={style.favoritesStyle}> 🤍 </label>
-                </button>
               )}
               <div className={style.info}>
                 <div>
