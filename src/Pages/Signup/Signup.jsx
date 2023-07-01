@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { RiLockPasswordLine, RiMailLine, RiUser3Line } from 'react-icons/ri';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LoadingForm, LoginGoogle } from "../../Components";
-import { DivContainerForm, DivForm, StyledLink } from "../../ComponentsStyles";
+import { StyledLink } from "../../ComponentsStyles";
 import { LoadingActionForm, signup } from "../../Redux/Actions";
 import axios from "../../axios";
 import styles from "./Signup.module.css";
@@ -122,17 +123,40 @@ function Signup() {
   }
 
   return (
-    <DivContainerForm>
+    <div className={styles.DivContainerForm}>
       {loadingLoagin_Register && (
         <div className={styles.loading}>
           <LoadingForm />
         </div>
       )}
+      <div className={styles.userImg}>
+
+        {
+          picture.length ? (
+            <>
+              <img src={picture[0].url} alt="Preview" />
+              {imgToRemove !== picture[0].public_id && (
+                <label onClick={() => handleRemoveImg(picture[0])}>X</label>
+                )}
+            </>
+          ) 
+          : (
+            <div onClick={showWidget}>
+              Upload Image
+            </div>
+          )
+        }
+        
+      </div>
       <div className={styles.DivForm}>
-        <h1>Create an account</h1>
+        
+        {errors.picture && (
+          <p className={styles.errors}>{errors.picture}</p>
+        )}
+
         <form className={styles.formhtml} onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
-            <label htmlFor="name">Name</label>
+            <RiUser3Line className={styles.inputIcon} />
             <input
               type="text"
               placeholder="Name..."
@@ -140,11 +164,11 @@ function Signup() {
               name="name"
               onChange={handleInputChange}
             />
-            {errors.name && <p className={styles.errors}>{errors.name}</p>}
           </div>
+          {errors.name && <p className={styles.errors}>{errors.name}</p>}
 
           <div className={styles.inputGroup}>
-            <label htmlFor="email">Email</label>
+            <RiMailLine className={styles.inputIcon} />
             <input
               type="text"
               placeholder="Email..."
@@ -152,11 +176,11 @@ function Signup() {
               name="email"
               onChange={handleInputChange}
             />
-            {errors.email && <p className={styles.errors}>{errors.email}</p>}
           </div>
+          {errors.email && <p className={styles.errors}>{errors.email}</p>}
 
           <div className={styles.inputGroup}>
-            <label htmlFor="password">Password</label>
+            <RiLockPasswordLine className={styles.inputIcon} />
             <input
               type="password"
               placeholder="Password..."
@@ -164,46 +188,27 @@ function Signup() {
               name="password"
               onChange={handleInputChange}
             />
-            {errors.password && (
-              <p className={styles.errors}>{errors.password}</p>
-            )}
           </div>
+          {errors.password && (
+            <p className={styles.errors}>{errors.password}</p>
+          )}
 
-          <div className={styles.imgsProducts}>
-            <button type="button" onClick={showWidget}>
-              Upload Image
-            </button>
-            {errors.picture && (
-              <p className={styles.errors}>{errors.picture}</p>
-            )}
-
-            <div className={styles.images_preview_container}>
-              {picture.length ? (
-                <div className={styles.image_preview}>
-                  <img src={picture[0].url} alt="Preview" />
-                  {imgToRemove !== picture[0].public_id && (
-                    <i onClick={() => handleRemoveImg(picture[0])}>X</i>
-                  )}
-                </div>
-              ) : (
-                <label>Upload an image</label>
-              )}
-            </div>
-          </div>
-
-          <div className={styles.sign}>
-            <button type="submit">Create Account</button>
+          <div className={styles.actions}>
+            <button className={styles.cancel} onClick={() => navigate('/')}><b>Cancel</b></button>
+            <button type="submit" className={styles.submitButton}>Create Account</button>
           </div>
         </form>
-        <div className={styles.social_message}>
-          <p className={styles.message}>Register with social account</p>
+        <div className={styles.separador}>
+              <hr />
+              <label>O</label>
+              <hr />
         </div>
         <LoginGoogle />
         <p className={styles.signup}>
           You have an account? <StyledLink to="/login">Login</StyledLink>
         </p>
       </div>
-    </DivContainerForm>
+    </div>
   );
 }
 
