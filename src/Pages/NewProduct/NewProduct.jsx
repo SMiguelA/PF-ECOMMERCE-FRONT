@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +10,33 @@ import { createProduct } from "../../Redux/Actions";
 
 export default function NewProduct() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const notify = () => {
+    toast("Game creation successful!", {
+      icon: "🎮",
+      style: {
+        borderRadius: "10px",
+        background: "#fff",
+        color: "#333",
+      },
+      duration: 3000,
+      position: "bottom-right",
+    });
+  };
+
+  const notifyError = () => {
+    toast.error("Please fill out all the fields.", {
+      icon: "❌",
+      style: {
+        borderRadius: "10px",
+        background: "#fff",
+        color: "#333",
+      },
+      duration: 3000,
+      position: "bottom-right",
+    });
+  };
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -18,8 +46,6 @@ export default function NewProduct() {
   const [platform, setPlatform] = useState("");
   const [pictures, setPictures] = useState([]);
   const [imgToRemove, setImgToRemove] = useState(null);
-
-  const navigate = useNavigate();
 
   function handleRemoveImg(imgObj) {
     setImgToRemove(imgObj.public_id);
@@ -45,14 +71,27 @@ export default function NewProduct() {
       !stock ||
       !pictures.length
     ) {
-      return alert("Please fill out all the fields");
+      return notifyError();
     }
 
     //Aca el dispatch de create product
-
+    console.log(stock, "stock");
     dispatch(
-      createProduct(name, description, price, category, platform, pictures, stock)
+      createProduct(
+        name,
+        description,
+        price,
+        category,
+        platform,
+        pictures,
+        stock
+      )
     );
+
+    setTimeout(() => {
+      notify();
+      navigate("/store");
+    }, 1000);
   }
 
   function showWidget() {
@@ -144,35 +183,34 @@ export default function NewProduct() {
         </div>
         <div>
           <label>Stock</label>
-          <input 
-          type="number" 
-          placeholder="#"
-          value={stock}
-          onChange={(e) => setStock(e.target.value)}
+          <input
+            type="number"
+            placeholder="#"
+            value={stock}
+            onChange={(e) => setStock(e.target.value)}
           />
         </div>
       </div>
-
-
 
       <div className="imgsProducts">
         <button type="button" onClick={showWidget}>
           Upload Images
         </button>
         <div className="images-preview-container">
-          {pictures.length ? pictures.map((image) => (
-            <div className="image-preview">
-              <img src={image.url} alt="Preview" />
-              {imgToRemove !== image.public_id && (
-                <i onClick={() => handleRemoveImg(image)}>X</i>
-              )}
-            </div>
-          ))
-          : <label>Upload an image</label>
-          }
+          {pictures.length ? (
+            pictures.map((image) => (
+              <div className="image-preview">
+                <img src={image.url} alt="Preview" />
+                {imgToRemove !== image.public_id && (
+                  <i onClick={() => handleRemoveImg(image)}>X</i>
+                )}
+              </div>
+            ))
+          ) : (
+            <label>Upload an image</label>
+          )}
         </div>
       </div>
-
 
       <div>
         <button
