@@ -10,19 +10,19 @@ import {
   CREATE_REVIEW,
   DECREASE_CART,
   DELETE_PRODUCT_BY_ID,
+  EDIT_REVIEW,
   FILTER_PRODUCTS,
   FILTER_PRODUCTS_BY_GENDER,
   FILTER_PRODUCTS_BY_TYPE,
   FILTER_PRODUCT_BY_PRICE,
+  GET_NOT_REVIEW,
   GET_PRODUCTS,
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
   INCREASE_CART,
   MODIFY_STOCK_PRODUCT,
-  REMOVE_FROM_CART,
-  GET_NOT_REVIEW,
   OPEN_EDIT,
-  EDIT_REVIEW
+  REMOVE_FROM_CART,
 } from "../../actionsTypes.js";
 
 export const getProducts = () => {
@@ -42,7 +42,9 @@ export const getProducts = () => {
 export const modifyProductStock = (cart) => {
   return function (dispatch) {
     const cartItems = Object.keys(cart);
-    const productIds = cartItems.filter((key) => key !== 'count' && key !== 'total');
+    const productIds = cartItems.filter(
+      (key) => key !== "count" && key !== "total"
+    );
     const stockPromises = productIds.map((productId) => {
       const quantity = cart[productId];
       return axios.put(`/products/${productId}`, { stock: quantity });
@@ -70,24 +72,30 @@ export const filterProducts = (filters) => {
       });
     } catch (error) {
       window.alert(error.response.data.Error);
-      console.log("Error filter Products")
+      console.log("Error filter Products");
     }
   };
 };
 
-export const createReviewAction = ({rating, description, id_cliente, date, id_product}) => {
+export const createReviewAction = ({
+  rating,
+  description,
+  id_cliente,
+  date,
+  id_product,
+}) => {
   return async function (dispatch) {
     try {
-      const json = await axios.put(`/products/${id_product}`,{
-        valorations:{
+      const json = await axios.put(`/products/${id_product}`, {
+        valorations: {
           id_cliente,
-          comment:description,
+          comment: description,
           rating,
-          date
-        }
+          date,
+        },
       });
       return dispatch({
-        type: CREATE_REVIEW
+        type: CREATE_REVIEW,
       });
     } catch (error) {
       window.alert(error.response.data.Error);
@@ -180,7 +188,6 @@ export const filterProductsByPrice = (payload) => {
     payload,
   };
 };
-
 
 export const addToCart = (payload) => {
   return function (dispatch) {
@@ -277,7 +284,6 @@ export const createProduct = (
   pictures,
   stock
 ) => {
-  console.log(name, description, price, category, platform, pictures, stock);
   return function (dispatch) {
     console.log(
       name,
@@ -302,7 +308,6 @@ export const createProduct = (
       })
       .then((response) => {
         const product = response.data;
-
         dispatch({ type: CREATE_PRODUCT, payload: product });
       })
       .catch((error) => {
@@ -318,34 +323,39 @@ export const filterProductsByType = (payload) => {
   };
 };
 
-export const verifyNotReview = (payload) =>{
+export const verifyNotReview = (payload) => {
   return {
     type: GET_NOT_REVIEW,
-    payload
-  }
-}
+    payload,
+  };
+};
 
-export const openEditReview = (payload) =>{
+export const openEditReview = (payload) => {
   return {
     type: OPEN_EDIT,
-    payload
-  }
-}
+    payload,
+  };
+};
 
-export const editReviewAction = ({rating, description, id_cliente, date, id_product}) => {
+export const editReviewAction = ({
+  rating,
+  description,
+  id_cliente,
+  date,
+  id_product,
+}) => {
   return async function (dispatch) {
     try {
-      
-      const json = await axios.put(`/products/${id_product}`,{
+      const json = await axios.put(`/products/${id_product}`, {
         edit: {
           id_cliente,
-          comment:description,
+          comment: description,
           rating,
-          date
-        }
+          date,
+        },
       });
       return dispatch({
-        type: EDIT_REVIEW
+        type: EDIT_REVIEW,
       });
     } catch (error) {
       window.alert(error.response.data.Error);
