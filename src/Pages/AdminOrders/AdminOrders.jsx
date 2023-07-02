@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-
-import { OrdersContainer } from "./AdminOrders.style";
 import { getOrders } from "../../Redux/Actions";
+import { OrdersContainer } from "./AdminOrders.style";
 import AdminOrderCard from "./components/AdminOrderCard";
 
 export default function AdminOrders() {
@@ -13,7 +12,7 @@ export default function AdminOrders() {
   const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
-    console.log(orders)
+    console.log(orders);
     dispatch(getOrders(token, userAdmin));
   }, []);
 
@@ -37,7 +36,7 @@ export default function AdminOrders() {
 
   return (
     <OrdersContainer>
-      <h1>ESPACIO</h1>
+      <h1>Users purchase history</h1>
 
       {orders ? (
         orders.map((order) => <AdminOrderCard order={order} key={order._id} />)

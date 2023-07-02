@@ -62,22 +62,7 @@ export default function Profile() {
         <h1>Profile Settings</h1>
 
         <hr />
-        <div className="image-perfil-container">
-          <div>
-            <img
-              src={
-                user.image
-                  ? user.image
-                  : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-              }
-              alt="Image Perfil"
-            />
-          </div>
-          <div>
-            <button>Upload Image</button>
-            <a>Remove Image</a>
-          </div>
-        </div>
+
         <div className="productName">
           <label>Name</label>
           <input

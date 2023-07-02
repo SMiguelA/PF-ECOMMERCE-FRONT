@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import {
@@ -127,7 +127,6 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
     }
   }, [productId, user, dispatch]);
 
-
   const notifyFav = () =>
     toast("Game added to favorites!", {
       icon: "💓",
@@ -140,7 +139,7 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
       position: "bottom-right",
     });
 
-    const notifyNotFavorite = () =>
+  const notifyNotFavorite = () =>
     toast("Game removed from favorites!", {
       icon: "💔",
       style: {
@@ -176,16 +175,23 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
               {user &&
               productId.stock > 0 &&
               productId.isActive &&
-              user.isActive ? (
+              user.isActive &&
+              !user.isAdmin ? (
                 <div className={style.contOptions}>
                   <button onClick={handleAddToCart}>
                     <label>Add to </label>
                     <label className={style.labelStyle}> My Cart </label>
                   </button>
                   {isFav ? (
-                      <AiFillHeart onClick={handdleFavorite} className={style.favoritesStyle} />
+                    <AiFillHeart
+                      onClick={handdleFavorite}
+                      className={style.favoritesStyle}
+                    />
                   ) : (
-                      <AiOutlineHeart onClick={handdleFavorite} className={style.favoritesStyle} />
+                    <AiOutlineHeart
+                      onClick={handdleFavorite}
+                      className={style.favoritesStyle}
+                    />
                   )}
                 </div>
               ) : (
