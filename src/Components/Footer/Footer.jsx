@@ -2,7 +2,6 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import { Link } from "react-router-dom";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -20,24 +19,28 @@ export default function Footer() {
   };
 
   return (
-    <footer className={ styles.container }>
-        <div className={styles.socialMedias}>
-            <div className={styles.hrs}><hr /></div>
-            <a href="#" onClick={handleFacebookClick}>
-                <FacebookIcon className={styles.icons} />
-            </a>
-            <a href="#" onClick={handleTwitterClick}>
-                <TwitterIcon className={styles.icons} />
-            </a>
-            <a href="#" onClick={handleInstagramClick}>
-                <InstagramIcon className={styles.icons} />
-            </a>
-            <a href="#" onClick={handleLinkedInClick}>
-                <LinkedInIcon className={styles.icons} />
-            </a>
-            <div className={styles.hrs}><hr /></div>
+    <footer className={styles.container}>
+      <div className={styles.socialMedias}>
+        <div className={styles.hrs}>
+          <hr />
         </div>
-        <div className={styles.content}>
+        <a href="#" onClick={handleFacebookClick}>
+          <FacebookIcon className={styles.icons} />
+        </a>
+        <a href="#" onClick={handleTwitterClick}>
+          <TwitterIcon className={styles.icons} />
+        </a>
+        <a href="#" onClick={handleInstagramClick}>
+          <InstagramIcon className={styles.icons} />
+        </a>
+        <a href="#" onClick={handleLinkedInClick}>
+          <LinkedInIcon className={styles.icons} />
+        </a>
+        <div className={styles.hrs}>
+          <hr />
+        </div>
+      </div>
+      {/* <div className={styles.content}>
             <div>
                 <h3>E-Commerce</h3>
                 <p>Contact Us</p>
@@ -55,12 +58,10 @@ export default function Footer() {
                 <p>Login</p>
                 <p>Cart</p>
             </div>
-        </div>
-        <hr />
-        <div className={styles.copyright}>
-            <h3>Copyright © E-Commerce Todos los derechos reservados 2023</h3>
-        </div>
-            
+        </div> */}
+      <div className={styles.copyright}>
+        <h3>Copyright © E-Commerce Todos los derechos reservados 2023</h3>
+      </div>
     </footer>
   );
 }
