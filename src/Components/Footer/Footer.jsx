@@ -40,25 +40,7 @@ export default function Footer() {
           <hr />
         </div>
       </div>
-      {/* <div className={styles.content}>
-            <div>
-                <h3>E-Commerce</h3>
-                <p>Contact Us</p>
-                <p>About Us</p>
-            </div>
-            <div><hr /></div>
-            <div>
-                <h3>Pages</h3>
-                <Link to="/" className={styles.links}>
-                  <p>Home</p>
-                </Link>
-                <Link to="/store" className={styles.links}>
-                  <p>Store</p>
-                </Link>
-                <p>Login</p>
-                <p>Cart</p>
-            </div>
-        </div> */}
+
       <div className={styles.copyright}>
         <h3>Copyright © E-Commerce Todos los derechos reservados 2023</h3>
       </div>
