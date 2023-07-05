@@ -54,8 +54,18 @@ const Card = ({ data }) => {
   };
 
   return (
-    <Link to={data.isActive ? `detail/${_id}` : ''} style={{ textDecoration: "none" }}>
-      <div className={(data.stock > 0 && data.isActive) ? style.container : style.containerTrans} key={data.id}>
+    <Link
+      to={data.isActive ? `detail/${_id}` : ""}
+      style={{ textDecoration: "none" }}
+    >
+      <div
+        className={
+          data.stock > 0 && data.isActive
+            ? style.container
+            : style.containerTrans
+        }
+        key={data.id}
+      >
         <div className={style.containerImgs}>
           <Swiper
             className={style.tamano}
@@ -87,19 +97,22 @@ const Card = ({ data }) => {
             <h2>{data.name}</h2>
             <h3 className={style.price}>${formattedPrice}</h3>
           </div>
-          {
-            user && data.stock > 0 && data.isActive && user.isActive 
-            ? <div>
-                <button
-                  onClick={(event) => handleAddToCart(event)}
-                  className={style.addToCart}
-                >
-                  Add
-                </button>
-              </div>
-            : <></>
-          }
-          
+          {user &&
+          data.stock > 0 &&
+          data.isActive &&
+          user.isActive &&
+          !user.isAdmin ? (
+            <div>
+              <button
+                onClick={(event) => handleAddToCart(event)}
+                className={style.addToCart}
+              >
+                Add
+              </button>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
         <div className={style.infoSecundaria}>
           <article>

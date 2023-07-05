@@ -30,13 +30,14 @@
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.2",
+    "serve": "^14.2.0",
     "styled-components": "^5.3.10",
     "swiper": "^9.3.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "dev": "react-scripts start",
-    "start": "serve build -n -L -p $PORT",
+    "start": "serve build -s -n -L -p $PORT",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
