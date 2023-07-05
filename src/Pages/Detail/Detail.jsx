@@ -36,6 +36,8 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
   const [isFav, setIsFav] = useState(false);
   const { productId } = useSelector((state) => state);
 
+  const [purchasedGame, setPurchasedGame] = useState("");
+
   useEffect(() => {
     axios.get(`/products/${id}`).then(({ data }) => {
       setProduct(data);
@@ -56,6 +58,12 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
   useEffect(() => {
     if (id) {
       dispatch(getProductById(id));
+      axios.get(`orders?id=${user._id}`).then(({ data }) => {
+        const itemBought = data.find((value) => value === id);
+        if (itemBought) {
+          setPurchasedGame(itemBought);
+        }
+      });
     }
 
     return () => dispatch(deletProductId());
@@ -213,7 +221,7 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
                   <p>{productId.platform}</p>
                 </div>
               </div>
-              <Starts rating={ratingValue || 4} />
+              <Starts rating={ratingValue || 0} />
             </div>
             <div className={style.contRight}>
               <Galery imgs={productId.pictures} />
@@ -239,7 +247,7 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
               >
                 <label style={{ cursor: "pointer" }}>Ratings and reviews</label>
               </div>
-              {user && (
+              {user && purchasedGame == id ? (
                 <div
                   onClick={() => handlerNavigationRate()}
                   className={
@@ -250,6 +258,10 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
                       : style.rateDisabled
                   }
                 >
+                  <label>Rate this game</label>
+                </div>
+              ) : (
+                <div className={style.rateDisabled}>
                   <label>Rate this game</label>
                 </div>
               )}

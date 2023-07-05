@@ -12,11 +12,10 @@ export default function Orders() {
   useEffect(() => {
     axios.get(`/users/${user._id}/orders`).then(({ data }) => {
       console.log(data);
-      setOrders(data);
+      setOrders(data.reverse());
     });
   }, []);
 
-  console.log(orders);
   return (
     <OrdersContainer>
       <h1> Purchase History:</h1>
