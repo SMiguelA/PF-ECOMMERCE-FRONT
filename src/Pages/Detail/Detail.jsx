@@ -221,7 +221,7 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
                   <p>{productId.platform}</p>
                 </div>
               </div>
-              <Starts rating={ratingValue || 4} />
+              <Starts rating={ratingValue || 0} />
             </div>
             <div className={style.contRight}>
               <Galery imgs={productId.pictures} />
