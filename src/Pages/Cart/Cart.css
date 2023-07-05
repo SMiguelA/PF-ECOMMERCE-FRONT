@@ -58,21 +58,29 @@
 .itemsContent table{
   width: 100%;
   margin-top: 2em;
+  align-items: center;
+  justify-content: center;
+  
+  
 }
 
 .cart-table thead th{
   text-align: start;
   font-size: larger;
+  
 }
 
 .cart-table hr{
   width: 100%;
+  
 }
 
 .itemContainer td{
   margin-top: 1em;
   margin-bottom: 1em;
   height: 7.5em;
+  
+  
 }
 .productInformation{
   display: flex;
@@ -100,13 +108,15 @@
   display: flex;
   gap: 20px;
   align-items: center;
-  margin-left: -1.5em;
+  margin-left: -1.9em;
+  width: max-content;
 }
 .itemQuantity2{
   display: flex;
   gap: 20px;
   align-items: center;
   padding-left: 2.7em;
+  width: max-content;
 }
 .itemQuantity button{
   color: aliceblue;
@@ -134,9 +144,17 @@
 .itemTotal{
   width: 100%;
   display: flex;
-  align-items: start;
+  align-items: center;
+  margin-left: 8px;
   font-weight: 500;
 }
 .itemPrice{
   margin-right: 2em;
+}
+.itemStock{
+  margin-right: 23px;
+}
+.itemStock2{
+  margin-right: 23px;
+  color: red;
 }

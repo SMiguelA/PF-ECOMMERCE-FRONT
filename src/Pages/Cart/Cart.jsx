@@ -22,12 +22,13 @@ function Cart() {
   const products = useSelector((state) => state.products);
   const userCartObj = user.cart;
   const navigate = useNavigate();
-
+console.log(userCartObj);
  //estados locales para procesar el botton de decremento
  const [isButtonDissabled, setIsButtonDissabled] = useState(false);
  const [isProcessing, setIsProcessing] = useState(false); 
 
   const [cart, setCart] = useState(null);
+ 
   useEffect(() => {
     let cartt = Object.keys(userCartObj)
       .map((productId) => {
@@ -47,7 +48,7 @@ function Cart() {
       setCart(null);
     };
   }, [userCartObj]);
-
+  
   //obtiene las claves, mapea y filtra los productos equivalentes
 
   function handleDecrease(product) {
@@ -104,6 +105,7 @@ function Cart() {
                   {/* <th>&nbsp;</th> */}
                   <th>Product Detail</th>
                   <th>Quantity</th>
+                  <th>Stock</th>
                   <th>Price</th>
                   <th>Subtotal</th>
                 </tr>
@@ -170,6 +172,13 @@ function Cart() {
                         >
                           +
                         </button>
+                      </div>
+                    </td>
+                    <td>
+                      <div >
+                        {item.stock - user.cart[item._id || item.id] !== 0 ? 
+                       <div className="itemStock"> {item.stock - user.cart[item._id || item.id] }</div> : 
+                       <div className="itemStock2">{ item.stock - user.cart[item._id || item.id]} </div>}
                       </div>
                     </td>
                     <td>

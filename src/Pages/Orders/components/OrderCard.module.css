@@ -1,0 +1,19 @@
+.label {
+  margin: 0px;
+}
+
+.label label {
+  color: #2df82d;
+}
+
+.containerDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+}
+
+.divIntern {
+  display: flex;
+  gap: 20px;
+}

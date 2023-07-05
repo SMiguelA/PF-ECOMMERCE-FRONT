@@ -2,7 +2,6 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import { Link } from "react-router-dom";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -20,47 +19,31 @@ export default function Footer() {
   };
 
   return (
-    <footer className={ styles.container }>
-        <div className={styles.socialMedias}>
-            <div className={styles.hrs}><hr /></div>
-            <a href="#" onClick={handleFacebookClick}>
-                <FacebookIcon className={styles.icons} />
-            </a>
-            <a href="#" onClick={handleTwitterClick}>
-                <TwitterIcon className={styles.icons} />
-            </a>
-            <a href="#" onClick={handleInstagramClick}>
-                <InstagramIcon className={styles.icons} />
-            </a>
-            <a href="#" onClick={handleLinkedInClick}>
-                <LinkedInIcon className={styles.icons} />
-            </a>
-            <div className={styles.hrs}><hr /></div>
+    <footer className={styles.container}>
+      <div className={styles.socialMedias}>
+        <div className={styles.hrs}>
+          <hr />
         </div>
-        <div className={styles.content}>
-            <div>
-                <h3>E-Commerce</h3>
-                <p>Contact Us</p>
-                <p>About Us</p>
-            </div>
-            <div><hr /></div>
-            <div>
-                <h3>Pages</h3>
-                <Link to="/" className={styles.links}>
-                  <p>Home</p>
-                </Link>
-                <Link to="/store" className={styles.links}>
-                  <p>Store</p>
-                </Link>
-                <p>Login</p>
-                <p>Cart</p>
-            </div>
+        <a href="#" onClick={handleFacebookClick}>
+          <FacebookIcon className={styles.icons} />
+        </a>
+        <a href="#" onClick={handleTwitterClick}>
+          <TwitterIcon className={styles.icons} />
+        </a>
+        <a href="#" onClick={handleInstagramClick}>
+          <InstagramIcon className={styles.icons} />
+        </a>
+        <a href="#" onClick={handleLinkedInClick}>
+          <LinkedInIcon className={styles.icons} />
+        </a>
+        <div className={styles.hrs}>
+          <hr />
         </div>
-        <hr />
-        <div className={styles.copyright}>
-            <h3>Copyright © E-Commerce Todos los derechos reservados 2023</h3>
-        </div>
-            
+      </div>
+
+      <div className={styles.copyright}>
+        <h3>Copyright © E-Commerce Todos los derechos reservados 2023</h3>
+      </div>
     </footer>
   );
 }
