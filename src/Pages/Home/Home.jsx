@@ -5,7 +5,8 @@ import { DivContainer } from "../../ComponentsStyles";
 import { getProducts, getUsers } from "../../Redux/Actions";
 import styles from "./Home.module.css";
 import Slide from "./components/Slide/Slides";
-import { Categories } from "./components/categories/Categories";
+import MostSold from "./components/MostSold/MostSold";
+
 export default function Home() {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -22,8 +23,8 @@ export default function Home() {
             <div className={styles.containerSlide}>
               <Slide />
             </div>
-            <Categories/>
           </div>
+            <MostSold />
         </DivContainer>
       )}
 
