@@ -22,7 +22,7 @@ const Starts = ({rating}) => {
 
     return(
         <div className={style.containerStarts}>
-            <h1>{rating}</h1>
+            <h1>{rating === null ? <div style={{fontSize: "20px"}}>There are no ratings to display</div> : rating}</h1>
             <div className={style.iconContainer}>
                 {ratingStart}
             </div>

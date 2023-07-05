@@ -25,22 +25,27 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
   const [product, setProduct] = useState(null);
   const { '*': ruta } = useParams();
   const [bandera, setBandera] = useState(ruta);
+  const [orders, setOrders] = useState([]);
+  const [comprobationTwo, setComprobationTwo] = useState(false)
 
-  const {openEdit} = useSelector((state) => state)
-
+  useEffect(() => {
+    axios
+      .get(`/users/${user._id}/orders`)
+      .then(({ data }) => {
+        setOrders(data);
+      })
+  }, []);
 
   const [ isFav, setIsFav ] = useState(false);
   const { productId } = useSelector((state) => state);
-
- 
-
 
   useEffect(() => {
     axios.get(`/products/${id}`).then(({ data }) => {
       setProduct(data);
     });
   }, [id]);
-
+  
+  
   const { notReview } = useSelector((state) => state)
 
 
@@ -52,8 +57,6 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
   }
   let ratingValue = averageGrades(arrayRating)
   ratingValue = Number(ratingValue.toString().substring(0, 3))
-
-
 
   useEffect(() => {
     if (id) {
@@ -117,17 +120,27 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
       navigate("rating");
     }
   };
-
+  
   useEffect(() => {
-    if (productId && productId.valorations && user) {
-      const comprobation = productId.valorations.find((val) => val.id_cliente._id === user._id);
-      if (comprobation !== undefined) {
+    if (productId && productId.valorations && user ) {
+      setComprobationTwo(false)
+      const comprobationOne = productId.valorations.find((val) => val.id_cliente._id === user._id);
+     
+      orders.map((ord) => {
+        if(Object.keys(ord?.products).at(-1) === product?._id){
+          setComprobationTwo(true);
+        }
+      })
+      if (comprobationOne !== undefined || comprobationTwo === false) {
+        
         dispatch(verifyNotReview(false));
-      } else {
+        
+      }else if(comprobationTwo === true && comprobationOne === undefined) {
+       
         dispatch(verifyNotReview(true));
       }
     }
-  }, [productId, user, dispatch]);
+  }, [productId, user, dispatch, comprobationTwo]);
 
   const handdleFavorite = () => {
     if (user){
@@ -186,7 +199,7 @@ function Detail({addFavorite, removeFavorite, myFavorites}) {
                 <p>{productId.platform}</p>
               </div>
             </div>
-            <Starts rating={ratingValue || 4} />
+            <Starts rating={ratingValue || null} />
           </div>
           <div className={style.contRight}>
             <Galery imgs={productId.pictures} />
