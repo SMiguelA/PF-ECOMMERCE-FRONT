@@ -3,6 +3,7 @@ import {
   ACTIVE_PRODUCTS_NAME,
   ACTIVE_PRODUCTS_PLATFORM,
   ACTIVE_PRODUCTS_PRICE,
+  ADD_FAVORITE,
   ADD_TO_CART,
   CLEAR_ERRORS,
   CREATE_ORDER,
@@ -10,6 +11,7 @@ import {
   CREATE_REVIEW,
   DECREASE_CART,
   DELETE_PRODUCT_BY_ID,
+  EDIT_REVIEW,
   ERROR_LOGIN,
   ERROR_REGISTER,
   FILTER_PRODUCTS,
@@ -30,16 +32,14 @@ import {
   LOGIN_GOOGLE,
   LOGOUT,
   OPEN_EDIT,
+  REMOVE_FAVORITE,
   REMOVE_FROM_CART,
   SIGNUP,
   UPDATE_USER,
-  EDIT_REVIEW,
-  ADD_FAVORITE, 
-  REMOVE_FAVORITE,
 } from "./actionsTypes";
 
 const initialState = {
-  myFavorites:[],
+  myFavorites: [],
   products: [],
   filters: {
     name: "",
@@ -58,9 +58,9 @@ const initialState = {
     errorLogin: [],
     errorRegister: [],
   },
-  dataDashAdmin:[],
+  dataDashAdmin: [],
   notReview: true,
-  openEdit: null
+  openEdit: null,
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -71,14 +71,14 @@ const rootReducer = (state = initialState, { type, payload }) => {
         users: payload,
       };
     case CREATE_REVIEW:
-      return{
-        ...state
-      }
-    case GET_USER_PRODUCTS:
-      return{
+      return {
         ...state,
-        dataDashAdmin:payload
-      }
+      };
+    case GET_USER_PRODUCTS:
+      return {
+        ...state,
+        dataDashAdmin: payload,
+      };
     case LOGIN_GOOGLE:
       return {
         ...state,
@@ -172,8 +172,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
         allProducts: payload,
       };
     case GET_PRODUCT_BY_ID:
-      console.log("Entra a product id")
-      console.log(state)
       return {
         ...state,
         productId: payload,
@@ -245,15 +243,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         user: null,
-        myFavorites: []
+        myFavorites: [],
       };
 
     case LOGIN:
-      console.log(payload)
+      console.log(payload);
       return {
         ...state,
         user: payload,
-        myFavorites: payload.myFavorites
+        myFavorites: payload.myFavorites,
       };
 
     case ADD_TO_CART:
@@ -269,13 +267,13 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case GET_NOT_REVIEW:
       return {
         ...state,
-        notReview: payload
-      }
+        notReview: payload,
+      };
     case OPEN_EDIT:
-      return{
+      return {
         ...state,
-        openEdit: payload
-      }
+        openEdit: payload,
+      };
 
     // case RESTART_CART:
     //   return {
@@ -330,8 +328,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     case EDIT_REVIEW:
       return {
-        ...state
-      }
+        ...state,
+      };
     case FILTER_PRODUCTS_BY_TYPE:
       const { type, checked } = payload;
 
@@ -361,29 +359,29 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         products: filteredProductsByType,
       };
-    
+
     case ADD_FAVORITE:
-      return { 
-        ...state, 
-        myFavorites: [ ...state.myFavorites, payload],
+      return {
+        ...state,
+        myFavorites: [...state.myFavorites, payload],
         user: {
           ...state.user,
-          myFavorites: [ ...state.myFavorites, payload],
+          myFavorites: [...state.myFavorites, payload],
         },
       };
 
     case REMOVE_FAVORITE:
-      return { 
-        ...state, 
+      return {
+        ...state,
         myFavorites: state.myFavorites.filter(
-            (product) => product._id !== payload
+          (product) => product._id !== payload
         ),
         user: {
           ...state.user,
           myFavorites: state.myFavorites.filter(
             (product) => product._id !== payload
-        ),
-        }, 
+          ),
+        },
       };
 
     default:
