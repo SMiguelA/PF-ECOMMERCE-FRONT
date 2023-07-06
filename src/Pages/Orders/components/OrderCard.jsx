@@ -51,7 +51,8 @@ export default function OrderCard({ order }) {
           </DetailLabel>
 
           <DetailLabel>
-            Total Amount: <DetailLabelValue>{order.total}</DetailLabelValue>
+            Total Amount:{" "}
+            <DetailLabelValue>{order.total.toFixed(2)}</DetailLabelValue>
           </DetailLabel>
           <DetailLabel>
             Date: <DetailLabelValue>{order.date}</DetailLabelValue>
