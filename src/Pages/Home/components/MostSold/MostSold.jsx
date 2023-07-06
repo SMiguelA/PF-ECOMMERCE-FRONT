@@ -17,7 +17,7 @@ export default function MostSold() {
   const products = useSelector((state) => state.products);
 
   // Sort the products by the sum of the ratings.
-  products.sort((a, b) => {
+  products?.sort((a, b) => {
     // Get the sum of the ratings for each product.
     const sumRatingA = a.valorations.reduce((sum, val) => sum + val.rating, 0);
 
@@ -29,7 +29,7 @@ export default function MostSold() {
   });
 
   // Select the top 8 products.
-  const topProducts = products.slice(0, 8);
+  const topProducts = products?.slice(0, 8);
 
   // Map the rating value to the stars component.
   const mapValueToStars = (value) => {
@@ -45,7 +45,7 @@ export default function MostSold() {
 
   return (
     <MostSoldContainer>
-      {topProducts.map((product) => {
+      {topProducts?.map((product) => {
         // Get the valorations from the product.
         const valorations = product.valorations;
 
