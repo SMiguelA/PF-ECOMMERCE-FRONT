@@ -38,6 +38,18 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
 
   const [purchasedGame, setPurchasedGame] = useState("");
 
+  const notifyToLogin = () =>
+    toast("You must be registered to view the product!", {
+      icon: "🚧",
+      style: {
+        borderRadius: "10px",
+        background: "#fff",
+        color: "#333",
+      },
+      duration: 3000,
+      position: "bottom-right",
+    });
+
   useEffect(() => {
     axios.get(`/products/${id}`).then(({ data }) => {
       setProduct(data);
@@ -56,14 +68,16 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
   ratingValue = Number(ratingValue.toString().substring(0, 3));
 
   useEffect(() => {
-    if (id) {
-      dispatch(getProductById(id));
-      axios.get(`orders?id=${user._id}`).then(({ data }) => {
-        const itemBought = data.find((value) => value === id);
-        if (itemBought) {
-          setPurchasedGame(itemBought);
-        }
-      });
+    if (user) {
+      if (id) {
+        dispatch(getProductById(id));
+        axios.get(`orders?id=${user._id}`).then(({ data }) => {
+          const itemBought = data.find((value) => value === id);
+          if (itemBought) {
+            setPurchasedGame(itemBought);
+          }
+        });
+      }
     }
 
     return () => dispatch(deletProductId());
@@ -74,11 +88,13 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
   }, [ruta]);
 
   useEffect(() => {
-    myFavorites?.forEach((fav) => {
-      if (fav._id === id) {
-        setIsFav(true);
-      }
-    });
+    if (user) {
+      myFavorites?.forEach((fav) => {
+        if (fav._id === id) {
+          setIsFav(true);
+        }
+      });
+    }
   }, [myFavorites]);
 
   // Add to Cart Notification.
@@ -175,145 +191,152 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
 
   return (
     <>
-      {user && user.isActive ? (
-        productId && productId.name ? (
-          <div className={style.container}>
-            <div className={style.contLeft}>
-              <h1>{productId.name}</h1>
-              {user &&
-              productId.stock > 0 &&
-              productId.isActive &&
-              user.isActive &&
-              !user.isAdmin ? (
-                <div className={style.contOptions}>
-                  <button onClick={handleAddToCart}>
-                    <label>Add to </label>
-                    <label className={style.labelStyle}> My Cart </label>
-                  </button>
-                  {isFav ? (
-                    <AiFillHeart
-                      onClick={handdleFavorite}
-                      className={style.favoritesStyle}
-                    />
-                  ) : (
-                    <AiOutlineHeart
-                      onClick={handdleFavorite}
-                      className={style.favoritesStyle}
-                    />
-                  )}
+      {console.log(user)}
+      {user ? (
+        user.isActive ? (
+          productId && productId.name ? (
+            <div className={style.container}>
+              <div className={style.contLeft}>
+                <h1>{productId.name}</h1>
+                {user &&
+                productId.stock > 0 &&
+                productId.isActive &&
+                user.isActive &&
+                !user.isAdmin ? (
+                  <div className={style.contOptions}>
+                    <button onClick={handleAddToCart}>
+                      <label>Add to </label>
+                      <label className={style.labelStyle}> My Cart </label>
+                    </button>
+                    {isFav ? (
+                      <AiFillHeart
+                        onClick={handdleFavorite}
+                        className={style.favoritesStyle}
+                      />
+                    ) : (
+                      <AiOutlineHeart
+                        onClick={handdleFavorite}
+                        className={style.favoritesStyle}
+                      />
+                    )}
+                  </div>
+                ) : (
+                  <></>
+                )}
+                <div className={style.info}>
+                  <div>
+                    <h2>Stock</h2>
+                    <p>{productId.stock || 0}</p>
+                  </div>
+                  <hr />
+                  <div>
+                    <h2>Category</h2>
+                    <p>{productId.category}</p>
+                  </div>
+                  <hr />
+                  <div>
+                    <h2>Platform</h2>
+                    <p>{productId.platform}</p>
+                  </div>
                 </div>
-              ) : (
-                <></>
-              )}
-              <div className={style.info}>
-                <div>
-                  <h2>Stock</h2>
-                  <p>{productId.stock || 0}</p>
-                </div>
-                <hr />
-                <div>
-                  <h2>Category</h2>
-                  <p>{productId.category}</p>
-                </div>
-                <hr />
-                <div>
-                  <h2>Platform</h2>
-                  <p>{productId.platform}</p>
-                </div>
+                <Starts rating={ratingValue || 0} />
               </div>
-              <Starts rating={ratingValue || 0} />
-            </div>
-            <div className={style.contRight}>
-              <Galery imgs={productId.pictures} />
-            </div>
-            <hr className={style.hrPrimero} />
+              <div className={style.contRight}>
+                <Galery imgs={productId.pictures} />
+              </div>
+              <hr className={style.hrPrimero} />
 
-            <div className={style.seccionesDetail}>
-              <div
-                onClick={() => handleNavigation(`about`)}
-                className={
-                  bandera === "about" || bandera === ""
-                    ? style.acerca
-                    : style.acercaDE
-                }
-              >
-                <label style={{ cursor: "pointer" }}>About</label>
-              </div>
-              <div
-                onClick={() => handleNavigation(`reviews`)}
-                className={
-                  bandera === "reviews" ? style.reviewsStyle : style.reviews
-                }
-              >
-                <label style={{ cursor: "pointer" }}>Ratings and reviews</label>
-              </div>
-              {user && purchasedGame == id ? (
+              <div className={style.seccionesDetail}>
                 <div
-                  onClick={() => handlerNavigationRate()}
+                  onClick={() => handleNavigation(`about`)}
                   className={
-                    bandera === "rating"
-                      ? style.notRateGame
-                      : notReview
-                      ? style.rateGame
-                      : style.rateDisabled
+                    bandera === "about" || bandera === ""
+                      ? style.acerca
+                      : style.acercaDE
                   }
                 >
-                  <label>Rate this game</label>
+                  <label style={{ cursor: "pointer" }}>About</label>
                 </div>
-              ) : (
-                <div className={style.rateDisabled}>
-                  <label>Rate this game</label>
+                <div
+                  onClick={() => handleNavigation(`reviews`)}
+                  className={
+                    bandera === "reviews" ? style.reviewsStyle : style.reviews
+                  }
+                >
+                  <label style={{ cursor: "pointer" }}>
+                    Ratings and reviews
+                  </label>
                 </div>
-              )}
-            </div>
+                {user && purchasedGame == id ? (
+                  <div
+                    onClick={() => handlerNavigationRate()}
+                    className={
+                      bandera === "rating"
+                        ? style.notRateGame
+                        : notReview
+                        ? style.rateGame
+                        : style.rateDisabled
+                    }
+                  >
+                    <label>Rate this game</label>
+                  </div>
+                ) : (
+                  <div className={style.rateDisabled}>
+                    <label>Rate this game</label>
+                  </div>
+                )}
+              </div>
 
-            <hr className={style.hrSegundo} />
+              <hr className={style.hrSegundo} />
 
-            <Routes>
-              <Route
-                path="/"
-                element={<About description={productId.description} />}
-              />
-              <Route
-                path="/*"
-                element={<About description={productId.description} />}
-              />
-              <Route
-                path="/about"
-                element={<About description={productId.description} />}
-              />
-              <Route
-                path="/reviews"
-                element={
-                  <Reviews
-                    data={productId.valorations}
-                    id={productId._id}
-                    user={user}
-                  />
-                }
-              />
-              {user && (
+              <Routes>
                 <Route
-                  path="/rating"
+                  path="/"
+                  element={<About description={productId.description} />}
+                />
+                <Route
+                  path="/*"
+                  element={<About description={productId.description} />}
+                />
+                <Route
+                  path="/about"
+                  element={<About description={productId.description} />}
+                />
+                <Route
+                  path="/reviews"
                   element={
-                    <>
-                      <FormRating user={user} product={productId} />
-                      <Reviews data={productId.valorations} />
-                    </>
+                    <Reviews
+                      data={productId.valorations}
+                      id={productId._id}
+                      user={user}
+                    />
                   }
                 />
-              )}
-              <Route
-                path="/edit"
-                element={<FormEdit user={user} product={productId} />}
-              />
-            </Routes>
-          </div>
+                {user && (
+                  <Route
+                    path="/rating"
+                    element={
+                      <>
+                        <FormRating user={user} product={productId} />
+                        <Reviews data={productId.valorations} />
+                      </>
+                    }
+                  />
+                )}
+                <Route
+                  path="/edit"
+                  element={<FormEdit user={user} product={productId} />}
+                />
+              </Routes>
+            </div>
+          ) : (
+            <h1 style={{ color: "white" }}>Loading...</h1>
+          )
         ) : (
-          <h1 style={{ color: "white" }}>Loading...</h1>
+          navigate("/banned")
         )
       ) : (
-        navigate("/banned")
+        navigate("/")
       )}
     </>
   );
